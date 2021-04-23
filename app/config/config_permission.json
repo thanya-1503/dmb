@@ -1,0 +1,7 @@
+{
+    "read_user" : {
+        "uri": "/api/users",
+        "method": "get",
+        "apiName": "SEARCH_USERS"
+    }
+}

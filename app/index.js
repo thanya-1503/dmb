@@ -1,19 +1,26 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = __importDefault(require("express"));
-var app = express_1.default();
-var port = 3000;
-app.get('/', function (req, res) {
-    res.send('test eiei');
-});
-app.listen(port, function () {
-    console.info("Ready on port " + port);
-}).on("error", function (err) {
-    if (err) {
-        return console.error(err);
+'use strict'
+
+const fs = require('fs')
+const http = require('http')
+const https = require('https')
+const path = require('path')
+const config = require('./config/config').get(process.env.NODE_ENV)
+const express = require('./middleware/express')
+var app = express()
+require('./db/mongoose')
+
+if ((config.use_https === 'true')) {
+    const privateKey = fs.readFileSync(path.join(__dirname, '/', config.key))
+    const certificate = fs.readFileSync(path.join(__dirname, '/', config.cert))
+
+    const options = {
+      key: privateKey,
+      cert: certificate
     }
-    return console.log("server is listening on " + port);
-});
+    options.rejectUnauthorized = false
+    https.createServer(options, app).listen(config.app_port)
+} else {
+    http.createServer(app).listen(config.app_port)
+}
+// console.log('ENVIRONMENT : ' + process.env.NODE_ENV)
+console.log('PORT : ' + config.app_port)
