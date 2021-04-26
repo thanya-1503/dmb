@@ -1,26 +1,73 @@
-'use strict'
+const CONFIG = require('./config/index') // Load config (environment)
+const path = require("path");
+const express = require("express");
+var http = require("http");
+const app = express();
+// var uuid = require("uuid/v4");
+// var auth = require('./app/modules/auth/auth-ctrl');
+var ret = require('./utils/response/index');
+var load = require("express-load");
 
-const fs = require('fs')
-const http = require('http')
-const https = require('https')
-const path = require('path')
-const config = require('./config/config').get(process.env.NODE_ENV)
-const express = require('./middleware/express')
-var app = express()
-require('./db/mongoose')
+// async function setAuth(req, res, next) {
+//   try {
+//     if (
+//       req.originalUrl !== '/api/v2/authen' &&
+//       req.originalUrl !== '/api/v1/account-management/forgot-password' &&
+//       req.originalUrl !== '/api/v1/account-management/change-password'
+//     ) {
+//       let tokenDecode = await auth.authentication(req, res); // AUTHENTICATION
+//       // let tokenNew = req.headers['Authorization'];
+//       tokenNew = await auth.extendToken(tokenDecode, CONFIG.TIMEOUT_TOKEN); // RENEWAL TOKEN
+//       res.setHeader('Authorization', tokenNew); // SET TOKEN TO HEADER
+//       req.rawToken = tokenDecode.body;
+//       req.accountId = tokenDecode.body.id ? tokenDecode.body.id : 'accountId';
+//       req.username = tokenDecode.body.username ? tokenDecode.body.username : 'username';
+//       req.type = tokenDecode.body.type ? tokenDecode.body.type : 'TYPE';
+//       req.name = tokenDecode.body.name ? tokenDecode.body.name : 'test';
+//       req.session_id = uuid();
+//     }
+//     next()
+//   } catch (error) {
+//     ret.matchError(error, '', res);
+//   }
+// }
 
-if ((config.use_https === 'true')) {
-    const privateKey = fs.readFileSync(path.join(__dirname, '/', config.key))
-    const certificate = fs.readFileSync(path.join(__dirname, '/', config.cert))
+app.use(function (req, res, next) {
+  // res.setHeader("Access-Control-Allow-Origin", "http://localhost:4000","http://www.recruitment.com/");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "*");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  next();
+});
 
-    const options = {
-      key: privateKey,
-      cert: certificate
-    }
-    options.rejectUnauthorized = false
-    https.createServer(options, app).listen(config.app_port)
-} else {
-    http.createServer(app).listen(config.app_port)
-}
-// console.log('ENVIRONMENT : ' + process.env.NODE_ENV)
-console.log('PORT : ' + config.app_port)
+app.all("/api/*",  function (req, res, next) {
+  next();
+});
+
+app.use(express.static(path.join(__dirname, "dist")));
+app.use(express.urlencoded({
+  limit: "50mb",
+  extended: false,
+  parameterLimit: 50000
+}));
+app.use(express.json({ limit: '50mb' }));
+
+load("modules", {
+  cwd: "app"
+}).then("modules", {
+  cwd: "app"
+}).into(app);
+
+var publicDir = require('path').join(__dirname, 'uploads');
+app.use(express.static(publicDir));
+
+app.use("/", function (req, res) {
+  return res.sendFile(path.join(__dirname, "dist/index.html"));
+});
+
+module.exports = app;
+
+const server = http.createServer(app);
+server.listen(CONFIG.PORT, function () {
+  console.log("Listening on port [ " + CONFIG.PORT + " ]");
+});

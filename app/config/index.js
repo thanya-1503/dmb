@@ -6,21 +6,13 @@ if (!process.env.NODE_ENV) {
     path: path.join(__dirname, './env/.env'),
     sample: path.join(__dirname, './env/.env'),
   });
-} else if (process.env.NODE_ENV === 'ais') {
+
+} else if (process.env.NODE_ENV === 'production') {
   require('dotenv-safe').config({
-    path: path.join(__dirname, './env/ais.env'),
+    path: path.join(__dirname, './env/production.env'),
     sample: path.join(__dirname, './env/.env'),
   });
-} else if (process.env.NODE_ENV === 'singtel') {
-  require('dotenv-safe').config({
-    path: path.join(__dirname, './env/singtel.env'),
-    sample: path.join(__dirname, './env/.env'),
-  });
-} else if (process.env.NODE_ENV === 'globe') {
-  require('dotenv-safe').config({
-    path: path.join(__dirname, './env/globe.env'),
-    sample: path.join(__dirname, './env/.env'),
-  });
+
 } else {
   require('dotenv-safe').config({
     path: path.join(__dirname, './env/.env'),
@@ -29,18 +21,40 @@ if (!process.env.NODE_ENV) {
 }
 
 module.exports = {
-  NODE: process.env.NODE,
+  NODE: process.env.NODE_PARTY_PROFILE,
+  APP_NAME: process.env.APP_NAME,
   ENV: process.env.NODE_ENV,
   PORT: process.env.PORT,
-  APP_NAME: process.env.APP_NAME,
-  MONGO: {
-    CONNECT: `mongodb://${process.env.MONGO_USER}:${encodeURIComponent(process.env.MONGO_PASS)}@${process.env.MONGO_IP}:${process.env.MONGO_PORT}/${process.env.MONGO_DB_NAME}`,
-    OPTION: {
-      AUTH: process.env.MONGO_AUTH,
-      POOL_SIZE: process.env.MONGO_POOL_SIZE,
-      BUFFER_MAX_ENTRIES: process.env.MONGO_BUFFER_MAX_ENTRIES,
-      TIMEOUT: process.env.MONGO_TIMEOUT
-    }
+  HOST: process.env.HOST,
+  TIMEZONE: process.env.TIMEZONE,
+  SECRET: process.env.SECRET,
+  FORMAT_DATE: process.env.FORMAT_DATE,
+  FORMAT_TIME: process.env.FORMAT_TIME,
+  DATE_TIME_FORMAT: process.env.DATE_TIME_FORMAT,
+  TIMEOUT: process.env.TIMEOUT,
+  TIMEOUT_TOKEN_TEMP: process.env.TIMEOUT_TOKEN_TEMP,
+  TIMEOUT_TOKEN: process.env.TIMEOUT_TOKEN,
+  TIMEOUT_OTP: process.env.TIMEOUT_OTP,
+  FILE_PATH: process.env.FILE_PATH,
+  DATA_BASE: {
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    dialect: process.env.DB_DIALECT,
+    charset: process.env.DB_CHARSET,
+    collate: process.env.DB_COLLATE,
+    schema: process.env.DB_SCHEMA,
+    logQueryParameters: process.env.DB_LOG_QUERY_PARAMETERS,
+    dialectOptions: {
+      requestTimeout: process.env.DB_OPTION_REQUEST_TIMEOUT,
+      useUTC: false,
+      dateStrings: true,
+      typeCast: true
+    },
+    trustServerCertificate: false,
+    timezone: process.env.DB_TIMEZONE
   },
   HEADER: {
     HEADER_APP: process.env.HEADER_APP,
