@@ -21,7 +21,7 @@ if (!process.env.NODE_ENV) {
 }
 
 module.exports = {
-  NODE: process.env.NODE_PARTY_PROFILE,
+  NODE: process.env.NODE,
   APP_NAME: process.env.APP_NAME,
   ENV: process.env.NODE_ENV,
   PORT: process.env.PORT,

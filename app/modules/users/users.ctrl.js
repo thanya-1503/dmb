@@ -1,26 +1,19 @@
-var Users = require('../../models/users')
 const CONFIG = require('../../config/config')
+const models = require('../../models')
+const sequelizeService = require('../../utils/sequelize');
+var ret = require('../../utils/response/index');
 const { response, responseError, genResponseObj } = require('../../utils/response/index')
 exports.list = async (req, res) => {
     try {
-        const now = Date.now();
-        const service = 'service-webasset';
-        return Users.find()
-        .then(result => {
-            if(result.length == 0) {
-                throw genResponseObj(req.get('x-language'), '40400', 'user not found.', undefined, service)
-              } else {
-                return res.json(
-                    resultCode = 200,
-                    developerMessage = result
-                )
-              }
+        console.log(req.query._id)
+        const res = await models.userAccount.findOne({
+            where: {
+                _id: req.query._id
+            }
         })
-        .catch( err => {
-            return responseError(req, res, err, service, now);
-        })
-
-    } catch (error) {
-        return responseError(req, res, error, service, now);
+        console.log(res)
+    return resp;
+    } catch (err) {
+        throw err;
     }
 }

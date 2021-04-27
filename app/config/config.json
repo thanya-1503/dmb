@@ -33,5 +33,75 @@
         "timeoutTokenTemp": 604800000,
         "timeoutToken": 10800000,
         "timeoutOtp": 1800000
+    },
+    "development": {
+        "domain": "https://webasset.entro-lab.com",
+        "host": "localhost",
+        "timezone": "+07:00",
+        "app_port": "5000",
+        "app_https": false,
+        "secret": "secret3th",
+        "format_date": "YYYY/MM/DD",
+        "format_time": "HH:mm:ss",
+        "datetimeFormat": "YYYY-MM-DD HH:mm:ss",
+        "timeout": "6000",
+        "database": {
+            "host": "entro-lab.com",
+            "port": 5432,
+            "username": "postgres",
+            "password": "Entronic@",
+            "database": "webasset",
+            "dialect": "postgres",
+            "charset": "utf8",
+            "collate": "utf8_general_ci",
+            "schema": "dbo",
+            "logQueryParameters": false,
+            "dialectOptions": {
+                "requestTimeout": 15000,
+                "useUTC": false,
+                "dateStrings": true,
+                "typeCast": true
+            },
+            "trustServerCertificate": false,
+            "timezone": "+07:00"
+        },
+        "timeoutTokenTemp": 604800000,
+        "timeoutToken": 10800000,
+        "timeoutOtp": 1800000
+    },
+    "production": {
+        "domain": "https://webasset.entro-lab.com",
+        "host": "localhost",
+        "timezone": "+07:00",
+        "app_port": "5000",
+        "app_https": false,
+        "secret": "secret3th",
+        "format_date": "YYYY/MM/DD",
+        "format_time": "HH:mm:ss",
+        "datetimeFormat": "YYYY-MM-DD HH:mm:ss",
+        "timeout": "6000",
+        "database": {
+            "host": "entro-lab.com",
+            "port": 5432,
+            "username": "postgres",
+            "password": "Entronic@",
+            "database": "webasset",
+            "dialect": "postgres",
+            "charset": "utf8",
+            "collate": "utf8_general_ci",
+            "schema": "dbo",
+            "logQueryParameters": false,
+            "dialectOptions": {
+                "requestTimeout": 15000,
+                "useUTC": false,
+                "dateStrings": true,
+                "typeCast": true
+            },
+            "trustServerCertificate": false,
+            "timezone": "+07:00"
+        },
+        "timeoutTokenTemp": 604800000,
+        "timeoutToken": 10800000,
+        "timeoutOtp": 1800000
     }
 }
