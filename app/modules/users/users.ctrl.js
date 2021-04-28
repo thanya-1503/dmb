@@ -1,19 +1,15 @@
-const CONFIG = require('../../config/config')
-const models = require('../../models')
-const sequelizeService = require('../../utils/sequelize');
 var ret = require('../../utils/response/index');
-const { response, responseError, genResponseObj } = require('../../utils/response/index')
+var MessageCode = require('../../utils/message');
+const msgCode = new MessageCode();
+const usersService = require('./users.service')
 exports.list = async (req, res) => {
     try {
-        console.log(req.query._id)
-        const res = await models.userAccount.findOne({
-            where: {
-                _id: req.query._id
-            }
-        })
-        console.log(res)
-    return resp;
+        var responseDetail = await usersService.getDetail(req, res);
+        const response = {
+            data: responseDetail,
+        }
+        ret.response(20000, msgCode.getMessage("E000", "Get users by Id"), response, res);
     } catch (err) {
-        throw err;
+        ret.matchError(err, msgCode.getMessage("E001", "Get users by Id"), res);
     }
 }

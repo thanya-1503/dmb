@@ -1,7 +1,7 @@
 var _ = require('underscore');
 var MessageCode = require('../message');
 const msgCode = new MessageCode();
-var code = require('../../config/message_code.json');
+var code = require('../../config/res_message.json');
 var env = process.env.NODE_ENV || 'development';
 var config = require('../../config/config.json')[env];
 var mime = require('mime-types');
@@ -9,7 +9,6 @@ const path = require("path");
 
 exports.response = function(statusCode, info, data, res) {
     try {
-
         // var resultCode = statusCode && code[statusCode].result_code ? statusCode : 50000;
         if (!statusCode) statusCode = 50000;
 
@@ -28,12 +27,9 @@ exports.response = function(statusCode, info, data, res) {
 
         // RESULT CODE
         let ret = {
-            result_header: {
-                result_code: code[resMainCode][resSubCode].result_code,
-                result_message: code[resMainCode][resSubCode].result_message,
-                more_info: info ? info : code[resMainCode][resSubCode].more_info
-            },
-            result_data: data ? data : code[resMainCode][resSubCode].result_data
+            responseCode: resMainCode,
+            resposeMessage :code[resMainCode][resSubCode].result_message,
+            responseData: data ? data : code[resMainCode][resSubCode].result_data
         }
         res.setHeader('http_status_code', http_status); // SET HEADER
         res.json(http_status, ret); // RESPONSE

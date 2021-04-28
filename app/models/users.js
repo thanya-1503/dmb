@@ -37,7 +37,7 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         sequelize,
         tableName: 'userAccount',
-        schema: 'dbo',
+        schema: 'public',
         timestamps: false
     });
 };
