@@ -1,81 +1,72 @@
 var _ = require('underscore');
 var MessageCode = require('../message');
 const msgCode = new MessageCode();
-var code = require('../../config/res_message.json');
+// var code = require('../../config/message.properties');
 var env = process.env.NODE_ENV || 'development';
-var config = require('../../config/config.json')[env];
+const CONFIG = require('../../config')
 var mime = require('mime-types');
 const path = require("path");
+const constants = require('../../config/constants');
 
-exports.response = function(statusCode, info, data, res) {
-    try {
-        // var resultCode = statusCode && code[statusCode].result_code ? statusCode : 50000;
-        if (!statusCode) statusCode = 50000;
-
-        // MATCHING STATUS CODE 
-        resultCodeString = statusCode.toString();
-        let resCode = resultCodeString.match(/.{1,3}/g);
-        let resMainCode = resCode[0];
-        let resSubCode = resCode[1];
-
-        if (!resMainCode || !resSubCode) {
-            resMainCode = 500;
-            resSubCode = 00;
-        }
-        // HTTP STATUS 
-        var http_status = code[resMainCode][resSubCode].http_status;
-
-        // RESULT CODE
-        let ret = {
-            responseCode: resMainCode,
-            resposeMessage :code[resMainCode][resSubCode].result_message,
-            responseData: data ? data : code[resMainCode][resSubCode].result_data
-        }
-        res.setHeader('http_status_code', http_status); // SET HEADER
-        res.json(http_status, ret); // RESPONSE
-
-    } catch (error) {
-        throw error;
+exports.response = (req, res, response = null, command = '', now = Date.now()) => {
+    const language = req.get('x-language') || 'en';
+    // res.set(setHeader(req, response));
+  
+    // set code
+    let showBody = true
+    let code = constants.resCode[20000];
+  
+    if (req.method == 'POST') {
+      showBody = false
+      code = constants.resCode[20100]
     }
-}
+    if (req.method == 'PATCH' || req.method == 'DELETE') {
+      showBody = false
+      code = constants.resCode[20000]
+    }
 
-exports.matchError = async function(err, errHeader, res) {
-    let newError = err;
-    if (err && err.name && err.name === 'SequelizeValidationError') {
-        newError = await exports.mapCodeErrorDB(err);
+    let ret = {
+        responseCode: code.resultCode,
+        developerMessage: code.developerMessage[language] || '',
+        responseData: showBody ? response : {},
     }
-    let resCode = 50000;
-    let errMsg = '';
-    let error = newError && newError.name ? newError.name : (newError || '');
-    if (_.isArray(newError)) {
-        resCode = newError[0];
-        errMsg = newError[1];
-    } else {
-        switch (error) {
-            case "SequelizeDatabaseError":
-                resCode = 50001;
-                break;
-            case "SequelizeValidationError":
-                resCode = 40300;
-                break;
-            case "SequelizeConnectionError":
-                resCode = 50002;
-                break;
-            case "TimeoutError":
-                resCode = 50002;
-                break;
-            case "JsonWebTokenError":
-                resCode = 40401;
-                break;
-            
-            default:
-                resCode = 50000;
-                break;
-        }
-        errMsg = newError && newError.message ? newError.message : (newError || '');
+    res.status(code.httpStatus);
+  
+    if (req.method == 'POST' || req.method == 'PATCH' || req.method == 'DELETE')
+      res.send();
+    else
+      res.send(ret);
+  }
+
+  exports.responseError = (req, res, respObj, command = '', now = Date.now()) => {
+    const codeList = constants.resCode;
+    const language = req.get('x-language') || 'en';
+    let code = constants.resCode[50000];
+  
+    if (respObj && respObj.resultCode && codeList[respObj.resultCode]) {
+      code = codeList[respObj.resultCode]
     }
-    exports.response(resCode, errHeader + errMsg, "", res);
-}
+  
+    // logger
+    const data = {
+      httpStatus: code.httpStatus,
+      resultCode: code.resultCode,
+      userMessage: code.developerMessage[language] || '',
+      developerMessage: `[${CONFIG.NODE}] ${code.developerMessage[language] || ''}`,
+      transactionResult: 50000,
+      transactionDesc: 'Failed',
+      resultData: respObj
+    }
+  
+    // response
+    return res
+      .status(code.httpStatus)
+      // .set(setHeader(req))
+      .json({
+        resultCode: data.resultCode,
+        developerMessage: data.userMessage
+      });
+  }
 
 exports.responseFile = function(fileName, filePath, res) {
 
