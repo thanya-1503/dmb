@@ -1,40 +1,42 @@
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('userAccount', {
+    return sequelize.define('employeeAsset', {
         _id: {
             type: DataTypes.STRING(36),
             allowNull: false,
             primaryKey: true,
             field: '_id'
         },
-        email: {
+        employeeId: {
             type: DataTypes.STRING(100),
             allowNull: false,
-            field: 'email'
+            field: 'employeeId'
         },
-        password: {
-            type: DataTypes.STRING(100),
+        assetList: {
+            type: DataTypes.JSON,
             allowNull: false,
-            field: 'password'
-        },
-        createBy: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            field: 'createBy'
+            field: 'assetList'
         },
         createDt: {
             type: DataTypes.DATE,
             allowNull: false,
             field: 'createDt'
         },
-        updateBy: {
-            type: DataTypes.STRING,
+        createBy: {
+            type: DataTypes.STRING(100),
             allowNull: false,
-            field: 'updateBy'
+            field: 'createBy'
         },
+       
         updateDt: {
             type: DataTypes.DATE,
             allowNull: false,
             field: 'updateDt'
+        },
+
+        updateBy: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+            field: 'updateBy'
         },
         status: {
             type: DataTypes.BOOLEAN,
@@ -43,7 +45,7 @@ module.exports = function(sequelize, DataTypes) {
         }
     }, {
         sequelize,
-        tableName: 'userAccount',
+        tableName: 'employeeAsset',
         schema: 'public',
         timestamps: false
     });

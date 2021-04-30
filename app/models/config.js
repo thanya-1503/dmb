@@ -1,40 +1,52 @@
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('userAccount', {
+    return sequelize.define('config', {
         _id: {
             type: DataTypes.STRING(36),
             allowNull: false,
             primaryKey: true,
             field: '_id'
         },
-        email: {
+        configType: {
             type: DataTypes.STRING(100),
             allowNull: false,
-            field: 'email'
+            field: 'configType'
         },
-        password: {
+        configCode: {
             type: DataTypes.STRING(100),
             allowNull: false,
-            field: 'password'
+            field: 'configCode'
         },
-        createBy: {
-            type: DataTypes.STRING,
+        value01: {
+            type: DataTypes.STRING(100),
             allowNull: false,
-            field: 'createBy'
+            field: 'value01'
+        },
+        value02: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+            field: 'value02'
         },
         createDt: {
             type: DataTypes.DATE,
             allowNull: false,
             field: 'createDt'
         },
-        updateBy: {
+        createBy: {
             type: DataTypes.STRING,
             allowNull: false,
-            field: 'updateBy'
+            field: 'createBy'
         },
+       
         updateDt: {
             type: DataTypes.DATE,
             allowNull: false,
             field: 'updateDt'
+        },
+
+        updateBy: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            field: 'updateBy'
         },
         status: {
             type: DataTypes.BOOLEAN,
@@ -43,7 +55,7 @@ module.exports = function(sequelize, DataTypes) {
         }
     }, {
         sequelize,
-        tableName: 'userAccount',
+        tableName: 'config',
         schema: 'public',
         timestamps: false
     });

@@ -6,45 +6,107 @@ module.exports = function(sequelize, DataTypes) {
             primaryKey: true,
             field: '_id'
         },
-        employeeCode: {
+        assetCode: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: false,
+            field: 'assetCode'
         },
         type: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: false,
+            field: 'type'
         },
-        prefix: {
+        brand: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: false,
+            field: 'brand'
         },
-        firstname: {
+        model: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: true,
+            field: 'model'
         },
-        lastname: {
+        color: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: true,
+            field: 'color'
         },
-        nickname: {
+        serialNumber: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: true,
+            field: 'serialNumber'
         },
-        position: {
-            type: DataTypes.STRING(100),
-            allowNull: false
-        },
-        site: {
-            type: DataTypes.STRING(100),
-            allowNull: false
-        },
-        workStart: {
+        purchaseDt: {
             type: DataTypes.DATE,
-            allowNull: true
+            allowNull: false,
+            field: 'purchaseDt'
         },
-        workEnd: {
+        insuranceDt: {
             type: DataTypes.DATE,
-            allowNull: true
+            allowNull: true,
+            field: 'insuranceDt'
+            
+        },
+        insuranceTerm: {
+            type: DataTypes.DECIMAL,
+            allowNull: true,
+            field: 'insuranceTerm'
+        },
+        purchaseNo: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+            field: 'purchaseNo'
+        },
+        price: {
+            type: DataTypes.DECIMAL,
+            allowNull: false,
+            field: 'price'
+        },
+        priceVat: {
+            type: DataTypes.DECIMAL,
+            allowNull: false,
+            field: 'priceVat'
+        },
+       
+        totalPrice: {
+            type: DataTypes.DECIMAL,
+            allowNull: false,
+            field: 'totalPrice'
+        },
+        activity: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+            field: 'activity'
+        },
+        state: {
+            type: DataTypes.STRING(100),
+            allowNull: true,
+            field: 'state'
+        },
+        repairCount: {
+            type: DataTypes.DECIMAL,
+            allowNull: true,
+            field: 'repairCount'
+        },
+        repairInsurance: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+            field: 'repairInsurance'
+        },
+        saleDt: {
+            type: DataTypes.DATE,
+            allowNull: true,
+            field: 'saleDt'
+        },
+        salePrice: {
+            type: DataTypes.DECIMAL,
+            allowNull: true,
+            field: 'salePrice'
+        },
+        saleAt: {
+            type: DataTypes.STRING(100),
+            allowNull: true,
+            field: 'saleAt'
         },
         createDt: {
             type: DataTypes.DATE,
@@ -52,7 +114,7 @@ module.exports = function(sequelize, DataTypes) {
             field: 'createDt'
         },
         createBy: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(100),
             allowNull: false,
             field: 'createBy'
         },
@@ -64,7 +126,7 @@ module.exports = function(sequelize, DataTypes) {
         },
 
         updateBy: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(100),
             allowNull: false,
             field: 'updateBy'
         },
