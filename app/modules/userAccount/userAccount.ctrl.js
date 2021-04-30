@@ -1,7 +1,6 @@
 var ret = require('../../utils/response/index');
 var MessageCode = require('../../utils/message');
 const msgCode = new MessageCode();
-const usersService = require('./users.service')
 var models = require('../../models');
 exports.list = async (req, res) => {
     const now = Date.now();
