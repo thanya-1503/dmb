@@ -10,8 +10,11 @@ const msgCode = new MessageCode();
 
 exports.getDetail = async function (req, res) {
     try {
+        var mail = 'admin@entro-lab.com';
         const query = req.query;
         const response = await models.userAccount.findOne();
+        response.ema
+        
         return response;
     } catch (err) {
         throw err;
