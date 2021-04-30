@@ -33,6 +33,11 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.DATE,
             allowNull: false,
             field: 'updateDt'
+        },
+        status: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            field: 'status'
         }
     }, {
         sequelize,
