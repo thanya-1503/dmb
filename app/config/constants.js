@@ -5,7 +5,7 @@ module.exports = {
     20000: {
       httpStatus: 200,
       resultCode: "20000",
-      developerMessage: resMessage.common.none
+      developerMessage: resMessage.common.success
     },
     20001: {
       httpStatus: 200,

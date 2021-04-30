@@ -4,13 +4,14 @@ const msgCode = new MessageCode();
 const usersService = require('./users.service')
 var models = require('../../models');
 exports.list = async (req, res) => {
+    const now = Date.now();
     try {
         const responseDetail = await models.userAccount.findOne();
-        const response = {
+        const result = {
             data: responseDetail,
         }
-        ret.response(20000, msgCode.getMessage("E000", "Get users by Id"), response, res);
+        ret.response(req, res, result, '', now);
     } catch (err) {
-        ret.matchError(err, msgCode.getMessage("E001", "Get users by Id"), res);
+        ret.responseError(req, res, err, '', now);
     }
 }
