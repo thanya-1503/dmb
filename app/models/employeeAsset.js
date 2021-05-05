@@ -16,11 +16,7 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             field: 'assetList'
         },
-        createDt: {
-            type: DataTypes.DATE,
-            allowNull: false,
-            field: 'createDt'
-        },
+
         createBy: {
             type: DataTypes.STRING(100),
             allowNull: false,
