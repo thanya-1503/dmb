@@ -6,7 +6,7 @@ const { where } = require('sequelize');
 exports.list = async (req, res) => {
     const now = Date.now();
     try {
-        const responseDetail = await models.employeeAsset.findOne();
+        const responseDetail = await models.employeeAsset.findAll();
         const result = {
             data: responseDetail,
         }
