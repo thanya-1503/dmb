@@ -34,7 +34,7 @@ exports.searchEmployee = async (req, res) => {
     const now = Date.now();
     try {
         let whereReq = req.query || {};
-        const responseDetail = await models.employee.delete({where:whereReq});
+        const responseDetail = await models.employee.fildAll({where:whereReq});
         const result = {
             data: responseDetail,
         }

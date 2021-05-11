@@ -15,3 +15,17 @@ exports.list = async (req, res) => {
         ret.responseError(req, res, err, '', now);
     }
 }
+exports.searchUserAccount = async (req, res) => {
+    const now = Date.now();
+    try {
+        let whereReq = req.query || {};
+        const responseDetail = await models.userAccount.findOne({where:whereReq});
+        const result = {
+            data: responseDetail,
+        }
+        ret.response(req, res, result, '', now);
+    } catch (err) {
+        ret.responseError(req, res, err, '', now);
+    }
+}
+
