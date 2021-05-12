@@ -42,5 +42,39 @@ exports.searchEmployee = async (req, res) => {
     } catch (err) {
         ret.responseError(req, res, err, '', now);
     }
+    
 }
+exports.createAccount = async (req, res) => {
+    const now = Date.now();
+    try {
+        let whereReq = req.query || {};
+        const responseDetail = await models.userAccount.create({
+            "_id":req.query._id,
+            "employeeCode":req.query.employeeCode,
+            "type":req.query.type,
+            "prefix":req.query.prefix,
+            "firstname":req.query.firstname,
+            "lastname":req.query.lastname,
+            "nickname":req.query.nickname,
+            "status":req.query.status,
+
+
+    }).then(createAccount => {		
+        // Send created customer to client
+        res.json(createAccount);
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json({msg: "error", details: err});
+    });
+
+        const result = {
+            data: responseDetail,
+        }
+        ret.response(req, res, result, '', now);
+    } catch (err) {
+        ret.responseError(req, res, err, '', now);
+    }
+}
+
+
 

@@ -4,5 +4,5 @@ module.exports = function (app) {
   
     app.get('/api/employee', employeeCtrl.list);
     app.get('/api/searchEmployee', employeeCtrl.searchEmployee);
-    
+  
   }

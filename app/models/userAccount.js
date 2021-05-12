@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define('userAccount', {
         _id: {
@@ -45,6 +46,15 @@ module.exports = function(sequelize, DataTypes) {
         sequelize,
         tableName: 'userAccount',
         schema: 'public',
-        timestamps: false
+        timestamps: false,
+        instanceMethods: {
+            generateHash(pwd) {
+                return bcrypt.hash(pwd, bcrypt.genSaltSync(8));
+            },
+            validPassword(pwdOld, pwdNew) {
+                console.log(bcrypt.compare(pwdOld, pwdNew))
+                return bcrypt.compare(pwdOld, pwdNew);
+            }
+        },
     });
 };
