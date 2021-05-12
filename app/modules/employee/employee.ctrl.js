@@ -44,29 +44,33 @@ exports.searchEmployee = async (req, res) => {
     }
     
 }
-exports.createAccount = async (req, res) => {
+exports.createEmployee = async (req, res) => {
     const now = Date.now();
     try {
         let whereReq = req.query || {};
-        const responseDetail = await models.userAccount.create({
-            "_id":req.query._id,
-            "employeeCode":req.query.employeeCode,
-            "type":req.query.type,
-            "prefix":req.query.prefix,
-            "firstname":req.query.firstname,
-            "lastname":req.query.lastname,
-            "nickname":req.query.nickname,
-            "status":req.query.status,
-
-
-    }).then(createAccount => {		
-        // Send created customer to client
-        res.json(createAccount);
+        const responseDetail = await models.employee.create({
+            "_id":data._id,
+            "employeeCode":data.employeeCode,
+            "type":data.type,
+            "prefix":data.prefix,
+            "firstname":data.firstname,
+            "lastname":data.lastname,
+            "nickname":data.nickname,
+            "position":data.position,
+            "site":data.site,
+            "workStart":data.workStart,
+            "workEnd":data.workEnd,
+            "createDt":data.createDt,
+            "createBy":data.createBy,
+            "updateDt":data.updateDt,
+            "updateBy":data.updateBy,
+            "status":data.status,
+    }).then(createEmployee => {		  
+        res.json(createEmployee);
     }).catch(err => {
         console.log(err);
         res.status(500).json({msg: "error", details: err});
     });
-
         const result = {
             data: responseDetail,
         }

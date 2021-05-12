@@ -52,7 +52,6 @@ module.exports = function(sequelize, DataTypes) {
                 return bcrypt.hash(pwd, bcrypt.genSaltSync(8));
             },
             validPassword(pwdOld, pwdNew) {
-                console.log(bcrypt.compare(pwdOld, pwdNew))
                 return bcrypt.compare(pwdOld, pwdNew);
             }
         },

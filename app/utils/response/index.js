@@ -17,7 +17,7 @@ exports.response = (req, res, response = null, command = '', now = Date.now()) =
     let code = constants.resCode[20000];
   
     if (req.method == 'POST') {
-      showBody = false
+      showBody = response
       code = constants.resCode[20100]
     }
     if (req.method == 'PATCH' || req.method == 'DELETE') {
@@ -33,7 +33,7 @@ exports.response = (req, res, response = null, command = '', now = Date.now()) =
     res.status(code.httpStatus);
   
     if (req.method == 'POST' || req.method == 'PATCH' || req.method == 'DELETE')
-      res.send();
+      res.send(ret);
     else
       res.send(ret);
   }
