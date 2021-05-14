@@ -75,6 +75,7 @@ exports.createAsset = async (req, res) => {
     } catch (err) {
         ret.responseError(req, res, err, '', now);
     }
+    
 }
 
 

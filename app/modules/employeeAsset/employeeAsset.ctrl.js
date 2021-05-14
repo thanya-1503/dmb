@@ -3,6 +3,7 @@ var MessageCode = require('../../utils/message');
 const msgCode = new MessageCode();
 var models = require('../../models');
 const { where } = require('sequelize');
+
 exports.list = async (req, res) => {
     const now = Date.now();
     try {
