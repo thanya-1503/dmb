@@ -36,7 +36,6 @@ exports.searchUserAccount = async (req, res) => {
     }
 }
 exports.createAccount = async (data , type) => {
-    console.log(data)
     const now = Date.now();
     try {
         let whereReq = req.query || {};
@@ -53,7 +52,6 @@ exports.createAccount = async (data , type) => {
         // Send created customer to client
         res.json(createAccount);
     }).catch(err => {
-        console.log(err);
         res.status(500).json({msg: "error", details: err});
     });
         const result = {
@@ -74,23 +72,17 @@ exports.authLogin = async (req, res) => {
         const acc = await models.userAccount.findOne({where:{ email: username }});
 
         if (!acc) throw [40300, 'username is not associated with any account.'];
-        //console.log(acc)
-        //console.log(password)
         let authen = await models.userAccount.options.instanceMethods.validPassword(password, acc.password); 
-        //console.log('authen', authen)
 
         if (!authen) throw [40101, 'Incorrect password'];
-        //var resultRes = await exports.createAccount(acc);
 
         var resultRes = await exports.generateToken(acc);
         res.setHeader('Authorization', resultRes);
         req.session_id = uuid();
         req.username = acc.email;
-        //console.log('authen', authen)
         ret.response(req, res, { token: resultRes }, '', now);
         // ret.response(20000, msgCode.getMessage("E000", "login"), { token: resultRes }, res);
     } catch (err) {
-        console.log(err)
         ret.responseError(req, res, err, '', now);
     }
 }
@@ -123,14 +115,12 @@ exports.authentication = async function (req, res) {
         if (!token) {
             if (req.query.Authorization) token = req.query.Authorization;
         }
-
         if (!token) throw [40101, "Unauthorized"];
 
         let tokenDecode = nJwt.verify(token, config.secret); // DECODE AND CHECK EXPIRE
         res.setHeader('Authorization', token); // SET TOKEN TO HEADER
         return tokenDecode;
     } catch (error) {
-        console.log(error)
         throw error
     }
 }
@@ -143,7 +133,6 @@ exports.extendToken = async function (data, timeout) {
         let tokenNew = data.compact(); // GENARATE NEW TOKEN
         return tokenNew;
     } catch (error) {
-        console.log(error)
         throw error;
     }
 }

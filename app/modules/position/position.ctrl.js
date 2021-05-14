@@ -16,16 +16,15 @@ exports.createPosition = async (req, res) => {
     const now = Date.now();
     try {
         let whereReq = req.query || {};
-        console.log(req.body)
         const responseDetail = await models.position.create({
             "_id":req.body._id,
             "lovType":req.body.lovType,
             "createDt":now,
             "createBy":req.body.createBy,
             "updateDt":now,
-            "updateBy":req.body.updateDt,
+            "updateBy":req.body.updateBy,
             "status":req.body.status,
-    }).then(createSite => {		  
+        }).then(createSite => {		  
         res.json(createSite);
     }).catch(err => {
         console.log(err);

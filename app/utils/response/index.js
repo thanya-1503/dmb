@@ -8,9 +8,23 @@ var mime = require('mime-types');
 const path = require("path");
 const constants = require('../../config/constants');
 
+const setHeader = (req, response = {}) => {
+  let newHeader = {
+    [CONFIG.HEADER.HEADER_TRANSACTION_ID]: req.get(CONFIG.HEADER.HEADER_TRANSACTION_ID.toLocaleLowerCase()),
+    [CONFIG.HEADER.HEADER_PUBLIC_ID]: req.get(CONFIG.HEADER.HEADER_PUBLIC_ID.toLocaleLowerCase()),
+    'Content-Type': 'application/json',
+    'X-XSS-Protection': '1; mode=block',
+    'X-Content-Type-Options': 'nosniff'
+  };
+  if (req.method === 'POST' && response && response._id) {
+    const uri = req.baseUrl.split('/');
+    newHeader['Location'] = `/${uri[uri.length - 1]}/${response._id}`;
+  }
+  return newHeader;
+}
+
 exports.response = (req, res, response = null, command = '', now = Date.now()) => {
     const language = req.get('x-language') || 'en';
-    // res.set(setHeader(req, response));
   
     // set code
     let showBody = true
@@ -31,6 +45,8 @@ exports.response = (req, res, response = null, command = '', now = Date.now()) =
         responseData: showBody ? response : {},
     }
     res.status(code.httpStatus);
+    res.setHeader('http_status_code', code.httpStatus)
+
   
     if (req.method == 'POST' || req.method == 'PATCH' || req.method == 'DELETE')
       res.send(ret);
@@ -61,7 +77,7 @@ exports.response = (req, res, response = null, command = '', now = Date.now()) =
     // response
     return res
       .status(code.httpStatus)
-      // .set(setHeader(req))
+      .set(setHeader(req))
       .json({
         resultCode: data.resultCode,
         developerMessage: data.userMessage
