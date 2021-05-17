@@ -92,13 +92,13 @@ exports.generateToken = async function (data, type) {
         //logger.info("[auth|auth-ctrl|token]");
             var dataSetToken = {
             _id: data._id,
-            email: data.email
-            //password: data.password,
-            //createBy: data.createBy,
-            //createDt: data.createDt,
-            //pdateBy: data.updateBy,
-            //updateDt: data.updateDt,
-            // status: data.status
+            email: data.email,
+            password: data.password,
+            createBy: data.createBy,
+            createDt: data.createDt,
+            pdateBy: data.updateBy,
+            updateDt: data.updateDt,
+            status: data.status
         }
         let token = nJwt.create(dataSetToken, config.secret); // CREATED PAYLOAD
         var timeout = config.timeoutToken; // SET TIMEOUT TYPE ADMIN AND GENERAL
