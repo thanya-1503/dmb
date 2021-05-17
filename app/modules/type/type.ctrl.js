@@ -22,13 +22,13 @@ exports.createType = async (req, res) => {
     try {
         let whereReq = req.query || {};
         const responseDetail = await models.type.create({
-            "_id":req.query._id,
-            "typeName":req.query.typeName,
-            "createDt":req.query.createDt,
-            "createBy":req.query.createBy,
-            "updateDt":req.query.updateDt,
-            "updateBy":req.query.updateBy,
-            "status":req.query.status,
+            "_id":req.body._id,
+            "typeName":req.body.typeName,
+            "createDt":now,
+            "createBy":req.body.createBy,
+            "updateDt":now,
+            "updateBy":req.body.updateBy,
+            "status":req.body.status,
     }).then(createType => {		  
         res.json(createType);
     }).catch(err => {

@@ -4,4 +4,3 @@ module.exports = function (app) {
     app.post('/api/createposition', positionCtrl.createPosition);
   }
   
-  

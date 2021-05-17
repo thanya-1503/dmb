@@ -20,13 +20,13 @@ exports.list = async (req, res) => {
         try {
             let whereReq = req.query || {};
             const responseDetail = await models.site.create({
-                "_id":req.query._id,
-                "siteType":req.query.siteType,
-                "createDt":req.query.createDt,
-                "createBy":req.query.createBy,
-                "updateDt":req.query.updateDt,
-                "updateBy":req.query.updateBy,
-                "status":req.query.status,
+                "_id":req.body._id,
+                "siteType":req.body.siteType,
+                "createDt":now,
+                "createBy":req.body.createBy,
+                "updateDt":now,
+                "updateBy":req.body.updateBy,
+                "status":req.body.status,
         }).then(createSite => {		  
             res.json(createSite);
         }).catch(err => {

@@ -4,10 +4,11 @@ const msgCode = new MessageCode();
 var models = require('../../models');
 const { where } = require('sequelize');
 const { response } = require('express');
+
 exports.list = async (req, res) => {
     const now = Date.now();
     try {
-        const responseDetail = await models.brand.findAll();
+        const responseDetail = await models.typeEm.findAll();
         const result = {
             data: responseDetail,
         }
@@ -16,20 +17,20 @@ exports.list = async (req, res) => {
         ret.responseError(req, res, err, '', now);
     }
 }
-exports.createBrand = async (req, res) => {
+exports.createTypeEm = async (req, res) => {
     const now = Date.now();
     try {
         let whereReq = req.query || {};
-        const responseDetail = await models.brand.create({
+        const responseDetail = await models.typeEm.create({
             "_id":req.body._id,
-            "brandType":req.body.brandType,
+            "emType":req.body.emType,
             "createDt":now,
             "createBy":req.body.createBy,
             "updateDt":now,
             "updateBy":req.body.updateBy,
             "status":req.body.status,
-    }).then(createbrand => {		  
-        res.json(createbrand);
+    }).then(createTypeEm => {		  
+        res.json(createTypeEm);
     }).catch(err => {
         console.log(err);
         res.status(500).json({msg: "error", details: err});

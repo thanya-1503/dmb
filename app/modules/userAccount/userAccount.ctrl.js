@@ -40,14 +40,14 @@ exports.createAccount = async (data , type) => {
     try {
         let whereReq = req.query || {};
         const responseDetail = await models.userAccount.create({
-            "_id":req.query._id,
-            "email":req.query.email,
-            "password":req.query.password,
-            "createBy":req.query.createBy,
-            "createDt":req.query.createDt,
-            "updateBy":req.query.updateBy,
-            "updateDt":req.query.updateDt,
-            "status":req.query.status,
+            "_id":req.body._id,
+            "email":req.body.email,
+            "password":req.body.password,
+            "createBy":req.body.createBy,
+            "createDt":now,
+            "updateBy":req.body.updateBy,
+            "updateDt":now,
+            "status":req.body.status,
     }).then(createAccount => {		
         // Send created customer to client
         res.json(createAccount);

@@ -49,22 +49,22 @@ exports.createEmployee = async (req, res) => {
     try {
         let whereReq = req.query || {};
         const responseDetail = await models.employee.create({
-            "_id":req.query._id,
-            "employeeCode":req.query.employeeCode,
-            "type":req.query.type,
-            "prefix":req.query.prefix,
-            "firstname":req.query.firstname,
-            "lastname":req.query.lastname,
-            "nickname":req.query.nickname,
-            "position":req.query.position,
-            "site":req.query.site,
-            "workStart":req.query.workStart,
-            "workEnd":req.query.workEnd,
-            "createDt":req.query.createDt,
-            "createBy":req.query.createBy,
-            "updateDt":req.query.updateDt,
-            "updateBy":req.query.updateBy,
-            "status":req.query.status,
+            "_id":req.body._id,
+            "employeeCode":req.body.employeeCode,
+            "type":req.body.type,
+            "prefix":req.body.prefix,
+            "firstname":req.body.firstname,
+            "lastname":req.body.lastname,
+            "nickname":req.body.nickname,
+            "position":req.body.position,
+            "site":req.body.site,
+            "workStart":req.body.workStart,
+            "workEnd":req.body.workEnd,
+            "createDt":now,
+            "createBy":req.body.createBy,
+            "updateDt":now,
+            "updateBy":req.body.updateBy,
+            "status":req.body.status,
     }).then(createEmployee => {		  
         res.json(createEmployee);
     }).catch(err => {
