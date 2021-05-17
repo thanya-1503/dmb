@@ -8,29 +8,29 @@ var auth = require('./modules/userAccount/userAccount.ctrl');
 var ret = require('./utils/response/index');
 var load = require("express-load");
 
-// async function setAuth(req, res, next) {
-//   try {
-//     if (
-//       req.originalUrl !== '/api/authLogin'
-//       // req.originalUrl !== '/api/v1/account-management/forgot-password' &&
-//       // req.originalUrl !== '/api/v1/account-management/change-password'
-//     ) {
-//       let tokenDecode = await auth.authentication(req, res); // AUTHENTICATION
-//       // let tokenNew = req.headers['Authorization'];
-//       tokenNew = await auth.extendToken(tokenDecode, CONFIG.TIMEOUT_TOKEN); // RENEWAL TOKEN
-//       res.setHeader('Authorization', tokenNew); // SET TOKEN TO HEADER
-//       req.rawToken = tokenDecode.body;
-//       req.accountId = tokenDecode.body.id ? tokenDecode.body.id : 'accountId';
-//       req.username = tokenDecode.body.username ? tokenDecode.body.username : 'username';
-//       req.type = tokenDecode.body.type ? tokenDecode.body.type : 'TYPE';
-//       req.name = tokenDecode.body.name ? tokenDecode.body.name : 'test';
-//       req.session_id = uuid();
-//     }
-//     next()
-//   } catch (error) {
-//     throw error
-//   }
-// }
+async function setAuth(req, res, next) {
+  try {
+    if (
+      req.originalUrl !== '/api/authLogin'
+      // req.originalUrl !== '/api/v1/account-management/forgot-password' &&
+      // req.originalUrl !== '/api/v1/account-management/change-password'
+    ) {
+      let tokenDecode = await auth.authentication(req, res); // AUTHENTICATION
+      // let tokenNew = req.headers['Authorization'];
+      tokenNew = await auth.extendToken(tokenDecode, CONFIG.TIMEOUT_TOKEN); // RENEWAL TOKEN
+      res.setHeader('Authorization', tokenNew); // SET TOKEN TO HEADER
+      req.rawToken = tokenDecode.body;
+      req.accountId = tokenDecode.body.id ? tokenDecode.body.id : 'accountId';
+      req.username = tokenDecode.body.username ? tokenDecode.body.username : 'username';
+      req.type = tokenDecode.body.type ? tokenDecode.body.type : 'TYPE';
+      req.name = tokenDecode.body.name ? tokenDecode.body.name : 'test';
+      req.session_id = uuid();
+    }
+    next()
+  } catch (error) {
+    throw error
+  }
+}
 
 app.use(function (req, res, next) {
   // res.setHeader("Access-Control-Allow-Origin", "http://localhost:4000","http://www.recruitment.com/");
@@ -40,7 +40,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.all("/api/*", function (req, res, next) {
+app.all("/api/*", setAuth, function (req, res, next) {
   next();
 });
 
