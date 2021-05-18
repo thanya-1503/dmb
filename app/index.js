@@ -7,6 +7,7 @@ var uuid = require("uuid/v4");
 var auth = require('./modules/userAccount/userAccount.ctrl');
 var ret = require('./utils/response/index');
 var load = require("express-load");
+var ret = require('../app/utils/response/index');
 
 async function setAuth(req, res, next) {
   try {
@@ -28,7 +29,7 @@ async function setAuth(req, res, next) {
     }
     next()
   } catch (error) {
-    throw error
+    ret.responseError(req, res, error, '', '');
   }
 }
 app.use(function (req, res, next) {

@@ -47,6 +47,11 @@ module.exports = {
       resultCode: "40101",
       developerMessage: resMessage.common.permissionDenied
     },
+    40102: {
+      httpStatus: 402,
+      resultCode: "40102",
+      developerMessage: resMessage.common.JwtParseError
+    },
     40300: {
       httpStatus: 403,
       resultCode: "40300",
@@ -102,49 +107,5 @@ module.exports = {
       resultCode: "50003",
       developerMessage: resMessage.common.unknownFormat
     }
-  },
-  logGas: {
-    NODE_TYPE: {
-      CLIENT: 'CLIENT'
-    },
-    LEVEL: {
-      INFO: 'info',
-      DEBUG: 'debug',
-      ERROR: 'error',
-    },
-    ACTIONS: {
-      REQUEST: 'REQUEST',
-      RESPONSE: 'RESPONSE',
-    },
-  },
-  relatedParty: {
-    SERVICE_PROVIDER: 'SERVICE_PROVIDER',
-    SUPPLIER: 'SUPPLIER',
-  },
-  currency: {
-    CHINESE: {
-      name: 'Chinese yuan',
-      value: 'CNY'
-    },
-    EURO: {
-      name: 'Euro',
-      value: 'EUR'
-    },
-    USD: {
-      name: 'U.S. dollar',
-      value: 'USD'
-    },
-    PHILIPPINE: {
-      name: 'Philippine peso',
-      value: 'PHP'
-    },
-    SINGAPORE: {
-      name: 'Singapore dollar',
-      value: 'SGD'
-    },
-    THAI: {
-      name: 'Thai baht',
-      value: 'THB'
-    },
   }
 };
