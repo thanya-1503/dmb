@@ -40,7 +40,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.all("/api/*", setAuth, function (req, res, next) {
+app.all("/api/*", function (req, res, next) {
   next();
 });
 
