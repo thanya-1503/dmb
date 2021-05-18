@@ -1,71 +1,72 @@
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define('asset', {
         _id: {
-            type: DataTypes.STRING(36),
+            type: DataTypes.INTEGER,
             allowNull: false,
+            autoIncrement: true,
             primaryKey: true,
             field: '_id'
         },
         assetCode: {
             type: DataTypes.STRING(100),
             allowNull: false,
-            field: 'assetCode'
+           
         },
         type: {
             type: DataTypes.STRING(100),
             allowNull: false,
-            field: 'type'
+            
         },
         brand: {
             type: DataTypes.STRING(100),
             allowNull: false,
-            field: 'brand'
+           
         },
         model: {
             type: DataTypes.STRING(100),
             allowNull: true,
-            field: 'model'
+      
         },
         color: {
             type: DataTypes.STRING(100),
             allowNull: true,
-            field: 'color'
+         
         },
         serialNumber: {
             type: DataTypes.STRING(100),
             allowNull: true,
-            field: 'serialNumber'
+            
         },
-        purchaseDt: {
+        puchaseDt: {
             type: DataTypes.DATE,
             allowNull: false,
-            field: 'purchaseDt'
+          
         },
         insuranceDt: {
             type: DataTypes.DATE,
             allowNull: true,
-            field: 'insuranceDt'
+           
             
         },
         insuranceTerm: {
             type: DataTypes.DECIMAL,
             allowNull: true,
-            field: 'insuranceTerm'
+           
         },
         purchaseNo: {
             type: DataTypes.STRING(100),
             allowNull: false,
-            field: 'purchaseNo'
+           
         },
         price: {
             type: DataTypes.DECIMAL,
             allowNull: false,
-            field: 'price'
+            
         },
         priceVat: {
             type: DataTypes.DECIMAL,
             allowNull: false,
-            field: 'priceVat'
+            
         },
        
         totalPrice: {
