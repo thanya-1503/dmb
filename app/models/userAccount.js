@@ -2,8 +2,9 @@ const bcrypt = require('bcryptjs');
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define('userAccount', {
         _id: {
-            type: DataTypes.STRING(36),
+            type: DataTypes.INTEGER,
             allowNull: false,
+            autoIncrement: true,
             primaryKey: true,
             field: '_id'
         },
