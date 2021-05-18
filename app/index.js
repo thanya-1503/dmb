@@ -31,7 +31,6 @@ async function setAuth(req, res, next) {
     throw error
   }
 }
-
 app.use(function (req, res, next) {
   // res.setHeader("Access-Control-Allow-Origin", "http://localhost:4000","http://www.recruitment.com/");
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -40,7 +39,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.all("/api/*", setAuth, function (req, res, next) {
+app.all("/api/*",setAuth ,function (req, res, next) {
   next();
 });
 
