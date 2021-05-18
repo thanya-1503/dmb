@@ -17,7 +17,7 @@ exports.createModel = async (req, res) => {
     try {
         let whereReq = req.query || {};
         const responseDetail = await models.model.create({
-            "_id":req.body_id,
+            "_id":req.body._id,
             "modelType":req.body.modelType,
             "createDt":now,
             "createBy":req.body.createBy,
