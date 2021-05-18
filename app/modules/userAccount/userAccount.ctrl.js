@@ -104,7 +104,7 @@ exports.generateToken = async function (data, type) {
         var timeout = config.timeoutToken; // SET TIMEOUT TYPE ADMIN AND GENERAL
         return await exports.extendToken(token, timeout); // CREATED TOKEN
     } catch (error) {
-        throw error
+        ret.responseError(req, res, error, '', '');
     }
 }
 exports.authentication = async function (req, res) {
@@ -121,7 +121,7 @@ exports.authentication = async function (req, res) {
         res.setHeader('Authorization', token); // SET TOKEN TO HEADER
         return tokenDecode;
     } catch (error) {
-        throw error
+        ret.responseError(req, res, error, '', '');
     }
 }
 
@@ -133,6 +133,6 @@ exports.extendToken = async function (data, timeout) {
         let tokenNew = data.compact(); // GENARATE NEW TOKEN
         return tokenNew;
     } catch (error) {
-        throw error;
+        ret.responseError(req, res, error, '', '');
     }
 }

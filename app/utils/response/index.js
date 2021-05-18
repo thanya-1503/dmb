@@ -62,7 +62,9 @@ exports.response = (req, res, response = null, command = '', now = Date.now()) =
     if (respObj && respObj.resultCode && codeList[respObj.resultCode]) {
       code = codeList[respObj.resultCode]
     }
-  
+    if(respObj.name === 'JwtParseError') {
+      code = constants.resCode[40102];
+    }
     // logger
     const data = {
       httpStatus: code.httpStatus,
@@ -77,7 +79,6 @@ exports.response = (req, res, response = null, command = '', now = Date.now()) =
     // response
     return res
       .status(code.httpStatus)
-      .set(setHeader(req))
       .json({
         resultCode: data.resultCode,
         developerMessage: data.userMessage

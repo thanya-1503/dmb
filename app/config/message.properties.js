@@ -80,6 +80,10 @@ module.exports = {
         databaseError: {
           en: 'Database error.',
           th: 'เกิดข้อผิดพลาดที่ฐานข้อมูล',
+        },
+        JwtParseError: {
+          en: 'Session expired.',
+          th: '',
         }
       }
     }
