@@ -24,8 +24,8 @@ exports.createPosition = async (req, res) => {
             "updateDt":now,
             "updateBy":req.body.updateBy,
             "status":req.body.status,
-        }).then(createSite => {		  
-        res.json(createSite);
+        }).then(createPosition => {		  
+        res.json(createPosition);
     }).catch(err => {
         console.log(err);
         res.status(500).json({msg: "error", details: err});
@@ -34,7 +34,26 @@ exports.createPosition = async (req, res) => {
             data: responseDetail,
         }
         ret.response(req, res, result, '', now);
+        console(result)
     } catch (err) {
         ret.responseError(req, res, err, '', now);
     }
 }
+
+exports.updatePosition =  async(req, res) => {
+    const now = Date.now();
+	const _id = req.params._id;
+    console.log("iddddddddddddddddddddddd")
+    console.log(_id)
+    console.log(req.body)
+	const responseDetail = await models.position.update( req.body, 
+			{ where: {_id:_id} }).then(() => {         
+                ret.response(req, res, '', '', now);
+			}).catch(err => {
+				console.log(err);
+				ret.responseError(req, res, err, '', now);
+			});
+};
+
+
+
