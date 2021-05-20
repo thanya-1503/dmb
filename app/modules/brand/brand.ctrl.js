@@ -42,3 +42,27 @@ exports.createBrand = async (req, res) => {
         ret.responseError(req, res, err, '', now);
     }
 }
+exports.updateBrand =  async(req, res) => {
+    const now = Date.now();
+	const _id = req.params._id;
+	const responseDetail = await models.brand.update( req.body, 
+			{ where: {_id:_id} }).then(() => {         
+                ret.response(req, res, '', '', now);
+			}).catch(err => {
+				console.log(err);
+				ret.responseError(req, res, err, '', now);
+			});
+};
+exports.deleteBrand =  async(req, res) => {
+    const now = Date.now();
+    const _id = req.params._id;
+	const responseDetail = await models.brand.destroy({
+			where: { _id:_id }
+		}).then(() => {
+			ret.response(req, res, '', '', now);
+		}).catch(err => {
+			console.log(err);
+			ret.responseError(req, res, err, '', now);
+		});
+};
+

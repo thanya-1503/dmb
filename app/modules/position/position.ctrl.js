@@ -54,6 +54,34 @@ exports.updatePosition =  async(req, res) => {
 				ret.responseError(req, res, err, '', now);
 			});
 };
+exports.updatePosition =  async(req, res) => {
+    const now = Date.now();
+	const _id = req.params._id;
+	const responseDetail = await models.position.update( req.body, 
+			{ where: {_id:_id} }).then(() => {         
+                ret.response(req, res, '', '', now);
+			}).catch(err => {
+				console.log(err);
+				ret.responseError(req, res, err, '', now);
+			});
+};
+
+
+exports.deletePosition =  async(req, res) => {
+    const now = Date.now();
+	// const _id = req.params._id;
+    // console.log("iddddddddddddddddddddddd")
+    // console.log(_id)
+    // console.log(req.body)
+	const responseDetail = await models.position.destroy({
+			where: { _id:_id }
+		}).then(() => {
+			ret.response(req, res, '', '', now);
+		}).catch(err => {
+			console.log(err);
+			ret.responseError(req, res, err, '', now);
+		});
+};
 
 
 
