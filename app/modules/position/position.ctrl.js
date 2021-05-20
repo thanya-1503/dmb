@@ -43,9 +43,9 @@ exports.createPosition = async (req, res) => {
 exports.updatePosition =  async(req, res) => {
     const now = Date.now();
 	const _id = req.params._id;
-    console.log("iddddddddddddddddddddddd")
-    console.log(_id)
-    console.log(req.body)
+    // console.log("iddddddddddddddddddddddd")
+    // console.log(_id)
+    // console.log(req.body)
 	const responseDetail = await models.position.update( req.body, 
 			{ where: {_id:_id} }).then(() => {         
                 ret.response(req, res, '', '', now);
