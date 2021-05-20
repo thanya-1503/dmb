@@ -42,7 +42,7 @@ exports.createType = async (req, res) => {
     } catch (err) {
         ret.responseError(req, res, err, '', now);
     }
-}
+};
 exports.updateType =  async(req, res) => {
     const now = Date.now();
 	const _id = req.params._id;
@@ -53,4 +53,16 @@ exports.updateType =  async(req, res) => {
 				console.log(err);
 				ret.responseError(req, res, err, '', now);
 			});
+};
+exports.deleteType =  async(req, res) => {
+    const now = Date.now();
+	const _id = req.params._id;
+	const responseDetail = await models.type.destroy({
+			where: { _id:_id }
+		}).then(() => {
+			ret.response(req, res, '', '', now);
+		}).catch(err => {
+			console.log(err);
+			ret.responseError(req, res, err, '', now);
+		});
 };

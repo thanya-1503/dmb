@@ -3,6 +3,7 @@ module.exports = function (app) {
     app.get('/api/site', siteCtrl.list);
     app.post('/api/createSite', siteCtrl.createSite);
     app.put('/api/updateSite/:_id', siteCtrl.updateSite);
+    app.delete('/api/deleteSite/:_id', siteCtrl.deleteSite);
   }
   
   

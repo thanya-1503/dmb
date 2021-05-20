@@ -15,11 +15,11 @@ exports.list = async (req, res) => {
         ret.responseError(req, res, err, '', now);
     } }
 
-    exports.createSite = async (req, res) => {
-        const now = Date.now();
-        try {
-            let whereReq = req.query || {};
-            const responseDetail = await models.site.create({
+exports.createSite = async (req, res) => {
+    const now = Date.now();
+    try {
+        let whereReq = req.query || {};
+        const responseDetail = await models.site.create({
                 "_id":req.body._id,
                 "siteType":req.body.siteType,
                 "createDt":now,
@@ -52,3 +52,16 @@ exports.updateSite =  async(req, res) => {
 				ret.responseError(req, res, err, '', now);
 			});
 };
+exports.deleteSite =  async(req, res) => {
+    const now = Date.now();
+	const _id = req.params._id;
+	const responseDetail = await models.site.destroy({
+			where: { _id:_id }
+		}).then(() => {
+			ret.response(req, res, '', '', now);
+		}).catch(err => {
+			console.log(err);
+			ret.responseError(req, res, err, '', now);
+		});
+};
+

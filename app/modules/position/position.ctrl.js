@@ -69,7 +69,7 @@ exports.updatePosition =  async(req, res) => {
 
 exports.deletePosition =  async(req, res) => {
     const now = Date.now();
-	// const _id = req.params._id;
+	const _id = req.params._id;
     // console.log("iddddddddddddddddddddddd")
     // console.log(_id)
     // console.log(req.body)
