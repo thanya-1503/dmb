@@ -42,7 +42,13 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             field: 'status'
-        }
+        },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            field: 'name'
+        },
+
     }, {
         sequelize,
         tableName: 'userAccount',

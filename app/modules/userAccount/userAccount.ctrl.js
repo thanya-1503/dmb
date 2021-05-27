@@ -42,6 +42,7 @@ exports.createAccount = async (data , type) => {
         const responseDetail = await models.userAccount.create({
             "_id":req.body._id,
             "email":req.body.email,
+            "name":req.body.name,
             "password":req.body.password,
             "createBy":req.body.createBy,
             "createDt":now,
@@ -49,7 +50,7 @@ exports.createAccount = async (data , type) => {
             "updateDt":now,
             "status":req.body.status,
     }).then(createAccount => {		
-        // Send created customer to client
+        
         res.json(createAccount);
     }).catch(err => {
         res.status(500).json({msg: "error", details: err});
@@ -63,6 +64,10 @@ exports.createAccount = async (data , type) => {
     }
 }
 
+
+
+
+
 exports.authLogin = async (req, res) => {
     const now = Date.now();
     try {
@@ -73,9 +78,7 @@ exports.authLogin = async (req, res) => {
 
         if (!acc) throw [40300, 'username is not associated with any account.'];
         let authen = await models.userAccount.options.instanceMethods.validPassword(password, acc.password); 
-
         if (!authen) throw [40101, 'Incorrect password'];
-
         var resultRes = await exports.generateToken(acc);
         res.setHeader('Authorization', resultRes);
         req.session_id = uuid();
@@ -86,13 +89,13 @@ exports.authLogin = async (req, res) => {
         ret.responseError(req, res, err, '', now);
     }
 }
-
 exports.generateToken = async function (data, type) {
     try {
         //logger.info("[auth|auth-ctrl|token]");
             var dataSetToken = {
             _id: data._id,
             email: data.email,
+            name: data.name,
             password: data.password,
             createBy: data.createBy,
             createDt: data.createDt,
