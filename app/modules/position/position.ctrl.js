@@ -20,7 +20,7 @@ exports.createPosition = async (req, res) => {
             "_id": req.body._id,
             "lovType": req.body.lovType,
             "createDt": now,
-            "createBy": req.body.createBy,
+            "createBy": req.username,
             "updateDt": now,
             "updateBy": req.body.updateBy,
             "status": req.body.status,
@@ -65,3 +65,4 @@ exports.deletePosition = async (req, res) => {
 
 
 
+  

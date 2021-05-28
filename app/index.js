@@ -17,7 +17,7 @@ async function setAuth(req, res, next) {
       // req.originalUrl !== '/api/v1/account-management/change-password'
     ) {
       let tokenDecode = await auth.authentication(req, res); // AUTHENTICATION
-      // let tokenNew = req.headers['Authorization'];
+      //let tokenNew = req.headers['Authorization'];
       tokenNew = await auth.extendToken(tokenDecode, CONFIG.TIMEOUT_TOKEN); // RENEWAL TOKEN
       res.setHeader('Authorization', tokenNew); // SET TOKEN TO HEADER
       req.rawToken = tokenDecode.body;

@@ -43,10 +43,10 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             field: 'status'
         },
-        name: {
+        username: {
             type: DataTypes.STRING,
             allowNull: false,
-            field: 'name'
+            field: 'username'
         },
 
     }, {

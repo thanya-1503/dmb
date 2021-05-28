@@ -42,7 +42,7 @@ exports.createAccount = async (data , type) => {
         const responseDetail = await models.userAccount.create({
             "_id":req.body._id,
             "email":req.body.email,
-            "name":req.body.name,
+            "username":req.body.username,
             "password":req.body.password,
             "createBy":req.body.createBy,
             "createDt":now,
