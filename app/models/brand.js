@@ -15,7 +15,6 @@ module.exports = function(sequelize, DataTypes) {
         createDt: {
             type: DataTypes.DATE,
             allowNull: false,
-           
         },
         createBy: {
             type: DataTypes.STRING(100),

@@ -15,14 +15,13 @@ exports.list = async (req, res) => {
 exports.createPosition = async (req, res) => {
     const now = Date.now();
     try {
-
         const responseDetail = await models.position.create({
             "_id": req.body._id,
             "lovType": req.body.lovType,
             "createDt": now,
             "createBy": req.username,
             "updateDt": now,
-            "updateBy": req.body.updateBy,
+            "updateBy": req.username,
             "status": req.body.status,
         }).then(createPosition => {
             res.json(createPosition);
@@ -41,6 +40,8 @@ exports.createPosition = async (req, res) => {
 exports.updatePosition = async (req, res) => {
     const now = Date.now();
     const _id = req.params._id;
+    req.body.updateDt = now;
+    req.body.updateBy = req.username;
     const responseDetail = await models.position.update(req.body,
         { where: { _id: _id } }).then(() => {
             ret.response(req, res, '', '', now);
@@ -65,4 +66,3 @@ exports.deletePosition = async (req, res) => {
 
 
 
-  

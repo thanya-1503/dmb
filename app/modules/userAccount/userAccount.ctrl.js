@@ -46,7 +46,7 @@ exports.createAccount = async (data , type) => {
             "password":req.body.password,
             "createBy":req.body.createBy,
             "createDt":now,
-            "updateBy":req.body.updateBy,
+            "updateBy":req.body.username,
             "updateDt":now,
             "status":req.body.status,
     }).then(createAccount => {		
@@ -95,7 +95,7 @@ exports.generateToken = async function (data, type) {
             var dataSetToken = {
             _id: data._id,
             email: data.email,
-            name: data.name,
+            username: data.username,
             password: data.password,
             createBy: data.createBy,
             createDt: data.createDt,
