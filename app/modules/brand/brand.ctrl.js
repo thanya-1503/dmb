@@ -19,14 +19,13 @@ exports.list = async (req, res) => {
 exports.createBrand = async (req, res) => {
     const now = Date.now();
     try {
-        let whereReq = req.query || {};
         const responseDetail = await models.brand.create({
             "_id":req.body._id,
             "brandType":req.body.brandType,
             "createDt":now,
-            "createBy":req.body.createBy,
+            "createBy":req.username,
             "updateDt":now,
-            "updateBy":req.body.updateBy,
+            "updateBy":req.username,
             "status":req.body.status,
     }).then(createbrand => {		  
         res.json(createbrand);
@@ -45,6 +44,8 @@ exports.createBrand = async (req, res) => {
 exports.updateBrand =  async(req, res) => {
     const now = Date.now();
 	const _id = req.params._id;
+    req.body.updateDt = now;
+    req.body.updateBy = req.username;
 	const responseDetail = await models.brand.update( req.body, 
 			{ where: {_id:_id} }).then(() => {         
                 ret.response(req, res, '', '', now);

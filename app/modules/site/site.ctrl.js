@@ -23,9 +23,9 @@ exports.createSite = async (req, res) => {
                 "_id":req.body._id,
                 "siteType":req.body.siteType,
                 "createDt":now,
-                "createBy":req.body.createBy,
+                "createBy":req.username,
                 "updateDt":now,
-                "updateBy":req.body.updateBy,
+                "updateBy":req.username,
                 "status":req.body.status,
         }).then(createSite => {		  
             res.json(createSite);
@@ -44,6 +44,8 @@ exports.createSite = async (req, res) => {
 exports.updateSite =  async(req, res) => {
     const now = Date.now();
 	const _id = req.params._id;
+    req.body.updateDt = now;
+    req.body.updateBy = req.username;
 	const responseDetail = await models.site.update( req.body, 
 			{ where: {_id:_id} }).then(() => {         
                 ret.response(req, res, '', '', now);
@@ -52,6 +54,7 @@ exports.updateSite =  async(req, res) => {
 				ret.responseError(req, res, err, '', now);
 			});
 };
+
 exports.deleteSite =  async(req, res) => {
     const now = Date.now();
 	const _id = req.params._id;

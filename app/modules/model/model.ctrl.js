@@ -20,9 +20,9 @@ exports.createModel = async (req, res) => {
             "_id":req.body._id,
             "modelType":req.body.modelType,
             "createDt":now,
-            "createBy":req.body.createBy,
+            "createBy":req.username,
             "updateDt":now,
-            "updateBy":req.body.updateBy,
+            "updateBy":req.username,
             "status":req.body.status,
     }).then(createModel => {		  
         res.json(createModel);
@@ -41,6 +41,8 @@ exports.createModel = async (req, res) => {
 exports.updateModelAsset =  async(req, res) => {
     const now = Date.now();
 	const _id = req.params._id;
+    req.body.updateDt = now;
+    req.body.updateBy = req.username;
 	const responseDetail = await models.model.update( req.body, 
 			{ where: {_id:_id} }).then(() => {         
                 ret.response(req, res, '', '', now);

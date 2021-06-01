@@ -50,7 +50,6 @@ exports.updatePosition = async (req, res) => {
             ret.responseError(req, res, err, '', now);
         });
 };
-
 exports.deletePosition = async (req, res) => {
     const now = Date.now();
     const _id = req.params._id;
