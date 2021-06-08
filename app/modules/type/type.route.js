@@ -6,5 +6,5 @@ module.exports = function (app) {
     app.delete('/api/deleteType/:_id', typeCtrl.deleteType);
   }
   
-  
+
   

@@ -135,6 +135,10 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             
+        },
+        remark: {
+            type: DataTypes.STRING(100),
+            allowNull: true,
         }
     }, {
         sequelize,
