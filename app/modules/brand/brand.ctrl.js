@@ -26,7 +26,6 @@ exports.createBrand = async (req, res) => {
             "createBy":req.username,
             "updateDt":now,
             "updateBy":req.username,
-            "status":req.body.status,
     }).then(createbrand => {		  
         res.json(createbrand);
     }).catch(err => {

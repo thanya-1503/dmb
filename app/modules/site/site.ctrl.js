@@ -26,7 +26,6 @@ exports.createSite = async (req, res) => {
                 "createBy":req.username,
                 "updateDt":now,
                 "updateBy":req.username,
-                "status":req.body.status,
         }).then(createSite => {		  
             res.json(createSite);
         }).catch(err => {

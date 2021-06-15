@@ -28,7 +28,6 @@ exports.createTypeEm = async (req, res) => {
             "createBy":req.username,
             "updateDt":now,
             "updateBy":req.username,
-            "status":req.body.status,
     }).then(createTypeEm => {		  
         res.json(createTypeEm);
     }).catch(err => {

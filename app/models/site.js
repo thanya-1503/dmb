@@ -32,11 +32,6 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             field: 'updateBy'
         },
-        status: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            field: 'status'
-        }
     }, {
         sequelize,
         tableName: 'site',

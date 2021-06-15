@@ -28,14 +28,8 @@ module.exports = function(sequelize, DataTypes) {
         },
         updateBy: {
             type: DataTypes.STRING(100),
-            allowNull: false,
-            
+            allowNull: false,  
         },
-        status: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            
-        }
     }, {
         sequelize,
         tableName: 'brand',

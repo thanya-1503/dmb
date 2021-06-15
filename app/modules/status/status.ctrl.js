@@ -22,7 +22,6 @@ exports.createStatus = async (req, res) => {
             "createBy": req.username,
             "updateDt": now,
             "updateBy": req.username,
-            "status": req.body.status,
         }).then(createStatus => { 
             res.json(createStatus);
         }).catch(err => {

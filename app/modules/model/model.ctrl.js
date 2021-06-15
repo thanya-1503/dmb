@@ -23,7 +23,6 @@ exports.createModel = async (req, res) => {
             "createBy":req.username,
             "updateDt":now,
             "updateBy":req.username,
-            "status":req.body.status,
     }).then(createModel => {		  
         res.json(createModel);
     }).catch(err => {

@@ -28,7 +28,6 @@ exports.createType = async (req, res) => {
             "createBy":req.username,
             "updateDt":now,
             "updateBy":req.username,
-            "status":req.body.status,
     }).then(createType => {		  
         res.json(createType);
     }).catch(err => {
