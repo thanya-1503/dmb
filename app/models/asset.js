@@ -13,17 +13,17 @@ module.exports = function(sequelize, DataTypes) {
             
         },
         type: {
-            type: DataTypes.STRING(100),
+            type: DataTypes.INTEGER,
             allowNull: false,
            
         },
         brand: {
-            type: DataTypes.STRING(100),
+            type: DataTypes.INTEGER,
             allowNull: false,
             
         },
         model: {
-            type: DataTypes.STRING(100),
+            type: DataTypes.INTEGER,
             allowNull: true,
            
         },
@@ -80,7 +80,7 @@ module.exports = function(sequelize, DataTypes) {
             
         },
         state: {
-            type: DataTypes.STRING(100),
+            type: DataTypes.INTEGER,
             allowNull: true,
             
         },

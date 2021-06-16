@@ -12,11 +12,6 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             field: 'employeeCode'
         },
-        type: {
-            type: DataTypes.STRING(100),
-            allowNull: false,
-            field: 'type'
-        },
         prefix: {
             type: DataTypes.STRING(100),
             allowNull: false,
@@ -36,16 +31,6 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING(100),
             allowNull: false,
             field: 'nickname'
-        },
-        position: {
-            type: DataTypes.STRING(100),
-            allowNull: false,
-            field: 'position'
-        },
-        site: {
-            type: DataTypes.STRING(100),
-            allowNull: false,
-            field: 'site'
         },
         workStart: {
             type: DataTypes.DATE,
@@ -83,7 +68,22 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             field: 'status'
-        }
+        },
+        type: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            field: 'type'
+        },
+        position: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            field: 'position'
+        },
+        site: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            field: 'site'
+        },
     }, {
         sequelize,
         tableName: 'employee',

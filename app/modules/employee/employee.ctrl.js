@@ -51,13 +51,10 @@ exports.createEmployee = async (req, res) => {
         const responseDetail = await models.employee.create({
             "_id":req.body._id,
             "employeeCode":req.body.employeeCode,
-            "type":req.body.type,
             "prefix":req.body.prefix,
             "firstname":req.body.firstname,
             "lastname":req.body.lastname,
             "nickname":req.body.nickname,
-            "position":req.body.position,
-            "site":req.body.site,
             "workStart":req.body.workStart,
             "workEnd":req.body.workEnd,
             "createDt":now,
@@ -65,6 +62,9 @@ exports.createEmployee = async (req, res) => {
             "updateDt":now,
             "updateBy":req.body.updateBy,
             "status":req.body.status,
+            "type":req.body.type,
+            "position":req.body.position,
+            "site":req.body.site,
     }).then(createEmployee => {		  
         res.json(createEmployee);
     }).catch(err => {
