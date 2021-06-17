@@ -16,7 +16,6 @@ exports.list = async (req, res) => {
         ret.responseError(req, res, err, '', now);
     }
 }
-
 exports.searchAsset = async (req, res) => {
     const now = Date.now();
     try {
@@ -76,7 +75,43 @@ exports.createAsset = async (req, res) => {
     } catch (err) {
         ret.responseError(req, res, err, '', now);
     }
-    
 }
-
-
+exports.listasset = async (req, res) => {
+    const now = Data.now();
+    try{
+        `SELECT asset."assetCode",
+                asset."color",
+                asset."serialNumber",
+                asset."purchaseDt",
+                asset."insuranceDt",
+                asset."insuranceTerm",
+                asset."purchaseNo",
+                asset."price",
+                asset."priceVat",
+                asset."totalPrice",
+                asset."activity",
+                asset."repairCount",
+                asset."repairInsurance",
+                asset."saleDt",
+                asset."salePrice",
+                asset."saleAt"
+                asset."createDt",
+                asset."createBy",
+                asset."updateDt",
+                asset."updateBy",
+                asset."remark",
+                brand."brandType",
+                model."modelType",
+                type."typeName", 
+                status."StatusName",
+        FROM asset
+        left JOIN type on asset."type" = type."_id"
+        left JOIN brand on asset."brand" = brand."_id"
+        left JOIN model on asset."model" = model."_id"
+        left JOIN status on asset."status" = status."_id" `
+        const responseDetail = await models.sequelize.query(sql, { type: QueryType.SELECT });
+    }
+     catch (err) {
+    ret.responseError(req, res, err, '', now);
+}
+}

@@ -79,6 +79,29 @@ exports.createEmployee = async (req, res) => {
         ret.responseError(req, res, err, '', now);
     }
 }
-
+exports.listemployee = async (req, res) => {
+    const now = Data.now();
+    try{
+        `SELECT employee."employeeCode",
+                employee."prefix",
+                employee."firstname",
+                employee."lastname",
+                employee."nickname",
+                employee."workStart",
+                employee."workEnd",
+                employee."createDt",
+                employee."createBy",
+                employee."updateDt",
+                employee."updateBy",
+        FROM employee
+        left JOIN type on employee."type" = type."_id"
+        Left JOIN position on employee."position" = position."_id"
+        left JOIN site on employee."site" = site."_id" `
+        const responseDetail = await models.sequelize.query(sql, { type: QueryType.SELECT });
+    }
+     catch (err) {
+    ret.responseError(req, res, err, '', now);
+}
+}
 
 
