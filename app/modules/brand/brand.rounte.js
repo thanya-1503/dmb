@@ -5,4 +5,5 @@ module.exports = function (app) {
     app.post('/api/createBrand', brandCtrl.createBrand);
     app.put('/api/updateBrand/:_id', brandCtrl.updateBrand);
     app.delete('/api/deleteBrand/:_id', brandCtrl.deleteBrand);
+    app.get('/api/listBrand', brandCtrl.listBrand);
   }

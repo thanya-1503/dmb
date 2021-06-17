@@ -8,9 +8,14 @@ module.exports = function(sequelize, DataTypes) {
             field: '_id'
         },
         brandType: {
-            type: DataTypes.STRING(100),
+            type: DataTypes.INTEGER,
             allowNull: false,
             field: 'brandType'
+        },
+        brandName: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+            field: 'brandName'
         },
         createDt: {
             type: DataTypes.DATE,
