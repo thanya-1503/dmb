@@ -61,6 +61,7 @@ exports.createAsset = async (req, res) => {
             "updateBy":req.username,
             "status":req.body.status,
             "remark":req.body.remark,
+            "boi":req.body.boi,
 
     }).then(createAsset => {		  
         res.json(createAsset);

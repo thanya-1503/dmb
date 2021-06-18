@@ -139,6 +139,10 @@ module.exports = function(sequelize, DataTypes) {
         remark: {
             type: DataTypes.STRING(100),
             allowNull: true,
+        },
+        boi: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
         }
     }, {
         sequelize,
