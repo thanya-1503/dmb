@@ -20,7 +20,8 @@ module.exports = {
     40000: {
       httpStatus: 400,
       resultCode: "40000",
-      developerMessage: resMessage.common.missing
+      developerMessage: resMessage.common.missing,
+     
     },
     40001: {
       httpStatus: 400,
@@ -45,7 +46,8 @@ module.exports = {
     40101: {
       httpStatus: 401,
       resultCode: "40101",
-      developerMessage: resMessage.common.permissionDenied
+      developerMessage: resMessage.common.permissionDenied,
+      more_info: "",
     },
     40102: {
       httpStatus: 402,
@@ -90,7 +92,8 @@ module.exports = {
     50000: {
       httpStatus: 500,
       resultCode: "50000",
-      developerMessage: resMessage.common.internalError
+      developerMessage: resMessage.common.internalError,
+      more_info: "",
     },
     50001: {
       httpStatus: 500,

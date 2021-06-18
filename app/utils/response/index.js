@@ -65,6 +65,14 @@ exports.response = (req, res, response = null, command = '', now = Date.now()) =
     if(respObj.name === 'JwtParseError') {
       code = constants.resCode[40102];
     }
+
+    switch(respObj[0]) {
+      case 40101 : 
+        code = constants.resCode[40101];
+        break;
+      default : code = constants.resCode[50000]; break;
+      
+    }
     // logger
     const data = {
       httpStatus: code.httpStatus,
