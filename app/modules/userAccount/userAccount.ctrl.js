@@ -78,7 +78,7 @@ exports.authLogin = async (req, res) => {
 
         if (!acc) throw [40300, 'username is not associated with any account.'];
         let authen = await models.userAccount.options.instanceMethods.validPassword(password, acc.password); 
-        if (!authen) throw [40101, 'Incorrect password'];
+        if (!authen) throw [40101];
         var resultRes = await exports.generateToken(acc);
         res.setHeader('Authorization', resultRes);
         req.session_id = uuid();
