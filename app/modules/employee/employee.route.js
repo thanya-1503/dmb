@@ -6,4 +6,5 @@ module.exports = function (app) {
     app.get('/api/searchEmployee', employeeCtrl.searchEmployee);
     //app.post('/api/createEmployee', employeeCtrl.createEmployee);
     app.post('/api/createEmployee', employeeCtrl.createEmployee);
+    app.get('/api/listemployee', employeeCtrl.listemployee);
   }

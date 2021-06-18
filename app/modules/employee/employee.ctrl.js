@@ -1,8 +1,8 @@
 var ret = require('../../utils/response/index');
 var MessageCode = require('../../utils/message');
 const msgCode = new MessageCode();
+const { where,QueryTypes, Sequelize} = require('sequelize');
 var models = require('../../models');
-const { where } = require('sequelize');
 const { response } = require('express');
 exports.list = async (req, res) => {
     const now = Date.now();
@@ -58,9 +58,9 @@ exports.createEmployee = async (req, res) => {
             "workStart":req.body.workStart,
             "workEnd":req.body.workEnd,
             "createDt":now,
-            "createBy":req.body.createBy,
+            "createBy":req.username,
             "updateDt":now,
-            "updateBy":req.body.updateBy,
+            "updateBy":req.username,
             "status":req.body.status,
             "type":req.body.type,
             "position":req.body.position,
@@ -80,28 +80,38 @@ exports.createEmployee = async (req, res) => {
     }
 }
 exports.listemployee = async (req, res) => {
-    const now = Data.now();
+    const now = Date.now();
     try{
-        `SELECT employee."employeeCode",
-                employee."prefix",
-                employee."firstname",
-                employee."lastname",
-                employee."nickname",
-                employee."workStart",
-                employee."workEnd",
-                employee."createDt",
-                employee."createBy",
-                employee."updateDt",
-                employee."updateBy",
+        const sql = `SELECT 
+        employee."employeeCode",
+        employee."prefix",
+        employee."firstname",
+        employee."lastname",
+        employee."nickname",
+        employee."workStart",
+        employee."workEnd",
+        employee."createDt",
+        employee."createBy",
+        employee."updateDt",
+        employee."updateBy",
+        typeEmp."_id" as typeId,
+        typeEmp."emType",
+        position."_id" as positionId,
+        position."lovType",
+        site."_id" as siteId,
+        site."siteType"
         FROM employee
-        left JOIN type on employee."type" = type."_id"
-        Left JOIN position on employee."position" = position."_id"
-        left JOIN site on employee."site" = site."_id" `
-        const responseDetail = await models.sequelize.query(sql, { type: QueryType.SELECT });
+        LEFT JOIN "typeEm" as typeEmp on employee."type" = typeEmp."_id"
+        LEFT JOIN position on employee."position" = position."_id"
+        LEFT JOIN site on employee."site" = site."_id" `
+        const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listemployee => {		  
+            res.json(listemployee);
+            return responseList;
+        })     
+        } catch (err) {
+            console.log(err)
+            ret.responseError(req, res, err, '', now);
+        }
     }
-     catch (err) {
-    ret.responseError(req, res, err, '', now);
-}
-}
-
+    
 

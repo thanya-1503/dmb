@@ -2,7 +2,7 @@ var ret = require('../../utils/response/index');
 var MessageCode = require('../../utils/message');
 const msgCode = new MessageCode();
 var models = require('../../models');
-const { where } = require('sequelize');
+const { where,QueryTypes, Sequelize} = require('sequelize');
 const { response } = require('express');
 exports.list = async (req, res) => {
     const now = Date.now();
@@ -56,9 +56,9 @@ exports.createAsset = async (req, res) => {
             "salePrice":req.body.salePrice,
             "saleAt":req.body.saleAt,
             "createDt":now,
-            "createBy":req.body.createBy,
+            "createBy":req.username,
             "updateDt":now,
-            "updateBy":req.body.updateBy,
+            "updateBy":req.username,
             "status":req.body.status,
             "remark":req.body.remark,
 
@@ -77,9 +77,9 @@ exports.createAsset = async (req, res) => {
     }
 }
 exports.listasset = async (req, res) => {
-    const now = Data.now();
+    const now = Date.now();
     try{
-        `SELECT asset."assetCode",
+        const sql = `SELECT asset."assetCode",
                 asset."color",
                 asset."serialNumber",
                 asset."purchaseDt",
@@ -94,24 +94,39 @@ exports.listasset = async (req, res) => {
                 asset."repairInsurance",
                 asset."saleDt",
                 asset."salePrice",
-                asset."saleAt"
+                asset."saleAt",
                 asset."createDt",
                 asset."createBy",
                 asset."updateDt",
                 asset."updateBy",
                 asset."remark",
+                asset."type",
+                asset."brand",
+                asset."model",
+                asset."state",
+                brand."_id"as brandId,
                 brand."brandType",
+                model."_id"as modelId,
                 model."modelType",
+                type."_id"as typeId,
                 type."typeName", 
-                status."StatusName",
+                status."_id"as statusId,
+                status."StatusName"
         FROM asset
-        left JOIN type on asset."type" = type."_id"
-        left JOIN brand on asset."brand" = brand."_id"
-        left JOIN model on asset."model" = model."_id"
-        left JOIN status on asset."status" = status."_id" `
-        const responseDetail = await models.sequelize.query(sql, { type: QueryType.SELECT });
+        LEFT JOIN type on asset."type" = type."_id"
+        LEFT JOIN brand on asset."brand" = brand."_id"
+        LEFT JOIN model on asset."model" = model."_id"
+        LEFT JOIN status on asset."state" = status."_id"`
+        const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listasset => {		  
+            res.json(listasset);
+            return responseList;
+        })     
+        } catch (err) {
+            console.log(err)
+            ret.responseError(req, res, err, '', now);
+        }
     }
-     catch (err) {
-    ret.responseError(req, res, err, '', now);
-}
-}
+
+
+    
+   
