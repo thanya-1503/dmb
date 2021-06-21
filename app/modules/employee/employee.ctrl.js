@@ -83,6 +83,7 @@ exports.listemployee = async (req, res) => {
     const now = Date.now();
     try{
         const sql = `SELECT 
+        employee."_id",
         employee."employeeCode",
         employee."prefix",
         employee."firstname",
@@ -113,5 +114,30 @@ exports.listemployee = async (req, res) => {
             ret.responseError(req, res, err, '', now);
         }
     }
+    exports.deleteEmployee =  async(req, res) => {
+        const now = Date.now();
+        const _id = req.params._id;
+        const responseDetail = await models.employee.destroy({
+                where: { _id:_id }
+            }).then(() => {
+                ret.response(req, res, '', '', now);
+            }).catch(err => {
+                console.log(err);
+                ret.responseError(req, res, err, '', now);
+            });
+    };
+    exports.updateEmployee= async (req, res) => {
+        const now = Date.now();
+        const _id = req.params._id;
+        req.body.updateDt = now;
+        req.body.updateBy = req.username;
+        const responseDetail = await models.employee.update(req.body,
+            { where: { _id: _id } }).then(() => {
+                ret.response(req, res, '', '', now);
+            }).catch(err => {
+                console.log(err);
+                ret.responseError(req, res, err, '', now);
+            });
+    };
     
 
