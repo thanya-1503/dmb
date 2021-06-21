@@ -141,7 +141,7 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: true,
         },
         boi: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.BOOLEAN,
             allowNull: true,
         }
     }, {

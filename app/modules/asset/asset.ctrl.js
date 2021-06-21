@@ -107,6 +107,7 @@ exports.listasset = async (req, res) => {
                 asset."state",
                 brand."_id"as brandId,
                 brand."brandType",
+                brand."brandName",
                 model."_id"as modelId,
                 model."modelType",
                 type."_id"as typeId,
@@ -115,7 +116,7 @@ exports.listasset = async (req, res) => {
                 status."StatusName"
         FROM asset
         LEFT JOIN type on asset."type" = type."_id"
-        LEFT JOIN brand on asset."brand" = brand."_id"
+        LEFT JOIN brand on brand."brandType" = type."_id"
         LEFT JOIN model on asset."model" = model."_id"
         LEFT JOIN status on asset."state" = status."_id"`
         const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listasset => {		  
