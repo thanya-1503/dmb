@@ -9,17 +9,17 @@ module.exports = function(sequelize, DataTypes) {
         },
         assetCode: {
             type: DataTypes.STRING(100),
-            allowNull: false,
+            allowNull: true,
             
         },
         type: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
            
         },
         brand: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             
         },
         model: {
@@ -39,7 +39,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         purchaseDt: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
             
         },
         insuranceDt: {
@@ -49,34 +49,34 @@ module.exports = function(sequelize, DataTypes) {
             
         },
         insuranceTerm: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.NUMERIC,
             allowNull: true,
             
         },
         purchaseNo: {
             type: DataTypes.STRING(100),
-            allowNull: false,
+            allowNull: true,
            
         },
         price: {
-            type: DataTypes.DECIMAL,
-            allowNull: false,
+            type: DataTypes.NUMERIC,
+            allowNull: true,
             
         },
         		
         priceVat: {
-            type: DataTypes.DECIMAL,
-            allowNull: false,
+            type: DataTypes.NUMERIC,
+            allowNull: true,
             
         },	
         totalPrice: {
-            type: DataTypes.DECIMAL,
-            allowNull: false,
+            type: DataTypes.NUMERIC,
+            allowNull: true,
             
         },
         activity: {
             type: DataTypes.STRING(100),
-            allowNull: false,
+            allowNull: true,
             
         },
         state: {
@@ -85,7 +85,7 @@ module.exports = function(sequelize, DataTypes) {
             
         },
         repairCount: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.NUMERIC,
             allowNull: true,
             
         },
@@ -100,7 +100,7 @@ module.exports = function(sequelize, DataTypes) {
             
         },
         salePrice: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.NUMERIC,
             allowNull: true,
             
         },
@@ -111,29 +111,29 @@ module.exports = function(sequelize, DataTypes) {
         },
         createDt: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
             
         },
         createBy: {
             type: DataTypes.STRING(100),
-            allowNull: false,
+            allowNull: true,
             
         },
        
         updateDt: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
            
         },
 
         updateBy: {
             type: DataTypes.STRING(100),
-            allowNull: false,
+            allowNull: true,
             
         },
         status: {
             type: DataTypes.BOOLEAN,
-            allowNull: false,
+            allowNull: true,
             
         },
         remark: {
@@ -148,6 +148,6 @@ module.exports = function(sequelize, DataTypes) {
         sequelize,
         tableName: 'asset',
         schema: 'public',
-        timestamps: false
+        timestamps: true
     });
 };

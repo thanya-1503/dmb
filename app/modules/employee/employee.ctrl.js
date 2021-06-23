@@ -29,7 +29,6 @@ exports.searchEmployee = async (req, res) => {
         ret.responseError(req, res, err, '', now);
     }
 }
-
 exports.searchEmployee = async (req, res) => {
     const now = Date.now();
     try {
