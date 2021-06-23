@@ -7,39 +7,36 @@ module.exports = function(sequelize, DataTypes) {
             primaryKey: true,
             field: '_id'
         },
-        employeeId: {
-            type: DataTypes.STRING(100),
-            allowNull: false,
-            field: 'employeeId'
-        },
-        assetList: {
-            type: DataTypes.JSON,
-            allowNull: false,
-            field: 'assetList'
-        },
-
         createBy: {
             type: DataTypes.STRING(100),
             allowNull: false,
-            field: 'createBy'
         },
-       
+        createDt: {
+            type: DataTypes.DATE,
+            allowNull: false,
+          
+        },
         updateDt: {
             type: DataTypes.DATE,
             allowNull: false,
-            field: 'updateDt'
+           
         },
 
         updateBy: {
             type: DataTypes.STRING(100),
             allowNull: false,
-            field: 'updateBy'
+           
         },
-        status: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            field: 'status'
-        }
+        employeeId: {
+            type: DataTypes.STRING(100),
+            allowNull: true,
+            field: 'employeeId'
+        },
+        assetId: {
+            type: DataTypes.STRING(100),
+            allowNull: true,
+            field: 'assetId'
+        },
     }, {
         sequelize,
         tableName: 'employeeAsset',

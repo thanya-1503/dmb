@@ -59,7 +59,6 @@ exports.createAsset = async (req, res) => {
             "createBy":req.username,
             "updateDt":now,
             "updateBy":req.username,
-            "status":req.body.status,
             "remark":req.body.remark,
             "boi":req.body.boi,
 
@@ -106,7 +105,9 @@ exports.deleteAsset =  async(req, res) => {
 exports.listasset = async (req, res) => {
     const now = Date.now();
     try{
-        const sql = `SELECT asset."assetCode",
+        const sql = `SELECT 
+        asset."_id",
+        asset."assetCode",
         asset."color",
         asset."serialNumber",
         asset."purchaseDt",
@@ -155,6 +156,32 @@ exports.listasset = async (req, res) => {
             ret.responseError(req, res, err, '', now);
         }
     }
+    exports.deleteAsset =  async(req, res) => {
+        const now = Date.now();
+        const _id = req.params._id;
+        const responseDetail = await models.asset.destroy({
+                where: { _id:_id }
+            }).then(() => {
+                ret.response(req, res, '', '', now);
+            }).catch(err => {
+                console.log(err);
+                ret.responseError(req, res, err, '', now);
+            });
+    };
+    exports.updateAsset = async (req, res) => {
+        const now = Date.now();
+        const _id = req.params._id;
+        req.body.updateDt = now;
+        req.body.updateBy = req.username;
+        const responseDetail = await models.asset.update(req.body,
+            { where: { _id: _id } }).then(() => {
+                ret.response(req, res, '', '', now);
+            }).catch(err => {
+                console.log(err);
+                ret.responseError(req, res, err, '', now);
+            });
+    };
+    
 
 
     
