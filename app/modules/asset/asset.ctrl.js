@@ -59,7 +59,6 @@ exports.createAsset = async (req, res) => {
             "createBy":req.username,
             "updateDt":now,
             "updateBy":req.username,
-            "status":req.body.status,
             "remark":req.body.remark,
             "boi":req.body.boi,
 
@@ -106,7 +105,9 @@ exports.deleteAsset =  async(req, res) => {
 exports.listasset = async (req, res) => {
     const now = Date.now();
     try{
-        const sql = `SELECT asset."assetCode",
+        const sql = `SELECT 
+        asset."_id",
+        asset."assetCode",
         asset."color",
         asset."serialNumber",
         asset."purchaseDt",

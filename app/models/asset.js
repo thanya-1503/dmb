@@ -9,17 +9,17 @@ module.exports = function(sequelize, DataTypes) {
         },
         assetCode: {
             type: DataTypes.STRING(100),
-            allowNull: true,
+            allowNull: false,
             
         },
         type: {
             type: DataTypes.INTEGER,
-            allowNull: true,
+            allowNull: false,
            
         },
         brand: {
             type: DataTypes.INTEGER,
-            allowNull: true,
+            allowNull: false,
             
         },
         model: {
@@ -39,7 +39,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         purchaseDt: {
             type: DataTypes.DATE,
-            allowNull: true,
+            allowNull: false,
             
         },
         insuranceDt: {
@@ -49,34 +49,34 @@ module.exports = function(sequelize, DataTypes) {
             
         },
         insuranceTerm: {
-            type: DataTypes.NUMERIC,
+            type: DataTypes.DECIMAL,
             allowNull: true,
             
         },
         purchaseNo: {
             type: DataTypes.STRING(100),
-            allowNull: true,
+            allowNull: false,
            
         },
         price: {
-            type: DataTypes.NUMERIC,
-            allowNull: true,
+            type: DataTypes.DECIMAL,
+            allowNull: false,
             
         },
-        		
+          
         priceVat: {
-            type: DataTypes.NUMERIC,
-            allowNull: true,
+            type: DataTypes.DECIMAL,
+            allowNull: false,
             
-        },	
+        }, 
         totalPrice: {
-            type: DataTypes.NUMERIC,
-            allowNull: true,
+            type: DataTypes.DECIMAL,
+            allowNull: false,
             
         },
         activity: {
             type: DataTypes.STRING(100),
-            allowNull: true,
+            allowNull: false,
             
         },
         state: {
@@ -85,7 +85,7 @@ module.exports = function(sequelize, DataTypes) {
             
         },
         repairCount: {
-            type: DataTypes.NUMERIC,
+            type: DataTypes.DECIMAL,
             allowNull: true,
             
         },
@@ -100,7 +100,7 @@ module.exports = function(sequelize, DataTypes) {
             
         },
         salePrice: {
-            type: DataTypes.NUMERIC,
+            type: DataTypes.DECIMAL,
             allowNull: true,
             
         },
@@ -111,29 +111,24 @@ module.exports = function(sequelize, DataTypes) {
         },
         createDt: {
             type: DataTypes.DATE,
-            allowNull: true,
+            allowNull: false,
             
         },
         createBy: {
             type: DataTypes.STRING(100),
-            allowNull: true,
+            allowNull: false,
             
         },
        
         updateDt: {
             type: DataTypes.DATE,
-            allowNull: true,
+            allowNull: false,
            
         },
 
         updateBy: {
             type: DataTypes.STRING(100),
-            allowNull: true,
-            
-        },
-        status: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
+            allowNull: false,
             
         },
         remark: {
@@ -148,6 +143,6 @@ module.exports = function(sequelize, DataTypes) {
         sequelize,
         tableName: 'asset',
         schema: 'public',
-        timestamps: true
+        timestamps: false
     });
 };
