@@ -2,7 +2,7 @@ module.exports = function(sequelize, DataTypes) {
     return sequelize.define('asset', {
         _id: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             autoIncrement: true,
             primaryKey: true,
             field: '_id'
@@ -49,7 +49,7 @@ module.exports = function(sequelize, DataTypes) {
             
         },
         insuranceTerm: {
-            type: DataTypes.NUMERIC,
+            type: DataTypes.DECIMAL,
             allowNull: true,
             
         },
@@ -59,18 +59,18 @@ module.exports = function(sequelize, DataTypes) {
            
         },
         price: {
-            type: DataTypes.NUMERIC,
+            type: DataTypes.DECIMAL,
             allowNull: true,
             
         },
         		
         priceVat: {
-            type: DataTypes.NUMERIC,
+            type: DataTypes.DECIMAL,
             allowNull: true,
             
         },	
         totalPrice: {
-            type: DataTypes.NUMERIC,
+            type: DataTypes.DECIMAL,
             allowNull: true,
             
         },
@@ -85,7 +85,7 @@ module.exports = function(sequelize, DataTypes) {
             
         },
         repairCount: {
-            type: DataTypes.NUMERIC,
+            type: DataTypes.DECIMAL,
             allowNull: true,
             
         },
@@ -100,7 +100,7 @@ module.exports = function(sequelize, DataTypes) {
             
         },
         salePrice: {
-            type: DataTypes.NUMERIC,
+            type: DataTypes.DECIMAL,
             allowNull: true,
             
         },
