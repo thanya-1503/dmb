@@ -2,7 +2,7 @@ module.exports = function(sequelize, DataTypes) {
     return sequelize.define('asset', {
         _id: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             autoIncrement: true,
             primaryKey: true,
             field: '_id'
@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         model: {
             type: DataTypes.INTEGER,
-            allowNull: true,
+            allowNull: false,
            
         },
         color: {
@@ -39,14 +39,13 @@ module.exports = function(sequelize, DataTypes) {
         },
         purchaseDt: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
             
         },
         insuranceDt: {
             type: DataTypes.DATE,
             allowNull: true,
-            
-            
+
         },
         insuranceTerm: {
             type: DataTypes.DECIMAL,
@@ -60,23 +59,18 @@ module.exports = function(sequelize, DataTypes) {
         },
         price: {
             type: DataTypes.DECIMAL,
-            allowNull: false,
+            allowNull: true,
             
         },
           
         priceVat: {
             type: DataTypes.DECIMAL,
-            allowNull: false,
+            allowNull: true,
             
         }, 
         totalPrice: {
             type: DataTypes.DECIMAL,
-            allowNull: false,
-            
-        },
-        activity: {
-            type: DataTypes.STRING(100),
-            allowNull: false,
+            allowNull: true,
             
         },
         state: {
@@ -117,26 +111,42 @@ module.exports = function(sequelize, DataTypes) {
         createBy: {
             type: DataTypes.STRING(100),
             allowNull: false,
-            
         },
-       
         updateDt: {
             type: DataTypes.DATE,
             allowNull: false,
-           
         },
-
         updateBy: {
             type: DataTypes.STRING(100),
-            allowNull: false,
-            
+            allowNull: false,  
         },
         remark: {
             type: DataTypes.STRING(100),
             allowNull: true,
         },
+        
         boi: {
             type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        repairAt: {
+            type: DataTypes.STRING(100),
+            allowNull: true,
+        },
+        repairDt: {
+            type: DataTypes.DATE,
+            allowNull: true,
+        },
+        pricerepair: {
+            type: DataTypes.DECIMAL,
+            allowNull: true,
+        },
+        pricerepairvat: {
+            type: DataTypes.DECIMAL,
+            allowNull: true,
+        },
+        totalpricerepair: {
+            type: DataTypes.DECIMAL,
             allowNull: true,
         }
     }, {
