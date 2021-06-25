@@ -48,7 +48,6 @@ exports.createAsset = async (req, res) => {
             "price":req.body.price,
             "priceVat":req.body.priceVat,
             "totalPrice":req.body.totalPrice,
-            "activity":req.body.activity,
             "state":req.body.state,
             "repairCount":req.body.repairCount,
             "repairInsurance":req.body.repairInsurance,
@@ -59,9 +58,13 @@ exports.createAsset = async (req, res) => {
             "createBy":req.username,
             "updateDt":now,
             "updateBy":req.username,
+            "repairAt":req.body.repairAt,
+            "repairDt":now,
+            "pricerepair":req.body.pricerepair,
+            "pricerepairvat": req.body.pricerepairvat,
+            "totalpricerepair": req.body.totalpricerepair,
             "remark":req.body.remark,
             "boi":req.body.boi,
-
     }).then(createAsset => {		  
         res.json(createAsset);
     }).catch(err => {
@@ -76,32 +79,6 @@ exports.createAsset = async (req, res) => {
         ret.responseError(req, res, err, '', now);
     }
 }
-exports.updateAsset =  async(req, res) => {
-    const now = Date.now();
-	const _id = req.params._id;
-    req.body.updateDt = now;
-    req.body.updateBy = req.username;
-	const responseDetail = await models.asset.update( req.body, 
-			{ where: {_id:_id} }).then(() => {         
-                ret.response(req, res, '', '', now);
-			}).catch(err => {
-				console.log(err);
-				ret.responseError(req, res, err, '', now);
-			});
-};
-exports.deleteAsset =  async(req, res) => {
-    const now = Date.now();
-    const _id = req.params._id;
-	const responseDetail = await models.asset.destroy({
-			where: { _id:_id }
-		}).then(() => {
-			ret.response(req, res, '', '', now);
-		}).catch(err => {
-			console.log(err);
-			ret.responseError(req, res, err, '', now);
-		});
-};
-
 exports.listasset = async (req, res) => {
     const now = Date.now();
     try{
@@ -117,7 +94,6 @@ exports.listasset = async (req, res) => {
         asset."price",
         asset."priceVat",
         asset."totalPrice",
-        asset."activity",
         asset."repairCount",
         asset."repairInsurance",
         asset."saleDt",
@@ -132,19 +108,23 @@ exports.listasset = async (req, res) => {
         asset."brand",
         asset."model",
         asset."state",
-        brandType."brandId"as brandId,
-        brandType."brandType",
-        brandType."brandName",
+        asset."repairAt",
+        asset."repairDt",
+        asset."pricerepair",
+        asset."pricerepairvat",
+        asset."totalpricerepair",
+        brand."_id"as brandId,
+        brand."brandType",
+        brand."brandName",
         model."_id"as modelId,
         model."modelType",
-        brandType."typeId"as typeId,
-        brandType."typeName", 
+        type."_id" as typeId,
+        type."typeName", 
         status."_id"as statusId,
         status."StatusName"
         FROM asset
-        LEFT JOIN (SELECT  brand."_id" as "brandId" , brand."brandName", brand."brandType", type."_id" as "typeId", type."typeName"
-           FROM brand INNER JOIN type on brand."brandType" = type."_id") as brandType
-           on asset."brand" = brandType."brandId"
+        LEFT JOIN brand on asset."brand" = brand."_id"
+		LEFT JOIN type on asset.type = type."_id"	   
         LEFT JOIN model on asset."model" = model."_id"
         LEFT JOIN status on asset."state" = status."_id"`
         const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listasset => {		  
