@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         employeeId: {
             type: DataTypes.STRING(100),
-            allowNull: true,
+            allowNull: false,
             field: 'employeeId'
         },
         assetId: {

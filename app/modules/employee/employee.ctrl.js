@@ -100,10 +100,11 @@ exports.listemployee = async (req, res) => {
         position."lovType",
         site."_id" as siteId,
         site."siteType"
+        
         FROM employee
         LEFT JOIN "typeEm" as typeEmp on employee."type" = typeEmp."_id"
         LEFT JOIN position on employee."position" = position."_id"
-        LEFT JOIN site on employee."site" = site."_id" `
+        LEFT JOIN site on employee."site" = site."_id"`
         const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listemployee => {		  
             res.json(listemployee);
             return responseList;
@@ -138,5 +139,39 @@ exports.listemployee = async (req, res) => {
                 ret.responseError(req, res, err, '', now);
             });
     };
+
+
+    // exports.searchDate= async function (req, res){
+    //     try {
+    //         const startPeriod = req.query.startPeriod;
+    //         const endPeriod = req.query.endPeriod;
+    //         let response = []; 
+    
+    //         response = await models.employee.findAndCountAll({
+    //             where: {
+    //                 status: 'Y'
+    //             },order: [
+    //                 ['updatedAt', 'DESC']
+    //             ]
+    //         });
+    //         if (startPeriod && endPeriod) {
+    //                 response = await models.employee.findAndCountAll({
+    //                     where: {
+    //                         [Op.and]: [{
+    //                             updated_at: {
+    //                                 [Op.gte]: startPeriod,
+    //                                 [Op.lte]: endPeriod
+    //                             }
+    //                         }, { status: "Y" }]
+    //                     },order: [
+    //                         ['updatedAt', 'DESC']
+    //                     ]
+    //          });
+    //         }
+    //         return response;
+    //     } catch (err) {
+    //         throw err;
+    //     }
+    // };
     
 
