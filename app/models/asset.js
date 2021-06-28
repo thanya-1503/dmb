@@ -49,7 +49,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         insuranceTerm: {
             type: DataTypes.DECIMAL,
-            allowNull: true,
+            allowNull: true, 
             
         },
         purchaseNo: {

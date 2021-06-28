@@ -108,6 +108,7 @@ exports.listasset = async (req, res) => {
         asset."brand",
         asset."model",
         asset."state",
+        asset."boi",
         asset."repairAt",
         asset."repairDt",
         asset."pricerepair",
@@ -162,7 +163,5 @@ exports.listasset = async (req, res) => {
             });
     };
     
-
-
     
    
