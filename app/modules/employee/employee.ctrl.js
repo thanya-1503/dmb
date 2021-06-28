@@ -4,6 +4,7 @@ const msgCode = new MessageCode();
 const { where,QueryTypes, Sequelize} = require('sequelize');
 var models = require('../../models');
 const { response } = require('express');
+const Op = Sequelize.Op;
 exports.list = async (req, res) => {
     const now = Date.now();
     try {
@@ -141,37 +142,34 @@ exports.listemployee = async (req, res) => {
     };
 
 
-    // exports.searchDate= async function (req, res){
-    //     try {
-    //         const startPeriod = req.query.startPeriod;
-    //         const endPeriod = req.query.endPeriod;
-    //         let response = []; 
-    
-    //         response = await models.employee.findAndCountAll({
-    //             where: {
-    //                 status: 'Y'
-    //             },order: [
-    //                 ['updatedAt', 'DESC']
-    //             ]
-    //         });
-    //         if (startPeriod && endPeriod) {
-    //                 response = await models.employee.findAndCountAll({
-    //                     where: {
-    //                         [Op.and]: [{
-    //                             updated_at: {
-    //                                 [Op.gte]: startPeriod,
-    //                                 [Op.lte]: endPeriod
-    //                             }
-    //                         }, { status: "Y" }]
-    //                     },order: [
-    //                         ['updatedAt', 'DESC']
-    //                     ]
-    //          });
-    //         }
-    //         return response;
-    //     } catch (err) {
-    //         throw err;
-    //     }
-    // };
+    exports.getSearchDateEmp= async function (req, res){
+        try {
+            const startPeriod = req.body.startPeriod;
+            const endPeriod = req.body.endPeriod;
+            let response = []; 
+            response = await models.employee.findAndCountAll({
+                order: [
+                    ['updateDt', 'DESC']
+                ]
+            });
+            if (startPeriod && endPeriod) {
+                    response = await models.employee.findAndCountAll({
+                        where: {
+                            [Op.and]: [{
+                                updateDt: {
+                                    [Op.gte]: startPeriod,
+                                    [Op.lte]: endPeriod
+                                }
+                            }]
+                        },order: [
+                            ['updateDt', 'DESC']
+                        ]
+             });
+            }
+            return res.json(response);
+        } catch (err) {
+            ret.responseError(req, res, err, '', now);
+        }
+    };
     
 
