@@ -107,11 +107,12 @@ exports.listEmpUseAsset = async (req, res) => {
         "employeeAsset"."employeeId",
         "employeeAsset"."assetId",
 		asset."_id" as id_asset,
-        asset."assetCode"
+        asset."assetCode",
+        employee."employeeCode" 
        FROM "employeeAsset"
        LEFT JOIN asset on asset."assetCode" = "employeeAsset"."assetId"
 	   LEFT JOIN employee on employee."employeeCode" = "employeeAsset"."employeeId"
-	   WHERE  employee."employeeCode" = '${req.body.employeeCode}'`
+	   WHERE  employee."employeeCode" = '${req.body.employeeCode}' `
        const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listAllEmpAsset => {		  
         return res.json(listAllEmpAsset);
         // return responseList;
@@ -122,3 +123,92 @@ exports.listEmpUseAsset = async (req, res) => {
     }
 
 }
+
+// find asset join EmpAsset  All table
+exports.listUseAsset = async (req, res) => {
+    const now = Date.now();
+    try {
+        const sql = `SELECT 
+        asset."_id",
+        asset."assetCode",
+        asset."color",
+        asset."serialNumber",
+        asset."purchaseDt",
+        asset."insuranceDt",
+        asset."type",
+        asset."brand",
+        asset."model",
+        asset."state",
+        brand."_id"as brandId,
+        brand."brandType",
+        brand."brandName",
+        model."_id"as modelId,
+        model."modelType",
+        type."_id" as typeId,
+        type."typeName", 
+        status."_id"as statusId,
+        status."StatusName",
+		"employeeAsset"."_id" as employeeAssetId,
+        "employeeAsset"."employeeId",
+        "employeeAsset"."assetId"
+       	FROM asset   
+       	LEFT JOIN brand on asset."brand" = brand."_id"
+		LEFT JOIN type on asset.type = type."_id"	   
+        LEFT JOIN model on asset."model" = model."_id"
+        LEFT JOIN status on asset."state" = status."_id"
+		LEFT JOIN "employeeAsset" on "employeeAsset"."assetId" = asset."assetCode"
+	   	WHERE  asset."assetCode" = '${req.body.assetCode}'`
+       const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listUseAsset => {		  
+        return res.json(listUseAsset);
+        // return responseList;
+    })          
+    } catch (err) {
+        console.log(err)
+        ret.responseError(req, res, err, '', now);
+    }
+
+}
+// find emp join EmpAsset  All table
+exports.listUseEmp = async (req, res) => {
+    const now = Date.now();
+    try {
+        const sql = `SELECT 
+        employee."_id",
+        employee."employeeCode",
+        employee."prefix",
+        employee."firstname",
+        employee."lastname",
+        employee."nickname",
+        employee."workStart",
+        employee."workEnd",
+        employee."createDt",
+        employee."createBy",
+        employee."updateDt",
+        employee."updateBy",
+        typeEmp."_id" as typeId,
+        typeEmp."emType",
+        position."_id" as positionId,
+        position."lovType",
+        site."_id" as siteId,
+        site."siteType",
+		"employeeAsset"."_id" as employeeAssetId,
+        "employeeAsset"."employeeId",
+        "employeeAsset"."assetId"
+        FROM employee
+        LEFT JOIN "typeEm" as typeEmp on employee."type" = typeEmp."_id"
+        LEFT JOIN position on employee."position" = position."_id"
+        LEFT JOIN site on employee."site" = site."_id"
+		LEFT JOIN "employeeAsset" on "employeeAsset"."employeeId" =employee."employeeCode" 
+	   	WHERE  "employeeAsset"."assetId" = '${req.body.assetCode}'`
+       const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listUseEmp => {		  
+        return res.json(listUseEmp);
+        // return responseList;
+    })          
+    } catch (err) {
+        console.log(err)
+        ret.responseError(req, res, err, '', now);
+    }
+
+}
+
+

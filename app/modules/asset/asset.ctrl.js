@@ -4,6 +4,7 @@ const msgCode = new MessageCode();
 var models = require('../../models');
 const { where,QueryTypes, Sequelize} = require('sequelize');
 const { response } = require('express');
+const Op = Sequelize.Op;
 exports.list = async (req, res) => {
     const now = Date.now();
     try {
@@ -162,6 +163,39 @@ exports.listasset = async (req, res) => {
                 ret.responseError(req, res, err, '', now);
             });
     };
+
+    exports.getSearchDateAsset = async function (req, res){
+        const now = Date.now();
+        try {
+            const startPeriod = req.body.startPeriod;
+            const endPeriod = req.body.endPeriod;
+            let response = []; 
+            response = await models.asset.findAndCountAll({
+                order: [
+                    ['updateDt', 'DESC']
+                ]
+            });
+            if (startPeriod && endPeriod) {
+                    response = await models.asset.findAndCountAll({
+                        where: {
+                            [Op.and]: [{
+                                updateDt: {
+                                    [Op.gte]: startPeriod,
+                                    [Op.lte]: endPeriod
+                                }
+                            }]
+                        },order: [
+                            ['updateDt', 'DESC']
+                        ]
+             });
+            }
+            return res.json(response);
+        } catch (err) {
+            ret.responseError(req, res, err, '', now);
+            console.log(err)
+        }
+    };
+    
     
     
    

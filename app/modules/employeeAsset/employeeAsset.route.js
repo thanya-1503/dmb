@@ -6,4 +6,6 @@ module.exports = function (app) {
     app.put('/api/updateEmpAsset/:_id', employeeAssetCtrl.updateEmpAsset);
     app.delete('/api/deleteEmpAsset/:_id', employeeAssetCtrl.deleteEmpAsset);
     app.post('/api/listEmpUseAsset', employeeAssetCtrl.listEmpUseAsset);
+    app.post('/api/listUseAsset', employeeAssetCtrl.listUseAsset);
+    app.post('/api/listUseEmp', employeeAssetCtrl.listUseEmp);
   }
