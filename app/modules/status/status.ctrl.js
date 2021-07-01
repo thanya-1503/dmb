@@ -1,5 +1,6 @@
 var ret = require('../../utils/response/index');
 var models = require('../../models');
+const { where, QueryTypes } = require('sequelize');
 exports.list = async (req, res) => {
     const now = Date.now();
     try {
@@ -59,3 +60,37 @@ exports.deleteStatus =  async(req, res) => {
 			ret.responseError(req, res, err, '', now);
 		});
 };
+
+exports.statusFree = async (req, res) => {
+    const now = Date.now();
+    try {
+        const sql = `SELECT *
+        FROM status 
+	   	WHERE  "status"."StatusName" = 'ว่าง'`
+       const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listUseEmp => {		  
+        return res.json(listUseEmp);
+        // return responseList;
+    })          
+    } catch (err) {
+        console.log(err)
+        ret.responseError(req, res, err, '', now);
+    }
+
+}
+exports.statusUsed = async (req, res) => {
+    const now = Date.now();
+    try {
+        const sql = `SELECT *
+        FROM status 
+	   	WHERE  "status"."StatusName" = 'ใช้งาน'`
+       const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(statusUsed => {		  
+        return res.json(statusUsed);
+        // return responseList;
+    })          
+    } catch (err) {
+        console.log(err)
+        ret.responseError(req, res, err, '', now);
+    }
+
+}
+

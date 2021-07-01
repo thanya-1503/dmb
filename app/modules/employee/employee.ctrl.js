@@ -101,7 +101,6 @@ exports.listemployee = async (req, res) => {
         position."lovType",
         site."_id" as siteId,
         site."siteType"
-        
         FROM employee
         LEFT JOIN "typeEm" as typeEmp on employee."type" = typeEmp."_id"
         LEFT JOIN position on employee."position" = position."_id"

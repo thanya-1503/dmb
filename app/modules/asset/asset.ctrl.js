@@ -164,37 +164,97 @@ exports.listasset = async (req, res) => {
             });
     };
 
-    exports.getSearchDateAsset = async function (req, res){
+    exports.listassetFree = async (req, res) => {
         const now = Date.now();
-        try {
-            const startPeriod = req.body.startPeriod;
-            const endPeriod = req.body.endPeriod;
-            let response = []; 
-            response = await models.asset.findAndCountAll({
-                order: [
-                    ['updateDt', 'DESC']
-                ]
-            });
-            if (startPeriod && endPeriod) {
-                    response = await models.asset.findAndCountAll({
-                        where: {
-                            [Op.and]: [{
-                                updateDt: {
-                                    [Op.gte]: startPeriod,
-                                    [Op.lte]: endPeriod
-                                }
-                            }]
-                        },order: [
-                            ['updateDt', 'DESC']
-                        ]
-             });
+        try{
+            const sql = `SELECT 
+            asset."_id",
+            asset."assetCode",
+            asset."color",
+            asset."serialNumber",
+            asset."purchaseDt",
+            asset."insuranceDt",
+            asset."insuranceTerm",
+            asset."purchaseNo",
+            asset."price",
+            asset."priceVat",
+            asset."totalPrice",
+            asset."repairCount",
+            asset."repairInsurance",
+            asset."saleDt",
+            asset."salePrice",
+            asset."saleAt",
+            asset."createDt",
+            asset."createBy",
+            asset."updateDt",
+            asset."updateBy",
+            asset."remark",
+            asset."type",
+            asset."brand",
+            asset."model",
+            asset."state",
+            asset."boi",
+            asset."repairAt",
+            asset."repairDt",
+            asset."pricerepair",
+            asset."pricerepairvat",
+            asset."totalpricerepair",
+            brand."_id"as brandId,
+            brand."brandType",
+            brand."brandName",
+            model."_id"as modelId,
+            model."modelType",
+            type."_id" as typeId,
+            type."typeName", 
+            status."_id"as statusId,
+            status."StatusName"
+            FROM asset
+            LEFT JOIN brand on asset."brand" = brand."_id"
+            LEFT JOIN type on asset.type = type."_id"	   
+            LEFT JOIN model on asset."model" = model."_id"
+            LEFT JOIN status on asset."state" = status."_id"
+            WHERE "status"."StatusName" = 'ว่าง' `
+            const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listassetFree => {		  
+                res.json(listassetFree);
+                return responseList;
+            })     
+            } catch (err) {
+                // console.log(err)
+                ret.responseError(req, res, err, '', now);
             }
-            return res.json(response);
-        } catch (err) {
-            ret.responseError(req, res, err, '', now);
-            console.log(err)
         }
-    };
+
+    // exports.getSearchDateAsset = async function (req, res){
+    //     const now = Date.now();
+    //     try {
+    //         const startPeriod = req.body.startPeriod;
+    //         const endPeriod = req.body.endPeriod;
+    //         let response = []; 
+    //         response = await models.asset.findAndCountAll({
+    //             order: [
+    //                 ['updateDt', 'DESC']
+    //             ]
+    //         });
+    //         if (startPeriod && endPeriod) {
+    //                 response = await models.asset.findAndCountAll({
+    //                     where: {
+    //                         [Op.and]: [{
+    //                             updateDt: {
+    //                                 [Op.gte]: startPeriod,
+    //                                 [Op.lte]: endPeriod
+    //                             }
+    //                         }]
+    //                     },order: [
+    //                         ['updateDt', 'DESC']
+    //                     ]
+    //          });
+    //         }
+    //         return res.json(response);
+    //     } catch (err) {
+    //         ret.responseError(req, res, err, '', now);
+    //         console.log(err)
+    //     }
+    // };
     
     
     

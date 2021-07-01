@@ -4,4 +4,6 @@ module.exports = function (app) {
     app.post('/api/createStatus', statusCtrl.createStatus);
     app.put('/api/updateStatus/:_id', statusCtrl.updateStatus);
     app.delete('/api/deleteStatus/:_id', statusCtrl.deleteStatus);
+    app.get('/api/statusFree', statusCtrl.statusFree);
+    app.get('/api/statusUsed', statusCtrl.statusUsed);
   }

@@ -147,16 +147,12 @@ exports.listUseAsset = async (req, res) => {
         type."_id" as typeId,
         type."typeName", 
         status."_id"as statusId,
-        status."StatusName",
-		"employeeAsset"."_id" as employeeAssetId,
-        "employeeAsset"."employeeId",
-        "employeeAsset"."assetId"
+        status."StatusName"
        	FROM asset   
        	LEFT JOIN brand on asset."brand" = brand."_id"
 		LEFT JOIN type on asset.type = type."_id"	   
         LEFT JOIN model on asset."model" = model."_id"
         LEFT JOIN status on asset."state" = status."_id"
-		LEFT JOIN "employeeAsset" on "employeeAsset"."assetId" = asset."assetCode"
 	   	WHERE  asset."assetCode" = '${req.body.assetCode}'`
        const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listUseAsset => {		  
         return res.json(listUseAsset);
@@ -166,9 +162,9 @@ exports.listUseAsset = async (req, res) => {
         console.log(err)
         ret.responseError(req, res, err, '', now);
     }
-
 }
-// find emp join EmpAsset  All table
+
+// find emp join EmpAsset  All table   เปลี่ยนไปใช้ table history
 exports.listUseEmp = async (req, res) => {
     const now = Date.now();
     try {
@@ -208,7 +204,24 @@ exports.listUseEmp = async (req, res) => {
         console.log(err)
         ret.responseError(req, res, err, '', now);
     }
+}
 
+
+exports.listDeleteAsset = async (req, res) => {
+    const now = Date.now();
+    try {
+        const sql = `SELECT 
+        asset."_id",
+        asset."assetCode"
+       FROM "asset"
+	   WHERE  asset."assetCode" = '${req.body.deleteAsset}'`
+       const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listDeleteAsset => {		  
+        return res.json(listDeleteAsset);
+    })          
+    } catch (err) {
+        console.log(err)
+        ret.responseError(req, res, err, '', now);
+    }
 }
 
 
