@@ -54,6 +54,8 @@ exports.createAsset = async (req, res) => {
             "repairInsurance":req.body.repairInsurance,
             "saleDt":req.body.saleDt,
             "salePrice":req.body.salePrice,
+            "salePricevat":req.body.salePricevat,
+            "salePricetotal":req.body.salePricetotal,
             "saleAt":req.body.saleAt,
             "createDt":now,
             "createBy":req.username,
@@ -115,6 +117,8 @@ exports.listasset = async (req, res) => {
         asset."pricerepair",
         asset."pricerepairvat",
         asset."totalpricerepair",
+        asset."salePricevat",
+        asset."salePricetotal",
         brand."_id"as brandId,
         brand."brandType",
         brand."brandName",
@@ -129,6 +133,8 @@ exports.listasset = async (req, res) => {
 		LEFT JOIN type on asset.type = type."_id"	   
         LEFT JOIN model on asset."model" = model."_id"
         LEFT JOIN status on asset."state" = status."_id"`
+        // WHERE "status"."StatusName" != 'ว่าง' or "status"."StatusName" != 'รอดำเนินการ' or "status"."StatusName" != 'ขาย'
+        //         or "status"."StatusName" != 'ซ่อม' or "status"."StatusName" != 'ใช้งาน' or "status"."StatusName" != 'spare'
         const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listasset => {		  
             res.json(listasset);
             return responseList;
@@ -163,7 +169,6 @@ exports.listasset = async (req, res) => {
                 ret.responseError(req, res, err, '', now);
             });
     };
-
     exports.listassetFree = async (req, res) => {
         const now = Date.now();
         try{
@@ -198,7 +203,8 @@ exports.listasset = async (req, res) => {
             asset."repairDt",
             asset."pricerepair",
             asset."pricerepairvat",
-            asset."totalpricerepair",
+            asset."salePricevat",
+            asset."salePricetotal",
             brand."_id"as brandId,
             brand."brandType",
             brand."brandName",
@@ -223,7 +229,68 @@ exports.listasset = async (req, res) => {
                 ret.responseError(req, res, err, '', now);
             }
         }
-
+        exports.listassetchange = async (req, res) => {
+            const now = Date.now();
+            try{
+                const sql = `SELECT 
+                asset."_id",
+                asset."assetCode",
+                asset."color",
+                asset."serialNumber",
+                asset."purchaseDt",
+                asset."insuranceDt",
+                asset."insuranceTerm",
+                asset."purchaseNo",
+                asset."price",
+                asset."priceVat",
+                asset."totalPrice",
+                asset."repairCount",
+                asset."repairInsurance",
+                asset."saleDt",
+                asset."salePrice",
+                asset."saleAt",
+                asset."createDt",
+                asset."createBy",
+                asset."updateDt",
+                asset."updateBy",
+                asset."remark",
+                asset."type",
+                asset."brand",
+                asset."model",
+                asset."state",
+                asset."boi",
+                asset."repairAt",
+                asset."repairDt",
+                asset."pricerepair",
+                asset."pricerepairvat",
+                asset."totalpricerepair",
+                asset."salePricevat",
+                asset."salePricetotal",
+                brand."_id"as brandId,
+                brand."brandType",
+                brand."brandName",
+                model."_id"as modelId,
+                model."modelType",
+                type."_id" as typeId,
+                type."typeName", 
+                status."_id"as statusId,
+                status."StatusName"
+                FROM asset
+                LEFT JOIN brand on asset."brand" = brand."_id"
+                LEFT JOIN type on asset.type = type."_id"	   
+                LEFT JOIN model on asset."model" = model."_id"
+                LEFT JOIN status on asset."state" = status."_id"
+                WHERE "status"."StatusName" != 'ว่าง' or "status"."StatusName" != 'รอดำเนินการ' or "status"."StatusName" != 'ขาย'
+                        or "status"."StatusName" != 'ซ่อม' or "status"."StatusName" != 'ใช้งาน' or "status"."StatusName" != 'spare'`
+                const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listasset => {		  
+                    res.json(listasset);
+                    return responseList;
+                })     
+                } catch (err) {
+                    // console.log(err)
+                    ret.responseError(req, res, err, '', now);
+                }
+            }
     // exports.getSearchDateAsset = async function (req, res){
     //     const now = Date.now();
     //     try {

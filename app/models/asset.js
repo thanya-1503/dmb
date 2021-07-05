@@ -62,11 +62,9 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: true,
             
         },
-          
         priceVat: {
             type: DataTypes.DECIMAL,
             allowNull: true,
-            
         }, 
         totalPrice: {
             type: DataTypes.DECIMAL,
@@ -94,6 +92,16 @@ module.exports = function(sequelize, DataTypes) {
             
         },
         salePrice: {
+            type: DataTypes.DECIMAL,
+            allowNull: true,
+            
+        },
+        salePricevat: {
+            type: DataTypes.DECIMAL,
+            allowNull: true,
+            
+        },
+        salePricetotal: {
             type: DataTypes.DECIMAL,
             allowNull: true,
             
