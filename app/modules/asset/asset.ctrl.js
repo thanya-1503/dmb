@@ -213,7 +213,7 @@ exports.listasset = async (req, res) => {
             LEFT JOIN type on asset.type = type."_id"	   
             LEFT JOIN model on asset."model" = model."_id"
             LEFT JOIN status on asset."state" = status."_id"
-            WHERE "status"."StatusName" = 'ว่าง' `
+            WHERE "status"."StatusName" = 'ว่าง' or  "status"."StatusName" = 'spare' `
             const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listassetFree => {		  
                 res.json(listassetFree);
                 return responseList;
