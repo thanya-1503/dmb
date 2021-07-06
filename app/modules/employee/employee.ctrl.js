@@ -104,7 +104,8 @@ exports.listemployee = async (req, res) => {
         FROM employee
         LEFT JOIN "typeEm" as typeEmp on employee."type" = typeEmp."_id"
         LEFT JOIN position on employee."position" = position."_id"
-        LEFT JOIN site on employee."site" = site."_id"`
+        LEFT JOIN site on employee."site" = site."_id" 
+        ORDER BY employee."updateDt" DESC`
         const listemployee = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listemployee => {		  
             res.json(listemployee);
             return listemployee;

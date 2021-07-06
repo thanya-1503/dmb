@@ -132,7 +132,8 @@ exports.listasset = async (req, res) => {
         LEFT JOIN brand on asset."brand" = brand."_id"
 		LEFT JOIN type on asset.type = type."_id"	   
         LEFT JOIN model on asset."model" = model."_id"
-        LEFT JOIN status on asset."state" = status."_id"`
+        LEFT JOIN status on asset."state" = status."_id"
+        ORDER BY asset."updateDt" DESC `
         const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listasset => {		  
             res.json(listasset);
             return responseList;
@@ -217,7 +218,7 @@ exports.listasset = async (req, res) => {
             LEFT JOIN type on asset.type = type."_id"	   
             LEFT JOIN model on asset."model" = model."_id"
             LEFT JOIN status on asset."state" = status."_id"
-            WHERE "status"."StatusName" = 'ว่าง'`
+            WHERE "status"."StatusName" = 'ว่าง' or  "status"."StatusName" = 'spare' `
             const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listassetFree => {		  
                 res.json(listassetFree);
                 return responseList;
@@ -227,68 +228,68 @@ exports.listasset = async (req, res) => {
                 ret.responseError(req, res, err, '', now);
             }
         }
-        exports.listassetchange = async (req, res) => {
-            const now = Date.now();
-            try{
-                const sql = `SELECT 
-                asset."_id",
-                asset."assetCode",
-                asset."color",
-                asset."serialNumber",
-                asset."purchaseDt",
-                asset."insuranceDt",
-                asset."insuranceTerm",
-                asset."purchaseNo",
-                asset."price",
-                asset."priceVat",
-                asset."totalPrice",
-                asset."repairCount",
-                asset."repairInsurance",
-                asset."saleDt",
-                asset."salePrice",
-                asset."saleAt",
-                asset."createDt",
-                asset."createBy",
-                asset."updateDt",
-                asset."updateBy",
-                asset."remark",
-                asset."type",
-                asset."brand",
-                asset."model",
-                asset."state",
-                asset."boi",
-                asset."repairAt",
-                asset."repairDt",
-                asset."pricerepair",
-                asset."pricerepairvat",
-                asset."totalpricerepair",
-                asset."salePricevat",
-                asset."salePricetotal",
-                brand."_id"as brandId,
-                brand."brandType",
-                brand."brandName",
-                model."_id"as modelId,
-                model."modelType",
-                type."_id" as typeId,
-                type."typeName", 
-                status."_id"as statusId,
-                status."StatusName"
-                FROM asset
-                LEFT JOIN brand on asset."brand" = brand."_id"
-                LEFT JOIN type on asset.type = type."_id"	   
-                LEFT JOIN model on asset."model" = model."_id"
-                LEFT JOIN status on asset."state" = status."_id"
-                WHERE "status"."StatusName" != 'ว่าง' && "status"."StatusName" != 'รอดำเนินการ' && "status"."StatusName" != 'ขาย'
-                        && "status"."StatusName" != 'ซ่อม' && "status"."StatusName" != 'ใช้งาน' && "status"."StatusName" != 'spare'`
-                const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listassetchange => {		  
-                    res.json(listassetchange);
-                    return responseList;
-                })     
-                } catch (err) {
-                    // console.log(err)
-                    ret.responseError(req, res, err, '', now);
-                }
-            }
+        // exports.listassetchange = async (req, res) => {
+        //     const now = Date.now();
+        //     try{
+        //         const sql = `SELECT 
+        //         asset."_id",
+        //         asset."assetCode",
+        //         asset."color",
+        //         asset."serialNumber",
+        //         asset."purchaseDt",
+        //         asset."insuranceDt",
+        //         asset."insuranceTerm",
+        //         asset."purchaseNo",
+        //         asset."price",
+        //         asset."priceVat",
+        //         asset."totalPrice",
+        //         asset."repairCount",
+        //         asset."repairInsurance",
+        //         asset."saleDt",
+        //         asset."salePrice",
+        //         asset."saleAt",
+        //         asset."createDt",
+        //         asset."createBy",
+        //         asset."updateDt",
+        //         asset."updateBy",
+        //         asset."remark",
+        //         asset."type",
+        //         asset."brand",
+        //         asset."model",
+        //         asset."state",
+        //         asset."boi",
+        //         asset."repairAt",
+        //         asset."repairDt",
+        //         asset."pricerepair",
+        //         asset."pricerepairvat",
+        //         asset."totalpricerepair",
+        //         asset."salePricevat",
+        //         asset."salePricetotal",
+        //         brand."_id"as brandId,
+        //         brand."brandType",
+        //         brand."brandName",
+        //         model."_id"as modelId,
+        //         model."modelType",
+        //         type."_id" as typeId,
+        //         type."typeName", 
+        //         status."_id"as statusId,
+        //         status."StatusName"
+        //         FROM asset
+        //         LEFT JOIN brand on asset."brand" = brand."_id"
+        //         LEFT JOIN type on asset.type = type."_id"	   
+        //         LEFT JOIN model on asset."model" = model."_id"
+        //         LEFT JOIN status on asset."state" = status."_id"
+        //         WHERE "status"."StatusName" != 'ว่าง' && "status"."StatusName" != 'รอดำเนินการ' && "status"."StatusName" != 'ขาย'
+        //                 && "status"."StatusName" != 'ซ่อม' && "status"."StatusName" != 'ใช้งาน' && "status"."StatusName" != 'spare'`
+        //         const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listassetchange => {		  
+        //             res.json(listassetchange);
+        //             return responseList;
+        //         })     
+        //         } catch (err) {
+        //             // console.log(err)
+        //             ret.responseError(req, res, err, '', now);
+        //         }
+        //     }
     // exports.getSearchDateAsset = async function (req, res){
     //     const now = Date.now();
     //     try {
