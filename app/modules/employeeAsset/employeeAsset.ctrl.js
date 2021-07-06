@@ -108,11 +108,32 @@ exports.listEmpUseAsset = async (req, res) => {
         "employeeAsset"."assetId",
 		asset."_id" as id_asset,
         asset."assetCode",
-        employee."employeeCode" 
+        employee."employeeCode",
+		asset."color",
+        asset."serialNumber",
+        asset."purchaseDt",
+        asset."insuranceDt",
+        asset."type",
+        asset."brand",
+        asset."model",
+        asset."state",
+        brand."_id"as brandId,
+        brand."brandType",
+        brand."brandName",
+        model."_id"as modelId,
+        model."modelType",
+        type."_id" as typeId,
+        type."typeName", 
+        status."_id"as statusId,
+        status."StatusName"
        FROM "employeeAsset"
        LEFT JOIN asset on asset."assetCode" = "employeeAsset"."assetId"
+	   LEFT JOIN brand on asset."brand" = brand."_id"
+		LEFT JOIN type on asset.type = type."_id"	   
+        LEFT JOIN model on asset."model" = model."_id"
+        LEFT JOIN status on asset."state" = status."_id"
 	   LEFT JOIN employee on employee."employeeCode" = "employeeAsset"."employeeId"
-	   WHERE  employee."employeeCode" = '${req.body.employeeCode}' `
+	   WHERE  employee."employeeCode" = '${req.body.employeeCode}'`
        const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listAllEmpAsset => {		  
         return res.json(listAllEmpAsset);
         // return responseList;
