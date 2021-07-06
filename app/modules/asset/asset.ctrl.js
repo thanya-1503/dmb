@@ -62,7 +62,7 @@ exports.createAsset = async (req, res) => {
             "updateDt":now,
             "updateBy":req.username,
             "repairAt":req.body.repairAt,
-            "repairDt":now,
+            "repairDt":req.body.repairDt,
             "pricerepair":req.body.pricerepair,
             "pricerepairvat": req.body.pricerepairvat,
             "totalpricerepair": req.body.totalpricerepair,
@@ -132,7 +132,8 @@ exports.listasset = async (req, res) => {
         LEFT JOIN brand on asset."brand" = brand."_id"
 		LEFT JOIN type on asset.type = type."_id"	   
         LEFT JOIN model on asset."model" = model."_id"
-        LEFT JOIN status on asset."state" = status."_id"`
+        LEFT JOIN status on asset."state" = status."_id"
+        ORDER BY asset."updateDt" DESC `
         const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listasset => {		  
             res.json(listasset);
             return responseList;
