@@ -62,7 +62,7 @@ exports.createAsset = async (req, res) => {
             "updateDt":now,
             "updateBy":req.username,
             "repairAt":req.body.repairAt,
-            "repairDt":now,
+            "repairDt":req.body.repairDt,
             "pricerepair":req.body.pricerepair,
             "pricerepairvat": req.body.pricerepairvat,
             "totalpricerepair": req.body.totalpricerepair,
@@ -133,8 +133,6 @@ exports.listasset = async (req, res) => {
 		LEFT JOIN type on asset.type = type."_id"	   
         LEFT JOIN model on asset."model" = model."_id"
         LEFT JOIN status on asset."state" = status."_id"`
-        // WHERE "status"."StatusName" != 'ว่าง' or "status"."StatusName" != 'รอดำเนินการ' or "status"."StatusName" != 'ขาย'
-        //         or "status"."StatusName" != 'ซ่อม' or "status"."StatusName" != 'ใช้งาน' or "status"."StatusName" != 'spare'
         const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listasset => {		  
             res.json(listasset);
             return responseList;
@@ -280,10 +278,10 @@ exports.listasset = async (req, res) => {
                 LEFT JOIN type on asset.type = type."_id"	   
                 LEFT JOIN model on asset."model" = model."_id"
                 LEFT JOIN status on asset."state" = status."_id"
-                WHERE "status"."StatusName" != 'ว่าง' or "status"."StatusName" != 'รอดำเนินการ' or "status"."StatusName" != 'ขาย'
-                        or "status"."StatusName" != 'ซ่อม' or "status"."StatusName" != 'ใช้งาน' or "status"."StatusName" != 'spare'`
-                const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listasset => {		  
-                    res.json(listasset);
+                WHERE "status"."StatusName" != 'ว่าง' && "status"."StatusName" != 'รอดำเนินการ' && "status"."StatusName" != 'ขาย'
+                        && "status"."StatusName" != 'ซ่อม' && "status"."StatusName" != 'ใช้งาน' && "status"."StatusName" != 'spare'`
+                const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listassetchange => {		  
+                    res.json(listassetchange);
                     return responseList;
                 })     
                 } catch (err) {
