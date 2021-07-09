@@ -9,4 +9,5 @@ module.exports = function (app) {
     app.post('/api/listUseAsset', employeeAssetCtrl.listUseAsset);
     app.post('/api/listUseEmp', employeeAssetCtrl.listUseEmp);
     app.post('/api/listDeleteAsset', employeeAssetCtrl.listDeleteAsset);
+    app.post('/api/ChandeStatusAsset', employeeAssetCtrl.ChandeStatusAsset);
   }

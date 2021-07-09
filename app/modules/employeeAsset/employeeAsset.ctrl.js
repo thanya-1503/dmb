@@ -26,7 +26,9 @@ exports.createEmpAsset = async (req, res) => {
             "createBy":req.username,
             "updateDt":now,
             "updateBy":req.username,
-            
+            "receivedDt":req.body.receivedDt,
+            "returnDt":req.body.returnDt,
+            "status":req.body.status
     }).then(createbrand => {		  
         res.json(createbrand);
     }).catch(err => {
@@ -106,6 +108,9 @@ exports.listEmpUseAsset = async (req, res) => {
         "employeeAsset"."_id",
         "employeeAsset"."employeeId",
         "employeeAsset"."assetId",
+        "employeeAsset"."receivedDt",
+        "employeeAsset"."returnDt",
+        "employeeAsset"."status",
 		asset."_id" as id_asset,
         asset."assetCode",
         employee."employeeCode",
@@ -133,7 +138,7 @@ exports.listEmpUseAsset = async (req, res) => {
         LEFT JOIN model on asset."model" = model."_id"
         LEFT JOIN status on asset."state" = status."_id"
 	   LEFT JOIN employee on employee."employeeCode" = "employeeAsset"."employeeId"
-	   WHERE  employee."employeeCode" = '${req.body.employeeCode}'`
+	   WHERE  employee."employeeCode" = '${req.body.employeeCode}' AND  "employeeAsset"."status" = 'Y'`
        const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listAllEmpAsset => {		  
         return res.json(listAllEmpAsset);
         // return responseList;
@@ -244,5 +249,25 @@ exports.listDeleteAsset = async (req, res) => {
         ret.responseError(req, res, err, '', now);
     }
 }
+
+exports.ChandeStatusAsset = async (req, res) => {
+    const now = Date.now();
+    try {
+        const sql = ` SELECT
+        asset."_id",
+        asset."assetCode",
+        "employeeAsset"."assetId"
+        FROM "employeeAsset"
+        LEFT JOIN "asset" on  asset."assetCode" = "employeeAsset"."assetId"
+	    WHERE "employeeAsset"."assetId" '${req.body.IdAsset}'`
+       const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(ChandeStatusAsset => {		  
+        return res.json(ChandeStatusAsset);
+    })          
+    } catch (err) {
+        console.log(err)
+        ret.responseError(req, res, err, '', now);
+    }
+}
+
 
 
