@@ -18,10 +18,8 @@ module.exports = function(sequelize, DataTypes) {
         },
         updateDt: {
             type: DataTypes.DATE,
-            allowNull: false,
-           
+            allowNull: false,    
         },
-
         updateBy: {
             type: DataTypes.STRING(100),
             allowNull: false,
@@ -37,6 +35,19 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: true,
             field: 'assetId'
         },
+        receivedDt: {
+            type: DataTypes.DATE,
+            allowNull: true,
+        },
+        returnDt: {
+            type: DataTypes.DATE,
+            allowNull: true,      
+        },
+        status: {
+            type: DataTypes.STRING(16),
+            allowNull: true,
+        },
+
     }, {
         sequelize,
         tableName: 'employeeAsset',

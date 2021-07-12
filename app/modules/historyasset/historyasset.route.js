@@ -3,6 +3,7 @@ module.exports = function (app) {
     app.get('/api/listHistoryasset',historyassetCtrl.listHistoryasset);
     app.post('/api/createHistoryasset',historyassetCtrl.createHistoryasset);
     app.post('/api/historyUsedAsset',historyassetCtrl.historyUsedAsset);
+    // app.post('/api/historyUsedAssetNow',historyassetCtrl.historyUsedAssetNow);
 }
   
   
