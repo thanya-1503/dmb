@@ -63,11 +63,6 @@ exports.createAccount = async (data , type) => {
         ret.responseError(req, res, err, '', now);
     }
 }
-
-
-
-
-
 exports.authLogin = async (req, res) => {
     const now = Date.now();
     try {
@@ -75,7 +70,6 @@ exports.authLogin = async (req, res) => {
         let username = req.body.email;
         let password = req.body.password;
         const acc = await models.userAccount.findOne({where:{ email: username }});
-
         if (!acc) throw [40300, 'username is not associated with any account.'];
         let authen = await models.userAccount.options.instanceMethods.validPassword(password, acc.password); 
         if (!authen) throw [40101];

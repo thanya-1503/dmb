@@ -122,13 +122,16 @@ exports.listasset = async (req, res) => {
         brand."_id"as brandId,
         brand."brandType",
         brand."brandName",
+        "employeeAsset"."receivedDt",
+        "employeeAsset"."returnDt",
         model."_id"as modelId,
         model."modelType",
         type."_id" as typeId,
-        type."typeName", 
+        type."typeName",
         status."_id"as statusId,
         status."StatusName"
         FROM asset
+        LEFT JOIN "employeeAsset" on asset."assetCode" = "employeeAsset"."assetId"
         LEFT JOIN brand on asset."brand" = brand."_id"
 		LEFT JOIN type on asset.type = type."_id"	   
         LEFT JOIN model on asset."model" = model."_id"
