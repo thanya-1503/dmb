@@ -68,8 +68,7 @@ module.exports = function(sequelize, DataTypes) {
         }, 
         totalPrice: {
             type: DataTypes.DECIMAL,
-            allowNull: true,
-            
+            allowNull: true,  
         },
         state: {
             type: DataTypes.INTEGER,
@@ -156,7 +155,7 @@ module.exports = function(sequelize, DataTypes) {
         totalpricerepair: {
             type: DataTypes.DECIMAL,
             allowNull: true,
-        }
+        },
     }, {
         sequelize,
         tableName: 'asset',

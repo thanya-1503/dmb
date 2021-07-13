@@ -127,7 +127,7 @@ exports.listasset = async (req, res) => {
         model."_id"as modelId,
         model."modelType",
         type."_id" as typeId,
-        type."typeName", 
+        type."typeName",
         status."_id"as statusId,
         status."StatusName"
         FROM asset

@@ -39,7 +39,6 @@ exports.createHistoryasset = async (req, res) => {
         ret.responseError(req, res, err, '', now);
     }
 }
-
 // find emp join EmpAsset  All table
 exports.historyUsedAsset = async (req, res) => {
     const now = Date.now();
