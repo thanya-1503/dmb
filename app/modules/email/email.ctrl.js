@@ -4,8 +4,8 @@ const nodemailer = require("nodemailer");
 const smtpTransport = require('nodemailer-smtp-transport');
 
 exports.sentemail = async function (req, res) {
-  const test = Math.floor(100000 + Math.random() * 900000)
-  const email = req.body.email
+  const password = 123456
+  const username = req.body.username
   const transporter = nodemailer.createTransport(smtpTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -20,9 +20,9 @@ exports.sentemail = async function (req, res) {
   }));
   let mailOptions = {
     from: 'conun1543@gmail.com',         
-    to: `${email}`,            
+    to: `${username}`,            
     subject: 'Hello from sender',              
-    html: `<b>รหัสผ่านของคุณคือ</b> ${test}`
+    html: `<b>รหัสผ่านของคุณคือ</b> ${password}`
   };
   transporter.sendMail(mailOptions, function (err, info) {
     if(err){
@@ -33,6 +33,9 @@ exports.sentemail = async function (req, res) {
       console.log(info);
  });
 }
+
+
+
 
 
 

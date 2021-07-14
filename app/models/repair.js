@@ -9,17 +9,17 @@ module.exports = function(sequelize, DataTypes) {
         },
         state: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             field: 'state'
         },
         createDt: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
        
         },
         createBy: {
             type: DataTypes.STRING(100),
-            allowNull: false,
+            allowNull: true,
            
         },
         assetCoderepair: {
@@ -29,12 +29,12 @@ module.exports = function(sequelize, DataTypes) {
         },
         updateBy: {
             type: DataTypes.STRING(100),
-            allowNull: false,
+            allowNull: true,
             
         },
         updateDt: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
             
         },
         remark: {
@@ -65,6 +65,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.DATE,
             allowNull: true,
         },
+        
     }, {
         sequelize,
         tableName: 'repair',

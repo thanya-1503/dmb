@@ -22,9 +22,9 @@ exports.createHistoryasset = async (req, res) => {
             "employeeCode":req.body.employeeCode,
             "assetCode":req.body.assetCode,
             "createDt":now,
-            "createBy":req.username,
+            "createBy":req.firstname,
             "updateDt":now,
-            "updateBy":req.username,
+            "updateBy":req.firstname,
     }).then(createModel => {		  
         res.json(createModel);
     }).catch(err => {
@@ -86,52 +86,4 @@ exports.historyUsedAsset = async (req, res) => {
     }
 
 }
-
-// exports.historyUsedAssetNow = async (req, res) => {
-//     const now = Date.now();
-//     try {
-//         const sql = `SELECT 
-//         employee."_id",
-//         employee."employeeCode",
-//         employee."prefix",
-//         employee."firstname",
-//         employee."lastname",
-//         employee."nickname",
-//         employee."workStart",
-//         employee."workEnd",
-//         employee."createDt",
-//         employee."createBy",
-//         employee."updateDt",
-//         employee."updateBy",
-//         typeEmp."_id" as typeId,
-//         typeEmp."emType",
-//         position."_id" as positionId,
-//         position."lovType",
-//         site."_id" as siteId,
-//         site."siteType",
-// 		"historyasset"."_id" as historyassetId,
-//         "historyasset"."employeeCode",
-//         "historyasset"."assetCode",
-// 		"employeeAsset"."employeeId",
-// 		"employeeAsset"."assetId",
-// 		 "employeeAsset"."receivedDt",
-//         "employeeAsset"."returnDt"
-//         FROM employee
-//         LEFT JOIN "typeEm" as typeEmp on employee."type" = typeEmp."_id"
-//         LEFT JOIN position on employee."position" = position."_id"
-//         LEFT JOIN site on employee."site" = site."_id"
-//         LEFT JOIN "employeeAsset" on "employeeAsset"."employeeId" =employee."employeeCode" 
-// 		LEFT JOIN "historyasset" on "historyasset"."employeeCode" =employee."employeeCode" 
-// 	   	WHERE  "historyasset"."assetCode" = '${req.body.assetCode}' AND "employeeAsset"."status" = 'Y'`
-//        const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(historyUsedAssetNow => {		  
-//         return res.json(historyUsedAssetNow);
-//         // return responseList;
-//     })          
-//     } catch (err) {
-//         console.log(err)
-//         ret.responseError(req, res, err, '', now);
-//     }
-
-// }
-
 

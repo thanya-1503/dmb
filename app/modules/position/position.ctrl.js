@@ -19,9 +19,9 @@ exports.createPosition = async (req, res) => {
             "_id": req.body._id,
             "lovType": req.body.lovType,
             "createDt": now,
-            "createBy": req.username,
+            "createBy": req.firstname,
             "updateDt": now,
-            "updateBy": req.username,
+            "updateBy": req.firstname,
         }).then(createPosition => {
             res.json(createPosition);
         }).catch(err => {
@@ -40,7 +40,7 @@ exports.updatePosition = async (req, res) => {
     const now = Date.now();
     const _id = req.params._id;
     req.body.updateDt = now;
-    req.body.updateBy = req.username;
+    req.body.updateBy = req.firstname;
     const responseDetail = await models.position.update(req.body,
         { where: { _id: _id } }).then(() => {
             ret.response(req, res, '', '', now);

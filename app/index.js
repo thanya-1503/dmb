@@ -23,6 +23,7 @@ async function setAuth(req, res, next) {
       req.rawToken = tokenDecode.body;
       req.accountId = tokenDecode.body.id ? tokenDecode.body.id : 'accountId';
       req.username = tokenDecode.body.username ? tokenDecode.body.username : 'username';
+      req.firstname = tokenDecode.body.firstname ? tokenDecode.body.firstname : 'firstname';
       req.type = tokenDecode.body.type ? tokenDecode.body.type : 'TYPE';
       req.name = tokenDecode.body.name ? tokenDecode.body.name : 'test';
       req.session_id = uuid();

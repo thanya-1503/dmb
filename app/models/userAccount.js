@@ -8,10 +8,10 @@ module.exports = function(sequelize, DataTypes) {
             primaryKey: true,
             field: '_id'
         },
-        email: {
+        username: {
             type: DataTypes.STRING(100),
             allowNull: false,
-            field: 'email'
+            field: 'username'
         },
         password: {
             type: DataTypes.STRING(100),
@@ -43,10 +43,19 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             field: 'status'
         },
-        username: {
+        firstname: {
             type: DataTypes.STRING,
             allowNull: false,
-            field: 'username'
+           
+        },
+        lastname: {
+            type: DataTypes.STRING,
+            allowNull: false,  
+        },
+        role: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+          
         },
 
     }, {

@@ -20,9 +20,9 @@ exports.createStatus = async (req, res) => {
             "_id": req.body._id,
             "StatusName": req.body.StatusName,
             "createDt": now,
-            "createBy": req.username,
+            "createBy": req.firstname,
             "updateDt": now,
-            "updateBy": req.username,
+            "updateBy": req.firstname,
         }).then(createStatus => { 
             res.json(createStatus);
         }).catch(err => {
@@ -40,6 +40,8 @@ exports.createStatus = async (req, res) => {
 exports.updateStatus =  async(req, res) => {
     const now = Date.now();
 	const _id = req.params._id;
+    req.body.updateDt = now;
+    req.body.updateBy = req.firstname;
 	const responseDetail = await models.status.update( req.body, 
 			{ where: {_id:_id} }).then(() => {         
                 ret.response(req, res, '', '', now);

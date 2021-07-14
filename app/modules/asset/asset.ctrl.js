@@ -58,9 +58,9 @@ exports.createAsset = async (req, res) => {
             "salePricetotal":req.body.salePricetotal,
             "saleAt":req.body.saleAt,
             "createDt":now,
-            "createBy":req.username,
+            "createBy":req.firstname,
             "updateDt":now,
-            "updateBy":req.username,
+            "updateBy":req.firstname,
             "repairAt":req.body.repairAt,
             "repairDt":req.body.repairDt,
             "pricerepair":req.body.pricerepair,
@@ -162,7 +162,7 @@ exports.listasset = async (req, res) => {
         const now = Date.now();
         const _id = req.params._id;
         req.body.updateDt = now;
-        req.body.updateBy = req.username;
+        req.body.updateBy = req.firstname;
         const responseDetail = await models.asset.update(req.body,
             { where: { _id: _id } }).then(() => {
                 ret.response(req, res, '', '', now);

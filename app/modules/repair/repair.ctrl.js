@@ -3,6 +3,7 @@ var MessageCode = require('../../utils/message');
 const msgCode = new MessageCode();
 var models = require('../../models');
 const { where } = require('sequelize');
+
 exports.listrepair = async (req, res) => {
     const now = Date.now();
     try {
@@ -18,7 +19,6 @@ exports.listrepair = async (req, res) => {
 exports.createRepair = async (req, res) => {
     const now = Date.now();
     try {
-        let whereReq = req.query || {};
         const responseDetail = await models.repair.create({
                 "_id":req.body._id,
                 "state":req.body.state,
@@ -32,9 +32,9 @@ exports.createRepair = async (req, res) => {
                 "repairAt":req.body.repairAt,
                 "totalpricerepair":req.body.totalpricerepair,
                 "createDt":now,
-                "createBy":req.username,
+                "createBy":req.firstname,
                 "updateDt":now,
-                "updateBy":req.username,
+                "updateBy":req.firstname,
         }).then(createrepair => {		  
             res.json(createrepair);
         }).catch(err => {
@@ -85,7 +85,7 @@ exports.updateRepair =  async(req, res) => {
     const now = Date.now();
 	const _id = req.params._id;
     req.body.updateDt = now;
-    req.body.updateBy = req.username;
+    req.body.updateBy = req.firstname;
 	const responseDetail = await models.repair.update( req.body, 
 			{ where: {_id:_id} }).then(() => {         
                 ret.response(req, res, '', '', now);
