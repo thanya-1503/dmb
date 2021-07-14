@@ -23,9 +23,9 @@ exports.createSite = async (req, res) => {
                 "_id":req.body._id,
                 "siteType":req.body.siteType,
                 "createDt":now,
-                "createBy":req.username,
+                "createBy":req.firstname,
                 "updateDt":now,
-                "updateBy":req.username,
+                "updateBy":req.firstname,
         }).then(createSite => {		  
             res.json(createSite);
         }).catch(err => {
@@ -44,7 +44,7 @@ exports.updateSite =  async(req, res) => {
     const now = Date.now();
 	const _id = req.params._id;
     req.body.updateDt = now;
-    req.body.updateBy = req.username;
+    req.body.updateBy = req.firstname;
 	const responseDetail = await models.site.update( req.body, 
 			{ where: {_id:_id} }).then(() => {         
                 ret.response(req, res, '', '', now);

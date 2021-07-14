@@ -41,14 +41,16 @@ exports.createAccount = async (data , type) => {
         let whereReq = req.query || {};
         const responseDetail = await models.userAccount.create({
             "_id":req.body._id,
-            "email":req.body.email,
             "username":req.body.username,
             "password":req.body.password,
-            "createBy":req.body.createBy,
+            "createBy":req.firstname,
             "createDt":now,
-            "updateBy":req.body.username,
+            "updateBy":req.firstname,
             "updateDt":now,
             "status":req.body.status,
+            "firstname":req.body.firstname,
+            "lastname":req.body.lastname,
+            "role":req.body.role
     }).then(createAccount => {		
         
         res.json(createAccount);
@@ -67,16 +69,16 @@ exports.authLogin = async (req, res) => {
     const now = Date.now();
     try {
         // let whereReq = req.query || {};
-        let username = req.body.email;
+        let username = req.body.username;
         let password = req.body.password;
-        const acc = await models.userAccount.findOne({where:{ email: username }});
+        const acc = await models.userAccount.findOne({where:{ username: username }});
         if (!acc) throw [40300, 'username is not associated with any account.'];
         let authen = await models.userAccount.options.instanceMethods.validPassword(password, acc.password); 
         if (!authen) throw [40101];
         var resultRes = await exports.generateToken(acc);
         res.setHeader('Authorization', resultRes);
         req.session_id = uuid();
-        req.username = acc.email;
+        req.username = acc.username;
         ret.response(req, res, { token: resultRes }, '', now);
         // ret.response(20000, msgCode.getMessage("E000", "login"), { token: resultRes }, res);
     } catch (err) {
@@ -88,14 +90,16 @@ exports.generateToken = async function (data, type) {
         //logger.info("[auth|auth-ctrl|token]");
             var dataSetToken = {
             _id: data._id,
-            email: data.email,
             username: data.username,
             password: data.password,
             createBy: data.createBy,
             createDt: data.createDt,
-            pdateBy: data.updateBy,
+            updateBy: data.updateBy,
             updateDt: data.updateDt,
-            status: data.status
+            status: data.status,
+            firstname:data.firstname,
+            lastname:data.lastname,
+            role:data.role
         }
         let token = nJwt.create(dataSetToken, config.secret); // CREATED PAYLOAD
         var timeout = config.timeoutToken; // SET TIMEOUT TYPE ADMIN AND GENERAL
@@ -133,3 +137,22 @@ exports.extendToken = async function (data, timeout) {
         ret.responseError(req, res, error, '', '');
     }
 }
+
+
+
+
+async function passwordTest(params) {
+    try {
+        const password = '123456'
+        // const passwordEncrypts = await models.userAccount.find()
+        // console.log(passwordEncrypts);
+        const a = await models.userAccount.options.instanceMethods.generateHash(password)
+        console.log(a, 'a');
+
+        let authen = await models.userAccount.options.instanceMethods.validPassword('123456', passwordEncrypt);
+        // console.log(authen);
+    }
+    catch (error) {
+    }
+}
+passwordTest()

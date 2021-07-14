@@ -25,9 +25,9 @@ exports.createType = async (req, res) => {
             "_id":req.body._id,
             "typeName":req.body.typeName,
             "createDt":now,
-            "createBy":req.username,
+            "createBy":req.firstname,
             "updateDt":now,
-            "updateBy":req.username,
+            "updateBy":req.firstname,
     }).then(createType => {		  
         res.json(createType);
     }).catch(err => {
@@ -46,7 +46,7 @@ exports.updateType =  async(req, res) => {
     const now = Date.now();
 	const _id = req.params._id;
     req.body.updateDt = now;
-    req.body.updateBy = req.username;
+    req.body.updateBy = req.firstname;
 	const responseDetail = await models.type.update( req.body, 
 			{ where: {_id:_id} }).then(() => {         
                 ret.response(req, res, '', '', now);
