@@ -24,7 +24,7 @@ exports.createRepair = async (req, res) => {
                 "state":req.body.state,
                 "remark":req.body.remark,
                 "boi":req.body.boi,
-                "assetCoderepair":req.body.assetCoderepair,
+                "assetCode":req.body.assetCode,
                 "pricerepair":req.body.pricerepair,
                 "pricerepairvat":req.body.pricerepairvat,
                 "insuranceDt":req.body.insuranceDt,
@@ -69,8 +69,8 @@ exports.repairasset = async (req, res) => {
         asset."pricerepair",
         asset."pricerepairvat",
         asset."totalpricerepair"
-        FROM "repair"
-		LEFT JOIN asset on asset."state" = repair."state"
+        FROM "asset"
+		LEFT JOIN repair on asset."state" = repair."state"
         ORDER BY asset."updateDt" DESC `
         const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listrepair => {		  
             res.json(listrepair);
