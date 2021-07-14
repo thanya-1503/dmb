@@ -2,8 +2,8 @@ var ret = require('../../utils/response/index');
 var MessageCode = require('../../utils/message');
 const msgCode = new MessageCode();
 var models = require('../../models');
-const { where } = require('sequelize');
-
+const { where,QueryTypes, Sequelize} = require('sequelize');
+const { response } = require('express');
 exports.listrepair = async (req, res) => {
     const now = Date.now();
     try {
@@ -68,16 +68,21 @@ exports.repairasset = async (req, res) => {
         asset."repairDt",
         asset."pricerepair",
         asset."pricerepairvat",
-        asset."totalpricerepair"
-        FROM "asset"
-		LEFT JOIN repair on asset."state" = repair."state"
-        ORDER BY asset."updateDt" DESC `
-        const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listrepair => {		  
-            res.json(listrepair);
+        asset."totalpricerepair",
+        "repair"."assetCode",
+        "repair"."repairDt",
+        "repair"."insuranceDt",
+        "repair"."state",
+        "repair"."remark"
+        FROM repair
+		LEFT JOIN asset on repair."assetCode" = asset."assetCode"
+		WHERE repair."assetCode" = '${req.body.assetCode}'`
+        const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(repairasset => {		  
+            res.json(repairasset);
             return responseList;
         })     
         } catch (err) {
-            // console.log(err)
+            console.log(err)
             ret.responseError(req, res, err, '', now);
         }
     }
