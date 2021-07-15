@@ -12,8 +12,10 @@ var ret = require('../app/utils/response/index');
 async function setAuth(req, res, next) {
   try {
     if (
-      req.originalUrl !== '/api/authLogin'
-      // req.originalUrl !== '/api/v1/account-management/forgot-password' &&
+      req.originalUrl !== '/api/authLogin' &&
+      req.originalUrl !== '/api/whereUserforgotpass'&&
+      req.originalUrl !== '/api/sentemailOtp'&&
+      req.originalUrl !== '/api/forgotpassword'
       // req.originalUrl !== '/api/v1/account-management/change-password'
     ) {
       let tokenDecode = await auth.authentication(req, res); // AUTHENTICATION
