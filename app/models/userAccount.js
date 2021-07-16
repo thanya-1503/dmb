@@ -6,7 +6,6 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            field: '_id'
         },
         username: {
             type: DataTypes.STRING(100),
@@ -53,11 +52,9 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,  
         },
         role: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-          
+            type: DataTypes.STRING,
+            allowNull: false,  
         },
-
     }, {
         sequelize,
         tableName: 'userAccount',
