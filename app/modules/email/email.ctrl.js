@@ -20,7 +20,7 @@ exports.sentemail = async function (req, res) {
   let mailOptions = {
     from: 'conun1543@gmail.com',         
     to: `${username}`,            
-    subject: 'Hello from sender',              
+    subject: 'Webasset',              
     html: `<b>รหัสผ่านของคุณคือ</b> ${password}`
   };
   transporter.sendMail(mailOptions, function (err, info) {
@@ -52,7 +52,7 @@ exports.sentemailOtp = async function (req, res) {
   let mailOptions = {
     from: 'conun1543@gmail.com',         
     to: `${username}`,            
-    subject: 'Hello from sender',              
+    subject: 'Webasset',              
     html: `<b>รหัส OTP ของคุณคือ</b> ${otp}`
   };
   transporter.sendMail(mailOptions, function (err, info) {
