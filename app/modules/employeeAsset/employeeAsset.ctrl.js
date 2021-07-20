@@ -98,8 +98,6 @@ exports.listEmpAsset = async function (req, res) {
     } catch (err) {
         ret.responseError(req, res, err, '', now);
     }
-
-    
 }
 exports.listEmpUseAsset = async (req, res) => {
     const now = Date.now();

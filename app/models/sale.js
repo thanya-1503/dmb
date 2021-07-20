@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('repair', {
+    return sequelize.define('sale', {
         _id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -14,18 +14,13 @@ module.exports = function(sequelize, DataTypes) {
         },
         createDt: {
             type: DataTypes.DATE,
-            allowNull: true, 
+            allowNull: true,
        
         },
         createBy: {
             type: DataTypes.STRING(100),
             allowNull: true,
            
-        },
-        assetCode: {
-            type: DataTypes.STRING(100),
-            allowNull: true,
-            
         },
         updateBy: {
             type: DataTypes.STRING(100),
@@ -37,42 +32,34 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: true,
             
         },
+        assetCode: {
+            type: DataTypes.STRING(100),
+            allowNull: true,
+            
+        },
         remark: {
             type: DataTypes.STRING(100),
             allowNull: true,
         },
-        boi: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        pricerepair: {
+        salePrice: {
             type: DataTypes.DECIMAL,
             allowNull: true,
         },
-        pricerepairvat: {
+        salePricevat: {
             type: DataTypes.DECIMAL,
             allowNull: true,
         },
-        totalpricerepair: {
+        salePricetotal: {
             type: DataTypes.DECIMAL,
             allowNull: true,
         },
-        repairAt: {
+        saleAt: {
             type: DataTypes.STRING(100),
             allowNull: true,
         },
-        repairDt: {
-            type: DataTypes.DATE,
-            allowNull: true,
-        },
-        insuranceDt: {
-            type: DataTypes.DATE,
-            allowNull: true,
-
-        },
     }, {
         sequelize,
-        tableName: 'repair',
+        tableName: 'sale',
         schema: 'public',
         timestamps: false
     });
