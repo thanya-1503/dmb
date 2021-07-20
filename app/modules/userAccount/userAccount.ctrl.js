@@ -181,7 +181,6 @@ exports.whereUserforgotpass = async (req, res) => {
         console.log(err)
         ret.responseError(req, res, err, '', now);
     }
-
 }
 
 exports.forgotpassword =  async(req, res) => {
@@ -199,6 +198,61 @@ exports.forgotpassword =  async(req, res) => {
 				ret.responseError(req, res, err, '', now);
 			});
 };
+
+exports.checkpassword =  async(req, res) => {
+    const now = Date.now();
+    try {
+        const passwordEncrypt = req.rawToken.password
+        req.body.username = req.username
+        req.body.updateDt = now;
+        const oldPassword = req.body.password
+        let authen = await models.userAccount.options.instanceMethods.validPassword(oldPassword, passwordEncrypt);
+        console.log(authen);
+        // if (!authen){
+        //     console.log(false);
+        // }
+        if (!authen) throw [40101];
+        ret.response(req, res, '', '', now);
+    } catch (error) {
+        console.log(error);
+        ret.responseError(req, res, error, '', now);
+    }
+}  
+
+exports.editpassword =  async(req, res) => {
+    try {
+    const now = Date.now();
+    const _id = req.rawToken._id;
+    req.body.updateDt = now;
+    req.body.updateBy = req.firstname;
+    req.body.password = await models.userAccount.options.instanceMethods.generateHash(req.body.password)
+	const responseDetail = await models.userAccount.update(req.body, 
+			{ where: {_id:_id} }).then(() => {         
+                ret.response(req, res, '', '', now);
+			}).catch(err => {
+				console.log(err);
+				ret.responseError(req, res, err, '', now);
+			});
+        }catch (error) {
+            ret.responseError(req, res, err, '', now);
+        }
+};
+
+exports.checkCreateUser = async (req, res) => {
+    const now = Date.now();
+    try {
+        const sql = `SELECT *
+        FROM "userAccount" 
+	   	WHERE  "userAccount"."username" = '${req.body.username}'`
+       const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(checkCreateUser => {		  
+        return res.json(checkCreateUser);
+        // return responseList;
+    })          
+    } catch (err) {
+        console.log(err)
+        ret.responseError(req, res, err, '', now);
+    }
+}
 
 // async function passwordTest(params) {
 //     try {
