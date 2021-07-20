@@ -145,7 +145,7 @@ exports.updateAccount =  async(req, res) => {
 	const _id = req.params._id;
     req.body.updateDt = now;
     req.body.updateBy = req.firstname;
-    req.body.password = await models.userAccount.options.instanceMethods.generateHash(req.body.password)
+    // req.body.password = await models.userAccount.options.instanceMethods.generateHash(req.body.password)
 	const responseDetail = await models.userAccount.update(req.body, 
 			{ where: {_id:_id} }).then(() => {         
                 ret.response(req, res, '', '', now);
@@ -253,15 +253,3 @@ exports.checkCreateUser = async (req, res) => {
         ret.responseError(req, res, err, '', now);
     }
 }
-
-// async function passwordTest(params) {
-//     try {
-//         const password = '123456'
-//         const a = await models.userAccount.options.instanceMethods.generateHash(password)
-//         console.log(a, 'a');
-//         let authen = await models.userAccount.options.instanceMethods.validPassword('123456', passwordEncrypt);
-//     }
-//     catch (error) {
-//     }
-// }
-// passwordTest()

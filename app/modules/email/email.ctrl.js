@@ -19,9 +19,24 @@ exports.sentemail = async function (req, res) {
   }));
   let mailOptions = {
     from: 'conun1543@gmail.com',         
-    to: `${username}`,            
-    subject: 'Webasset',              
-    html: `<b>รหัสผ่านของคุณคือ</b> ${password}`
+    to: `${username}`,           
+    subject: 'รหัสผ่านเข้าสู่ระบบ Webasset ของคุณ',             
+    html: 
+     `<p><b >Webasset</b></p>
+      <p style="margin-left: 20px;" >คุณได้ลงทะเบียน ${username} เป็น User Webasset รหัสผ่านของคุณคือ ${password}</p><br>
+      <tr>
+        <td class="text-footer1 pb10">
+          <img width="70" height="50" src="https://entronica.co.th/assets/img/logo.png">
+          <span style="color:#800000; font-family:'Muli', Arial,sans-serif; font-size:14px; line-height:20px; text-align:center; padding-bottom:10px;font-weight: 700;">Entronica Co,ltd.</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-footer2"
+          style="color:#8297b3; font-family:'Muli', Arial,sans-serif; font-size:12px; line-height:20px; text-align:center;padding-top: 1px">
+          408/68 Phaholyothin Place, Floor.16, Phahonyothin Rd, <br/>Khwaeng
+          Samsen Nai, Khet Phaya Thai, ฺBangkok 10400
+        </td>
+        </tr>`
   };
   transporter.sendMail(mailOptions, function (err, info) {
     if(err){
@@ -51,9 +66,24 @@ exports.sentemailOtp = async function (req, res) {
   }));
   let mailOptions = {
     from: 'conun1543@gmail.com',         
-    to: `${username}`,            
-    subject: 'Webasset',              
-    html: `<b>รหัส OTP ของคุณคือ</b> ${otp}`
+    to: `${username}`,      
+    subject: 'Forgot Password',              
+    html: 
+    `<p><b >Webasset</b></p>
+      <p style="margin-left: 20px; font-size:14px;">OTP สำหรับการตั้งค่ารหัสผ่านใหม่ของคุณคือ <b>${otp}</b></p>
+      <tr>
+        <td class="text-footer1 pb10">
+          <img width="70" height="50" src="https://entronica.co.th/assets/img/logo.png">
+          <span style="color:#800000; font-family:'Muli', Arial,sans-serif; font-size:14px; line-height:20px; text-align:center; padding-bottom:10px;font-weight: 700;">Entronica Co,ltd.</span>
+      </td>
+      </tr>
+      <tr>
+        <td class="text-footer2"
+          style="color:#8297b3; font-family:'Muli', Arial,sans-serif; font-size:12px; line-height:20px; text-align:center;padding-top: 1px;">
+          408/68 Phaholyothin Place, Floor.16, Phahonyothin Rd, <br />Khwaeng
+          Samsen Nai, Khet Phaya Thai, ฺBangkok 10400
+        </td>
+      </tr> `
   };
   transporter.sendMail(mailOptions, function (err, info) {
     if(err){
@@ -63,10 +93,7 @@ exports.sentemailOtp = async function (req, res) {
     else
       console.log(info);
  });
-}
-
-
-
+};
 
 
 
