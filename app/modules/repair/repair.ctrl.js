@@ -58,7 +58,7 @@ exports.repairasset = async (req, res) => {
         asset."assetCode",
        	asset."repairCount",
         asset."createDt",
-        asset."createBy",
+        asset."createBy", 
         asset."updateDt",
         asset."updateBy",
         asset."remark",       

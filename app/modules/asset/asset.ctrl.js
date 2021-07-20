@@ -15,7 +15,7 @@ exports.list = async (req, res) => {
         ret.response(req, res, result, '', now);
     } catch (err) {
         ret.responseError(req, res, err, '', now);
-    }
+    } 
 }
 exports.searchAsset = async (req, res) => {
     const now = Date.now();
