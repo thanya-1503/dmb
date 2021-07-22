@@ -122,8 +122,25 @@ exports.listasset = async (req, res) => {
         brand."_id"as brandId,
         brand."brandType",
         brand."brandName",
+		employee."_id" as id_employee,
+        employee."employeeCode",
+        employee."prefix",
+        employee."firstname",
+        employee."lastname",
+		employee."type",
+		employee."position",
+		employee."site",
+        employee."nickname",
+		typeEmp."_id" as typeId,
+        typeEmp."emType",
+        position."_id" as positionId,
+        position."lovType",
+        site."_id" as siteId,
+        site."siteType",
         "employeeAsset"."receivedDt",
         "employeeAsset"."returnDt",
+		"employeeAsset"."employeeId",
+        "employeeAsset"."assetId",
         model."_id"as modelId,
         model."modelType",
         type."_id" as typeId,
@@ -136,6 +153,10 @@ exports.listasset = async (req, res) => {
 		LEFT JOIN type on asset.type = type."_id"	   
         LEFT JOIN model on asset."model" = model."_id"
         LEFT JOIN status on asset."state" = status."_id"
+		LEFT JOIN employee on "employeeAsset"."employeeId" = "employee"."employeeCode"
+		LEFT JOIN "typeEm" as typeEmp on "employee"."type" = typeEmp."_id"
+        LEFT JOIN position on employee."position" = position."_id"
+        LEFT JOIN site on employee."site" = site."_id" 
         ORDER BY asset."updateDt" DESC `
         const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listasset => {		  
             res.json(listasset);
