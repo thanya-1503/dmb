@@ -131,6 +131,8 @@ exports.listasset = async (req, res) => {
 		employee."position",
 		employee."site",
         employee."nickname",
+        employee."workStart",
+        employee."workEnd",
 		typeEmp."_id" as typeId,
         typeEmp."emType",
         position."_id" as positionId,
