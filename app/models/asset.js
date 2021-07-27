@@ -14,17 +14,17 @@ module.exports = function(sequelize, DataTypes) {
         },
         type: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
            
         },
         brand: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             
         },
         model: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
            
         },
         color: {
