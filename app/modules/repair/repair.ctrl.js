@@ -53,30 +53,16 @@ exports.repairasset = async (req, res) => {
     const now = Date.now();
     try{
         const sql = `SELECT 
-        asset."_id",
-        asset."insuranceDt",
-        asset."assetCode",
-       	asset."repairCount",
-        asset."createDt",
-        asset."createBy", 
-        asset."updateDt",
-        asset."updateBy",
-        asset."remark",       
-        asset."state",
-        asset."boi",
-        asset."repairAt",
-        asset."repairDt",
-        asset."pricerepair",
-        asset."pricerepairvat",
-        asset."totalpricerepair",
+        "repair"."_id",
         "repair"."assetCode",
         "repair"."repairDt",
         "repair"."insuranceDt",
         "repair"."state",
-        "repair"."remark"
+        "repair"."remark",
+        repair."updateBy"
         FROM repair
-		LEFT JOIN asset on repair."assetCode" = asset."assetCode"
-		WHERE repair."assetCode" = '${req.body.assetCode}'`
+        WHERE repair."assetCode" = '${req.body.assetCode}'
+        ORDER BY repair."updateDt" DESC`
         const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(repairasset => {		  
             res.json(repairasset);
             return responseList;
@@ -95,6 +81,7 @@ exports.updateRepair =  async(req, res) => {
 			{ where: {_id:_id} }).then(() => {         
                 ret.response(req, res, '', '', now);
 			}).catch(err => {
+                console.log('------------------');
 				console.log(err);
 				ret.responseError(req, res, err, '', now);
 			});
