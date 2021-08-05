@@ -136,12 +136,18 @@ exports.authentication = async function (req, res) {
 
 exports.extendToken = async function (data, timeout) {
     try {
+        if (data == undefined) {
+            throw new [40100]
+        }else{
+            data.signingKey = config.secret; // SET SECRET KEY
+            data.setExpiration(new Date().getTime() + config.timeoutToken); // SET TIME (+)
+            let tokenNew = data.compact(); // GENARATE NEW TOKEN
+            return tokenNew;    
+        }
         //logger.info("[auth|auth-ctrl|extendToken]");
-        data.signingKey = config.secret; // SET SECRET KEY
-        data.setExpiration(new Date().getTime() + config.timeoutToken); // SET TIME (+)
-        let tokenNew = data.compact(); // GENARATE NEW TOKEN
-        return tokenNew;
+        
     } catch (error) {
+        console.log(error);
         ret.responseError(req, res, error, '', '');
     }
 }
