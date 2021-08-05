@@ -4,7 +4,7 @@ module.exports = function (app) {
     app.post('/api/createRepair', repairCtrl.createRepair);
     app.post('/api/repairasset', repairCtrl.repairasset);
     app.put('/api/updateRepair/:_id', repairCtrl.updateRepair); 
-    app.delete('/api/deleteRepair', repairCtrl.deleteRepair);
+    app.delete('/api/deleteRepair/:_id', repairCtrl.deleteRepair);
 }
   
    
