@@ -64,11 +64,6 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             field: 'updateBy'
         },
-        status: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            field: 'status'
-        },
         type: {
             type: DataTypes.INTEGER,
             allowNull: false,

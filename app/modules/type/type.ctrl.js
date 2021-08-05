@@ -8,7 +8,11 @@ const { response } = require('express');
 exports.list = async (req, res) => {
     const now = Date.now();
     try {
-        const responseDetail = await models.type.findAll();
+        const responseDetail = await models.type.findAll({
+            order: [
+                ['updateDt', 'DESC'],
+            ],
+        });
         const result = {
             data: responseDetail,
         }

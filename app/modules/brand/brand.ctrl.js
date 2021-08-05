@@ -7,7 +7,11 @@ const { response } = require('express');
 exports.list = async (req, res) => {
     const now = Date.now();
     try {
-        const responseDetail = await models.brand.findAll();
+        const responseDetail = await models.brand.findAll({
+            order: [
+                ['updateDt', 'DESC'],
+            ],
+        });
         const result = {
             data: responseDetail,
         }
@@ -81,7 +85,8 @@ exports.listBrand = async function (req, res) {
         type."_id" as typeId,
         type."typeName"
         FROM brand
-       LEFT JOIN type on brand."brandType" = type."_id"`
+       LEFT JOIN type on brand."brandType" = type."_id"
+       ORDER BY brand."updateDt" DESC`
        const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listBrand => {		  
         res.json(listBrand);
         return responseList;

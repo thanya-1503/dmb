@@ -3,7 +3,11 @@ const models = require('../../models');
 exports.list = async (req, res) => {
     const now = Date.now();
     try {
-        const responseDetail = await models.position.findAll();
+        const responseDetail = await models.position.findAll({
+            order: [
+                ['updateDt', 'DESC'],
+            ],
+        });
         const result = {
             data: responseDetail,
         }

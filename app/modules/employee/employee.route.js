@@ -7,5 +7,6 @@ module.exports = function (app) {
     app.get('/api/listemployee', employeeCtrl.listemployee);
     app.delete('/api/deleteEmployee/:_id', employeeCtrl.deleteEmployee);
     app.put('/api/updateEmployee/:_id', employeeCtrl.updateEmployee);
+    app.post('/api/employeeReport', employeeCtrl.employeeReport);
 
   }

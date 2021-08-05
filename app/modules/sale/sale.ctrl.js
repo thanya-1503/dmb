@@ -7,7 +7,11 @@ const { where } = require('sequelize');
 exports.listsale = async (req, res) => {
     const now = Date.now();
     try {
-        const responseDetail = await models.sale.findAll();
+        const responseDetail = await models.sale.findAll({
+            order: [
+                ['updateDt', 'DESC'],
+            ],
+        });
         const result = {
             data: responseDetail,
         }

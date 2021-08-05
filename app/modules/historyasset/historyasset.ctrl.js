@@ -4,7 +4,11 @@ const { where, QueryTypes } = require('sequelize');
 exports.listHistoryasset = async (req, res) => {
     const now = Date.now();
     try {
-        const responseDetail = await models.historyasset.findAll();
+        const responseDetail = await models.historyasset.findAll({
+            order: [
+                ['updateDt', 'DESC'],
+            ],
+        });
         const result = {
             data: responseDetail,
         }
