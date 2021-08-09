@@ -1,4 +1,4 @@
-var uuid = require('uuid/v4');
+var uuid = require('uuid');
 var ret = require('../../utils/response/index');
 var env = process.env.NODE_ENV || 'development';
 var config = require('../../config/config.json')[env];
