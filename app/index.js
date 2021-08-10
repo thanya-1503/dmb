@@ -3,7 +3,7 @@ const path = require("path");
 const express = require("express");
 var http = require("http");
 const app = express();
-var uuid = require("uuid/v4");
+const { v4: uuidv4 } = require('uuid');
 var auth = require('./modules/userAccount/userAccount.ctrl');
 var ret = require('./utils/response/index');
 var load = require("express-load");
@@ -11,13 +11,15 @@ var ret = require('../app/utils/response/index');
 
 async function setAuth(req, res, next) {
   try {
+    console.log(req.originalUrl, 'originalUrl');
     if (
       req.originalUrl !== '/api/authLogin' &&
-      req.originalUrl !== '/api/whereUserforgotpass'&&
-      req.originalUrl !== '/api/sentemailOtp'&&
+      req.originalUrl !== '/api/whereUserforgotpass' &&
+      req.originalUrl !== '/api/sentemailOtp' &&
       req.originalUrl !== '/api/forgotpassword'
       // req.originalUrl !== '/api/v1/account-management/change-password'
     ) {
+      console.log('if');
       let tokenDecode = await auth.authentication(req, res); // AUTHENTICATION
       //let tokenNew = req.headers['Authorization'];
       tokenNew = await auth.extendToken(tokenDecode, CONFIG.TIMEOUT_TOKEN); // RENEWAL TOKEN
@@ -28,7 +30,7 @@ async function setAuth(req, res, next) {
       req.firstname = tokenDecode.body.firstname ? tokenDecode.body.firstname : 'firstname';
       req.type = tokenDecode.body.type ? tokenDecode.body.type : 'TYPE';
       req.name = tokenDecode.body.name ? tokenDecode.body.name : 'test';
-      req.session_id = uuid();
+      req.session_id = uuidv4();
     }
     next()
   } catch (error) {
@@ -43,7 +45,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.all("/api/*",setAuth ,function (req, res, next) {
+app.all("/api/*", setAuth, function (req, res, next) {
   next();
 });
 
