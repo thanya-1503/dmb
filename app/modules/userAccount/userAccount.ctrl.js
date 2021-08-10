@@ -121,7 +121,6 @@ exports.generateToken = async function (data, type) {
 }
 exports.authentication = async function (req, res) {
     try {
-        logger.info("[auth|auth-ctrl|authentication]");
         var tokenHeader = req.headers['authorization'] || null;
         var token = tokenHeader && tokenHeader.split(' ')[0] === 'Bearer' ? tokenHeader.split(' ')[1] : tokenHeader;
         if (!token) {
