@@ -12,15 +12,15 @@ exports.sentemail = async function (req, res) {
     port: 465,
     secure: true, 
     auth: {
-          user: "conun1543@gmail.com",
-          pass: "0853811894", 
+          user: "noreply.entronica@gmail.com",
+          pass: "yoiplddixzkuuduk", 
     },
     tls: {
         rejectUnauthorized: false
         }
   }));
   let mailOptions = {
-    from: 'conun1543@gmail.com',         
+    from: 'noreply.entronica@gmail.com',         
     to: `${username}`,           
     subject: 'รหัสผ่านเข้าสู่ระบบ Webasset ของคุณ',             
     html: Html
@@ -46,15 +46,15 @@ exports.sentemailOtp = async function (req, res)  {
     port: 465,
     secure: true, 
     auth: {
-          user: "conun1543@gmail.com",
-          pass: "0853811894", 
+      user: "noreply.entronica@gmail.com",
+      pass: "yoiplddixzkuuduk", 
     },
     tls: {
         rejectUnauthorized: false
         }
   }));
   let mailOptions = {
-    from: 'conun1543@gmail.com',         
+    from: 'noreply.entronica@gmail.com',         
     to: `${username}`,      
     subject: 'Forgot Password',              
     html:  htmlTemplete 
