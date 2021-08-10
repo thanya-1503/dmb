@@ -123,44 +123,55 @@ exports.listasset = async (req, res) => {
         brand."brandType",
         brand."brandName",
         "type"."typeName",
-		employee."_id" as id_employee,
-        employee."employeeCode",
-        employee."prefix",
-        employee."firstname",
-        employee."lastname",
-		employee."type" as type_employee,
-		employee."position",
-		employee."site",
-        employee."nickname",
-        employee."workStart",
-        employee."workEnd",
-		typeEmp."_id" as typeId,
-        typeEmp."emType",
-        position."_id" as positionId,
-        position."lovType",
-        site."_id" as siteId,
-        site."siteType",
-        "employeeAsset"."receivedDt",
-        "employeeAsset"."returnDt",
-		"employeeAsset"."employeeId",
-        "employeeAsset"."assetId",
         model."_id"as modelId,
         model."modelType",
         type."_id" as typeId,
         type."typeName",
         status."_id"as statusId,
-        status."StatusName"
+        status."StatusName",
+  b.id,
+  b."employeeCode",
+  b.prefix,
+  b.firstname,
+  b.lastname,
+  b.nickname,
+  b."workStart",
+  b."workEnd",
+  b."emType",
+  b."lovType",
+  b."siteType",
+  b."receivedDt",
+  b."returnDt"
         FROM asset
-        LEFT JOIN "employeeAsset" on asset."assetCode" = "employeeAsset"."assetId"
         LEFT JOIN brand on asset."brand" = brand."_id"
-		LEFT JOIN type on asset."type" = type."_id"	   
+  LEFT JOIN type on asset."type" = type."_id"    
         LEFT JOIN model on asset."model" = model."_id"
-        LEFT JOIN status on asset."state" = status."_id"
-		LEFT JOIN employee on "employeeAsset"."employeeId" = "employee"."employeeCode"
-		LEFT JOIN "typeEm" as typeEmp on "employee"."type" = typeEmp."_id"
+        LEFT JOIN status on asset."state" = status."_id"  
+     LEFT JOIN 
+   (SELECT 
+    employee."employeeCode" as "employeeCode",
+     "employeeAsset"."employeeId",
+         employee."prefix" as prefix,
+         employee."firstname" as firstname,
+         employee."lastname" as lastname,
+         employee."nickname" as nickname,
+         employee."workStart" as "workStart",
+         employee."workEnd" as "workEnd" ,
+        typeEmp."emType" as "emType",
+        position."lovType" as "lovType",
+         site."siteType" as "siteType",
+         "employeeAsset"."assetId" as id,
+         "employeeAsset"."status" as statusas,
+         "employeeAsset"."receivedDt" as "receivedDt",
+         "employeeAsset"."returnDt" as "returnDt"
+         FROM "employeeAsset"
+         LEFT JOIN employee on "employeeAsset"."employeeId" = "employee"."employeeCode"
+        LEFT JOIN "typeEm" as typeEmp on "employee"."type" = typeEmp."_id"
         LEFT JOIN position on employee."position" = position."_id"
         LEFT JOIN site on employee."site" = site."_id" 
-        ORDER BY asset."updateDt" DESC `
+        WHERE "employeeAsset"."status" = 'Y') as b
+        ON  asset."assetCode" = b.id 
+        ORDER BY asset."updateDt"`
         const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listasset => {		  
             res.json(listasset);
             return responseList;
