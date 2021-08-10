@@ -127,7 +127,6 @@ exports.authentication = async function (req, res) {
             if (req.query.Authorization) token = req.query.Authorization;
         }
         if (!token) throw [40101, "Unauthorized"];
-
         let tokenDecode = nJwt.verify(token, config.secret); // DECODE AND CHECK EXPIRE
         res.setHeader('Authorization', token); // SET TOKEN TO HEADER
         return tokenDecode;
