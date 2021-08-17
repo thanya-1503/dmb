@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         nickname: {
             type: DataTypes.STRING(100),
-            allowNull: false,
+            allowNull: true,
             field: 'nickname'
         },
         workStart: {
