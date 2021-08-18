@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         assetCode: {
             type: DataTypes.STRING(100),
-            allowNull: false,
+            allowNull: true,
             
         },
         type: {
@@ -34,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         serialNumber: {
             type: DataTypes.STRING(100),
-            allowNull: false,
+            allowNull: true,
             
         },
         purchaseDt: {
@@ -54,7 +54,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         purchaseNo: {
             type: DataTypes.STRING(100),
-            allowNull: false,
+            allowNull: true,
            
         },
         price: {
