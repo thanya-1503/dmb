@@ -31,7 +31,7 @@ module.exports = function(sequelize, DataTypes) {
             field: 'employeeId'
         },
         assetId: {
-            type: DataTypes.STRING(100),
+            type: DataTypes.INTEGER,
             allowNull: true,
             field: 'assetId'
         },

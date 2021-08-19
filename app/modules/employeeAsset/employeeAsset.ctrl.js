@@ -130,7 +130,7 @@ exports.listEmpUseAsset = async (req, res) => {
         status."_id"as statusId,
         status."StatusName"
        FROM "employeeAsset"
-       LEFT JOIN asset on asset."assetCode" = "employeeAsset"."assetId"
+       LEFT JOIN asset on asset."_id" = "employeeAsset"."assetId"
 	   LEFT JOIN brand on asset."brand" = brand."_id"
 		LEFT JOIN type on asset.type = type."_id"	   
         LEFT JOIN model on asset."model" = model."_id"
@@ -177,7 +177,7 @@ exports.listUseAsset = async (req, res) => {
 		LEFT JOIN type on asset.type = type."_id"	   
         LEFT JOIN model on asset."model" = model."_id"
         LEFT JOIN status on asset."state" = status."_id"
-	   	WHERE  asset."assetCode" = '${req.body.assetCode}'`
+	   	WHERE  asset."_id" = '${req.body._id}'`
        const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listUseAsset => {		  
         return res.json(listUseAsset);
         // return responseList;
@@ -238,7 +238,7 @@ exports.listDeleteAsset = async (req, res) => {
         asset."_id",
         asset."assetCode"
        FROM "asset"
-	   WHERE  asset."assetCode" = '${req.body.deleteAsset}'`
+	   WHERE  asset."_id" = '${req.body.deleteAsset}'`
        const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listDeleteAsset => {		  
         return res.json(listDeleteAsset);
     })          

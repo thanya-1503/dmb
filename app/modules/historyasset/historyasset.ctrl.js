@@ -75,7 +75,7 @@ exports.historyUsedAsset = async (req, res) => {
         LEFT JOIN position on employee."position" = position."_id"
         LEFT JOIN site on employee."site" = site."_id"
         LEFT JOIN "employeeAsset" on "employeeAsset"."employeeId" =employee."employeeCode" 
-	   	WHERE  "employeeAsset"."assetId" = '${req.body.assetCode}'`
+	   	WHERE  "employeeAsset"."assetId" = '${req.body._id}'`
        const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(historyUsedAsset => {		  
         return res.json(historyUsedAsset);
         // return responseList;
