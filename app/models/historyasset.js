@@ -29,11 +29,11 @@ module.exports = function(sequelize, DataTypes) {
         },
         employeeCode: {
             type: DataTypes.STRING(100),
-            allowNull: false,
+            allowNull: true,
             field: 'employeeCode'
         },
         assetCode: {
-            type: DataTypes.STRING(100),
+            type: DataTypes.INTEGER,
             allowNull: true,
             field: 'assetCode'
         },

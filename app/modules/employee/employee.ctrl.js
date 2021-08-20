@@ -188,7 +188,7 @@ exports.listemployee = async (req, res) => {
             site."_id" as siteId,
             site."siteType"
             FROM "employeeAsset"
-            LEFT JOIN asset on asset."assetCode" = "employeeAsset"."assetId"
+            LEFT JOIN asset on asset."_id" = "employeeAsset"."assetId"
             LEFT JOIN brand on asset."brand" = brand."_id"
             LEFT JOIN type on asset.type = type."_id"	   
             LEFT JOIN model on asset."model" = model."_id"

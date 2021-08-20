@@ -170,8 +170,8 @@ exports.listasset = async (req, res) => {
         LEFT JOIN position on employee."position" = position."_id"
         LEFT JOIN site on employee."site" = site."_id" 
         WHERE "employeeAsset"."status" = 'Y') as b
-        ON  asset."assetCode" = b.id 
-        ORDER BY asset."updateDt"`
+        ON  asset."_id" = b.id 
+        ORDER BY asset."updateDt" DESC`
         const responseList = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(listasset => {		  
             res.json(listasset);
             return responseList;
