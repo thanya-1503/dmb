@@ -131,7 +131,6 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING(100),
             allowNull: true,
         },
-        
         boi: {
             type: DataTypes.BOOLEAN,
             allowNull: true,
@@ -156,6 +155,10 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.DECIMAL,
             allowNull: true,
         },
+        purchaserepair: {
+            type: DataTypes.DATE,
+            allowNull: true,
+        }
     }, {
         sequelize,
         tableName: 'asset',

@@ -70,6 +70,10 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: true,
 
         },
+        purchaserepair: {
+            type: DataTypes.DATE,
+            allowNull: true,
+        }
     }, {
         sequelize,
         tableName: 'repair',
