@@ -8,6 +8,7 @@ module.exports = function (app) {
     app.delete('/api/deleteAsset/:_id', assetCtrl.deleteAsset);
     app.put('/api/updateAsset/:_id', assetCtrl.updateAsset);
     app.get('/api/listassetFree', assetCtrl.listassetFree);
+    app.post('/api/reportasset', assetCtrl.AssetReport);
     // app.get('/api/getSearchDateAsset', assetCtrl.getSearchDateAsset);
   }
   
