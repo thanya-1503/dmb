@@ -320,7 +320,6 @@ exports.listasset = async (req, res) => {
                 model."_id"as modelId,
                 model."modelType",
                 repair."purchaserepair",
-                repair."remark",
                 repair."remarkrepair",
                 type."_id" as typeId,
                 type."typeName",

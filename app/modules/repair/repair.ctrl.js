@@ -22,7 +22,6 @@ exports.createRepair = async (req, res) => {
         const responseDetail = await models.repair.create({
                 "_id":req.body._id,
                 "state":req.body.state,
-                "remark":req.body.remark,
                 "boi":req.body.boi,
                 "assetCode":req.body.assetCode,
                 "pricerepair":req.body.pricerepair,
@@ -62,7 +61,6 @@ exports.repairasset = async (req, res) => {
         "repair"."remarkrepair",
         "repair"."insuranceDt",
         "repair"."state",
-        "repair"."remark",
         repair."updateBy"
         FROM repair
         WHERE repair."assetCode" = '${req.body.assetCode}'

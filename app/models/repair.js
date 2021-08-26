@@ -30,16 +30,11 @@ module.exports = function(sequelize, DataTypes) {
         updateBy: {
             type: DataTypes.STRING(100),
             allowNull: true,
-            
         },
         updateDt: {
             type: DataTypes.DATE,
             allowNull: true,
             
-        },
-        remark: {
-            type: DataTypes.STRING(100),
-            allowNull: true,
         },
         boi: {
             type: DataTypes.BOOLEAN,
