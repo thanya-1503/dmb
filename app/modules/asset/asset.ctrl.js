@@ -63,6 +63,7 @@ exports.createAsset = async (req, res) => {
             "updateBy":req.firstname,
             "repairAt":req.body.repairAt,
             "repairDt":req.body.repairDt,
+            "remarkrepair":req.body.remarkrepair,
             "purchaserepair":req.body.purchaserepair,
             "pricerepair":req.body.pricerepair,
             "pricerepairvat": req.body.pricerepairvat,
@@ -115,6 +116,7 @@ exports.listasset = async (req, res) => {
         asset."boi",
         asset."repairAt",
         asset."purchaserepair",
+        asset."remarkrepair",
         asset."repairDt",
         asset."pricerepair",
         asset."pricerepairvat",
@@ -238,6 +240,7 @@ exports.listasset = async (req, res) => {
             asset."model",
             asset."state",
             asset."purchaserepair",
+            asset."remarkrepair",
             asset."boi",
             asset."repairAt",
             asset."repairDt",
@@ -309,6 +312,7 @@ exports.listasset = async (req, res) => {
                 asset."salePricevat",
                 asset."salePricetotal",
                 asset."purchaserepair",
+                asset."remarkrepair",
                 brand."_id"as brandId,
                 brand."brandType",
                 brand."brandName",
@@ -316,6 +320,8 @@ exports.listasset = async (req, res) => {
                 model."_id"as modelId,
                 model."modelType",
                 repair."purchaserepair",
+                repair."remark",
+                repair."remarkrepair",
                 type."_id" as typeId,
                 type."typeName",
                 status."_id"as statusId,
@@ -434,7 +440,12 @@ exports.listasset = async (req, res) => {
                 map2.set("workStart",AssetReport[i].workStart);
                 map2.set("workEnd",AssetReport[i].workEnd);
                 map2.set("purchaserepair",AssetReport[i].purchaserepair);
-            
+                map2.set("remarkrepair",AssetReport[i].remarkrepair);
+                map2.set("repairDt",AssetReport[i].repairDt);
+                map2.set("repairAt",AssetReport[i].repairAt);
+                map2.set("pricerepair",AssetReport[i].pricerepair);
+                map2.set("pricerepairvat",AssetReport[i].pricerepairvat);
+                map2.set("totalpricerepair",AssetReport[i].totalpricerepair);
             }
 
             const setEmployee = function(AssetReport,i,map2){
@@ -450,7 +461,7 @@ exports.listasset = async (req, res) => {
                 map2.set("insuranceDt", "");
                 map2.set("remark", "");
                 map2.set("boi",null);
-                map2.set("PpurchaseNo", "");
+                map2.set("purchaseNo", "");
                 map2.set("insuranceTerm","");
                 map2.set("price", "");
                 map2.set("priceVat", "");
@@ -465,4 +476,10 @@ exports.listasset = async (req, res) => {
                 map2.set("workStart","");
                 map2.set("workEnd","");
                 map2.set("purchaserepair",AssetReport[i].purchaserepair);
+                map2.set("repairDt",AssetReport[i].repairDt);
+                map2.set("repairAt",AssetReport[i].repairAt);
+                map2.set("pricerepair",AssetReport[i].pricerepair);
+                map2.set("pricerepairvat",AssetReport[i].pricerepairvat);
+                map2.set("totalpricerepair",AssetReport[i].totalpricerepair);
+                map2.set("remarkrepair",AssetReport[i].remarkrepair);
             }

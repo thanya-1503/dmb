@@ -155,8 +155,12 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.DECIMAL,
             allowNull: true,
         },
+        remarkrepair: {
+            type: DataTypes.STRING(100),
+            allowNull: true,
+        },
         purchaserepair: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATE, 
             allowNull: true,
         }
     }, {
