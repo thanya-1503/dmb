@@ -417,7 +417,6 @@ exports.listasset = async (req, res) => {
                 map2.set("assetCode",AssetReport[i].assetCode);
                 map2.set("brandName", AssetReport[i].brandName);
                 map2.set("modelType", AssetReport[i].modelType);
-                map2.set("color", AssetReport[i].color);
                 map2.set("serialNumber", AssetReport[i].serialNumber);
                 map2.set("statusName", AssetReport[i].StatusName);
                 map2.set("purchaseDt", AssetReport[i].purchaseDt);
@@ -453,7 +452,6 @@ exports.listasset = async (req, res) => {
                 map2.set("brandName", "");
                 map2.set("modelType", "");
                 map2.set("type","");
-                map2.set("color", "");
                 map2.set("serialNumber", "");
                 map2.set("statusName", "");
                 map2.set("purchaseDt", "");
