@@ -369,7 +369,7 @@ exports.listasset = async (req, res) => {
                 WHERE "employeeAsset"."status" = 'Y') as b
                 ON  asset."_id" = b.id
                 WHERE asset."_id" IN (${a})
-                ORDER BY asset."updateDt" DESC` 
+                ORDER BY asset."assetCode" DESC` 
                 const listasset = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(AssetReport => {    
                     // res.json(AssetReport);
                     console.log('----------------------------------');
