@@ -133,28 +133,28 @@ exports.listasset = async (req, res) => {
         type."typeName",
         status."_id"as statusId,
         status."StatusName",
-  b.id,
-  b."employeeCode",
-  b.prefix,
-  b.firstname,
-  b.lastname,
-  b.nickname,
-  b."workStart",
-  b."workEnd",
-  b."emType",
-  b."lovType",
-  b."siteType",
-  b."receivedDt",
-  b."returnDt"
+        b.id,
+        b."employeeCode",
+        b.prefix,
+        b.firstname,
+        b.lastname,
+        b.nickname,
+        b."workStart",
+        b."workEnd",
+        b."emType",
+        b."lovType",
+        b."siteType",
+        b."receivedDt",
+        b."returnDt"
         FROM asset
         LEFT JOIN brand on asset."brand" = brand."_id"
-  LEFT JOIN type on asset."type" = type."_id"    
+        LEFT JOIN type on asset."type" = type."_id"    
         LEFT JOIN model on asset."model" = model."_id"
         LEFT JOIN status on asset."state" = status."_id"  
-     LEFT JOIN 
-   (SELECT 
-    employee."employeeCode" as "employeeCode",
-     "employeeAsset"."employeeId",
+        LEFT JOIN 
+        (SELECT 
+        employee."employeeCode" as "employeeCode",
+        "employeeAsset"."employeeId",
          employee."prefix" as prefix,
          employee."firstname" as firstname,
          employee."lastname" as lastname,
@@ -369,7 +369,7 @@ exports.listasset = async (req, res) => {
                 WHERE "employeeAsset"."status" = 'Y') as b
                 ON  asset."_id" = b.id
                 WHERE asset."_id" IN (${a})
-                ORDER BY asset."updateDt" DESC` 
+                ORDER BY asset."assetCode" DESC` 
                 const listasset = await models.sequelize.query(sql, { type: QueryTypes.SELECT }).then(AssetReport => {    
                     // res.json(AssetReport);
                     console.log('----------------------------------');
