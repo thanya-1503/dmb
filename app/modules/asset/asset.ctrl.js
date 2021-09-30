@@ -453,7 +453,6 @@ exports.listasset = async (req, res) => {
                 map2.set("brandName", "");
                 map2.set("model", "");
                 map2.set("type","");
-                map2.set("color", "");
                 map2.set("serialNumber", "");
                 map2.set("statusName", "");
                 map2.set("purchaseDt", "");
